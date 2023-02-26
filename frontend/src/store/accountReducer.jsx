@@ -1,0 +1,42 @@
+import { LOGIN, LOGOUT, REGISTER } from './actions';
+
+const initialState = {
+  isLoggedIn: false,
+  isInitialized: false,
+  user: null,
+};
+
+const accountReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case REGISTER: {
+      const { user } = action.payload;
+      return {
+        ...state,
+        user,
+      };
+    }
+    case LOGIN: {
+      const { user } = action.payload;
+      return {
+        ...state,
+        isLoggedIn: true,
+        isInitialized: true,
+        user,
+      };
+    }
+    case LOGOUT: {
+      localStorage.clear();
+      return {
+        ...state,
+        isInitialized: true,
+        isLoggedIn: false,
+        user: null,
+      };
+    }
+    default: {
+      return { ...state };
+    }
+  }
+};
+
+export default accountReducer;
