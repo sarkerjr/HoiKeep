@@ -1,7 +1,14 @@
 import React from 'react';
 
+// project imports
+import Routes from './routes';
+
 const App = () => {
-  return <div>App</div>;
+  return (
+    <div>
+      <Routes />
+    </div>
+  );
 };
 
 export default App;
