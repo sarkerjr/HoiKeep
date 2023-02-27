@@ -5,10 +5,10 @@ const Login = () => {
     <section className="h-full gradient-form bg-white md:h-screen">
       <div className="container py-12 px-6 h-full">
         <div className="flex justify-center items-center flex-wrap h-full g-6 text-green-600">
-          <div className="xl:w-10/12">
+          <div className="xl:w-4/12">
             <div className="block bg-green-100 shadow-lg rounded-lg">
               <div className="lg:flex lg:flex-wrap g-0">
-                <div className="lg:w-6/12 px-4 md:px-0">
+                <div className="w-full flex justify-center lg:w-12/12 px-4 md:px-0">
                   <div className="md:p-12 md:mx-6">
                     <form>
                       <p className="mb-4 pt-4">Please login to your account</p>
