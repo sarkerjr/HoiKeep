@@ -1,11 +1,15 @@
+import { Outlet } from 'react-router-dom';
+
+// project imports
 import Appbar from './Appbar';
 import Drawer from './Drawer';
 
-const Layout = ({ props }) => {
+const Layout = () => {
   return (
     <>
       <Appbar />
       <Drawer />
+      <Outlet />
     </>
   );
 };

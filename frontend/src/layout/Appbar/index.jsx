@@ -9,7 +9,7 @@ import {
 import { Menu as MenuIcon } from '@mui/icons-material';
 
 // project imports
-import { useSelector, useDispatch } from '@/store';
+import { useDispatch } from '@/store';
 import { toggleDrawerState } from '@/store/slices/layoutSlice';
 
 const AppBar = () => {
@@ -34,7 +34,7 @@ const AppBar = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
+            BSMRSTU Hall Portal
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>
