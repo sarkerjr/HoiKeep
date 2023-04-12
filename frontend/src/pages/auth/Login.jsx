@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Login = () => {
   return (
     <section className="h-full gradient-form bg-white md:h-screen">

@@ -1,5 +1,10 @@
 import { combineReducers } from 'redux';
 
-const reducer = combineReducers({});
+// slices import
+import layoutSlice from './slices/layoutSlice';
+
+const reducer = combineReducers({
+  layout: layoutSlice,
+});
 
 export default reducer;

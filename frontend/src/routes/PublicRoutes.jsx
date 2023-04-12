@@ -1,5 +1,7 @@
 import { lazy } from 'react';
 
+import Layout from '@/layout';
+
 // project imports
 
 const Login = lazy(() => import('@/pages/auth/Login'));
@@ -9,6 +11,7 @@ const Reg = lazy(() => import('@/pages/auth/Register'));
 
 const PublicRoutes = {
   path: '/',
+  element: <Layout />,
   children: [
     {
       path: '/',
