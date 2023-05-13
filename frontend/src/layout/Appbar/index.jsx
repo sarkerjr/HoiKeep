@@ -36,7 +36,9 @@ const AppBar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             BSMRSTU Hall Portal
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button variant="outlined" color="inherit">
+            Login
+          </Button>
         </Toolbar>
       </MuiAppBar>
     </Box>
