@@ -1,8 +1,14 @@
-import { Drawer as MuiDrawer } from '@mui/material/';
+import {
+  Toolbar,
+  Drawer as MuiDrawer,
+  useTheme,
+  useMediaQuery,
+} from '@mui/material/';
 
 // project imports
+import { drawerWidth } from '@/utils/constants';
 import MenuList from './MenuList';
-import { useDispatch, useSelector } from '@/store';
+import { useSelector, useDispatch } from '@/store';
 import { setDrawerState } from '@/store/slices/layoutSlice';
 
 const Drawer = () => {
@@ -10,16 +16,31 @@ const Drawer = () => {
 
   const dispatch = useDispatch();
 
+  const theme = useTheme();
+  const screenMd = useMediaQuery(theme.breakpoints.up('md'));
+
   const handleCloseDrawer = () => {
     dispatch(setDrawerState(false));
   };
 
   return (
-    <div>
-      <MuiDrawer anchor={'left'} open={openDrawer} onClose={handleCloseDrawer}>
-        <MenuList />
-      </MuiDrawer>
-    </div>
+    <MuiDrawer
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: drawerWidth,
+          boxSizing: 'border-box',
+        },
+      }}
+      open={openDrawer}
+      onClose={handleCloseDrawer}
+      variant={screenMd ? 'permanent' : 'temporary'}
+      anchor="left"
+    >
+      <Toolbar />
+      <MenuList />
+    </MuiDrawer>
   );
 };
 

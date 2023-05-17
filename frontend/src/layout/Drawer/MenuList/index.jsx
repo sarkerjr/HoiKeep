@@ -14,7 +14,7 @@ import {
 
 const MenuList = () => {
   return (
-    <Box sx={{ width: 250 }}>
+    <Box sx={{ overflow: 'auto' }}>
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem key={text} disablePadding>
