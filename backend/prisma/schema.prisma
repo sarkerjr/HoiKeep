@@ -1,0 +1,192 @@
+generator client {
+  provider                  = "prisma-client-js"
+  previewFeatures           = ["fieldReference"]
+  binaryTargets             = ["native"]
+  uncheckedRelationalInputs = "true"
+  uncheckedScalarInputs     = "true"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Halls {
+  id          String        @id @default(uuid())
+  name        String        @unique
+  nameTag     String        @unique
+  type        Gender
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  // ------------------------------
+  authorities Authorities[]
+  staffs      Staffs[]
+  operators   Operators[]
+  Students    Students[]
+  Notices     Notices[]
+  Rooms       Rooms[]
+}
+
+model Departments {
+  id          String        @id @default(uuid())
+  name        String        @unique
+  nameTag     String        @unique
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  // ------------------------------
+  authorities Authorities[]
+  staffs      Staffs[]
+  Students    Students[]
+}
+
+model Notices {
+  id            String        @id @default(uuid())
+  title         String
+  description   String
+  isActive      Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  // ------------------------------
+  NoticeFiles   NoticeFiles[]
+  halls         Halls?        @relation(fields: [hallsId], references: [id])
+  hallsId       String?
+  Staffs        Staffs?       @relation(fields: [staffsId], references: [id])
+  staffsId      String?
+  Authorities   Authorities?  @relation(fields: [authoritiesId], references: [id])
+  authoritiesId String?
+}
+
+model NoticeFiles {
+  id        String  @id @default(uuid())
+  url       String
+  notices   Notices @relation(fields: [noticesId], references: [id])
+  noticesId String
+}
+
+model Authorities {
+  id               String            @id @default(uuid())
+  active           Boolean           @default(false)
+  role             String
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  // ------------------------------
+  authorityDetails AuthorityDetails?
+  halls            Halls?            @relation(fields: [hallsId], references: [id])
+  hallsId          String?
+  departments      Departments?      @relation(fields: [departmentsId], references: [id])
+  departmentsId    String?
+  notices          Notices[]
+}
+
+model AuthorityDetails {
+  id            String      @id @default(uuid())
+  name          String
+  email         String      @unique
+  designation   String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  // ------------------------------
+  authorities   Authorities @relation(fields: [authoritiesId], references: [id])
+  authoritiesId String      @unique
+}
+
+model Staffs {
+  id            String        @id @default(uuid())
+  role          String
+  active        Boolean       @default(false)
+  // ------------------------------
+  staffDetails  StaffDetails?
+  halls         Halls?        @relation(fields: [hallsId], references: [id])
+  hallsId       String?
+  departments   Departments?  @relation(fields: [departmentsId], references: [id])
+  departmentsId String?
+  notices       Notices[]
+}
+
+model StaffDetails {
+  id          String @id @default(uuid())
+  name        String
+  email       String @unique
+  designation String
+  // ------------------------------
+  staffs      Staffs @relation(fields: [staffsId], references: [id])
+  staffsId    String @unique
+}
+
+model Operators {
+  id              String           @id @default(uuid())
+  role            String
+  active          Boolean          @default(false)
+  // ------------------------------
+  operatorDetails OperatorDetails?
+  halls           Halls?           @relation(fields: [hallsId], references: [id])
+  hallsId         String?
+}
+
+model OperatorDetails {
+  id          String    @id @default(uuid())
+  name        String
+  email       String    @unique
+  // ------------------------------
+  opearators  Operators @relation(fields: [operatorsId], references: [id])
+  operatorsId String    @unique
+}
+
+model Students {
+  id            String       @id @default(uuid())
+  active        Boolean      @default(false)
+  halls         Halls?       @relation(fields: [hallsId], references: [id])
+  hallsId       String?
+  departments   Departments? @relation(fields: [departmentsId], references: [id])
+  departmentsId String?
+}
+
+model StudentProfiles {
+  id        String @id @default(uuid())
+  name      String
+  studentId String @unique
+  session   String
+  email     String @unique
+}
+
+model Rooms {
+  id           String  @id @default(uuid())
+  no           String  @unique
+  seatQuantity Int
+  halls        Halls   @relation(fields: [hallsId], references: [id])
+  hallsId      String
+  Seats        Seats[]
+}
+
+model Seats {
+  id      String @id @default(uuid())
+  no      Int
+  rooms   Rooms  @relation(fields: [roomsId], references: [id])
+  roomsId String
+}
+
+model SeatStudents {
+  id String @id @default(uuid())
+}
+
+model Fees {
+  id     String @id @default(uuid())
+  amount Int
+}
+
+model Bills {
+  id     String  @id @default(uuid())
+  amount Int
+  paid   Boolean
+}
+
+model Transactions {
+  id     String  @id @default(uuid())
+  amount Int
+  paid   Boolean
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}

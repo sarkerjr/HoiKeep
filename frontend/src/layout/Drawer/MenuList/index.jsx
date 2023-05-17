@@ -6,6 +6,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  useTheme,
 } from '@mui/material/';
 import {
   MoveToInbox as InboxIcon,
@@ -13,12 +14,28 @@ import {
 } from '@mui/icons-material';
 
 const MenuList = () => {
+  const theme = useTheme();
+
+  const listItemStyle = {
+    color: theme.palette.primary.main,
+    '& .MuiListItemIcon-root': {
+      color: theme.palette.primary.main,
+    },
+    ':hover': {
+      bgcolor: theme.palette.primary.main,
+      color: '#ffffff',
+      '& .MuiListItemIcon-root': {
+        color: '#ffffff',
+      },
+    },
+  };
+
   return (
-    <Box sx={{ width: 250 }}>
+    <Box sx={{ overflow: 'auto' }}>
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton sx={listItemStyle}>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
@@ -31,7 +48,7 @@ const MenuList = () => {
       <List>
         {['All mail', 'Trash', 'Spam'].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton sx={listItemStyle}>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
