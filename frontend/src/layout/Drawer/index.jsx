@@ -11,6 +11,16 @@ import MenuList from './MenuList';
 import { useSelector, useDispatch } from '@/store';
 import { setDrawerState } from '@/store/slices/layoutSlice';
 
+const drawerStyle = {
+  width: drawerWidth,
+  flexShrink: 0,
+  '& .MuiDrawer-paper': {
+    backgroundColor: 'primary.light',
+    width: drawerWidth,
+    boxSizing: 'border-box',
+  },
+};
+
 const Drawer = () => {
   const { openDrawer } = useSelector((state) => state.layout);
 
@@ -25,14 +35,7 @@ const Drawer = () => {
 
   return (
     <MuiDrawer
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: drawerWidth,
-          boxSizing: 'border-box',
-        },
-      }}
+      sx={drawerStyle}
       open={openDrawer}
       onClose={handleCloseDrawer}
       variant={screenMd ? 'permanent' : 'temporary'}
