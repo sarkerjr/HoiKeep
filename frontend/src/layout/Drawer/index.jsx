@@ -25,8 +25,8 @@ const Drawer = () => {
   const { openDrawer } = useSelector((state) => state.layout);
 
   const dispatch = useDispatch();
-
   const theme = useTheme();
+
   const screenMd = useMediaQuery(theme.breakpoints.up('md'));
 
   const handleCloseDrawer = () => {
