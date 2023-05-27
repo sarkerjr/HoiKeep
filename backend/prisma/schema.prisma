@@ -19,6 +19,7 @@ model Halls {
   authorities Authorities[]
   staffs      Staffs[]
   operators   Operators[]
+  Students    Students[]
 }
 
 model Departments {
@@ -27,6 +28,7 @@ model Departments {
   nameTag     String
   authorities Authorities[]
   staffs      Staffs[]
+  Students    Students[]
 }
 
 model Authorities {
@@ -61,6 +63,22 @@ model Operators {
   role    String
   halls   Halls?  @relation(fields: [hallsId], references: [id])
   hallsId String?
+}
+
+model Students {
+  id            String       @id @default(uuid())
+  active        Boolean      @default(false)
+  halls         Halls?       @relation(fields: [hallsId], references: [id])
+  hallsId       String?
+  departments   Departments? @relation(fields: [departmentsId], references: [id])
+  departmentsId String?
+}
+
+model StudentProfiles {
+  id        String @id @default(uuid())
+  name      String
+  studentId String
+  email     String
 }
 
 enum Gender {
