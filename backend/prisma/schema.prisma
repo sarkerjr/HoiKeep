@@ -32,37 +32,60 @@ model Departments {
 }
 
 model Authorities {
-  id            String       @id @default(uuid())
+  id               String            @id @default(uuid())
+  active           Boolean           @default(false)
+  role             String
+  authorityDetails AuthorityDetails?
+  halls            Halls?            @relation(fields: [hallsId], references: [id])
+  hallsId          String?
+  departments      Departments?      @relation(fields: [departmentsId], references: [id])
+  departmentsId    String?
+}
+
+model AuthorityDetails {
+  id            String      @id @default(uuid())
   name          String
-  email         String       @unique
+  email         String      @unique
   designation   String
-  role          String
-  active        Boolean      @default(false)
-  halls         Halls?       @relation(fields: [hallsId], references: [id])
-  hallsId       String?
-  departments   Departments? @relation(fields: [departmentsId], references: [id])
-  departmentsId String?
+  authorities   Authorities @relation(fields: [authoritiesId], references: [id])
+  authoritiesId String      @unique
 }
 
 model Staffs {
-  id            String       @id @default(uuid())
-  name          String
-  email         String       @unique
+  id            String        @id @default(uuid())
   role          String
-  active        Boolean      @default(false)
-  halls         Halls?       @relation(fields: [hallsId], references: [id])
+  active        Boolean       @default(false)
+  staffDetails  StaffDetails?
+  halls         Halls?        @relation(fields: [hallsId], references: [id])
   hallsId       String?
-  departments   Departments? @relation(fields: [departmentsId], references: [id])
+  departments   Departments?  @relation(fields: [departmentsId], references: [id])
   departmentsId String?
 }
 
+model StaffDetails {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  staffs   Staffs @relation(fields: [staffsId], references: [id])
+  staffsId String @unique
+}
+
 model Operators {
-  id      String  @id @default(uuid())
-  name    String
-  email   String  @unique
-  role    String
-  halls   Halls?  @relation(fields: [hallsId], references: [id])
-  hallsId String?
+  id              String           @id @default(uuid())
+  name            String
+  email           String           @unique
+  role            String
+  operatorDetails OperatorDetails?
+  halls           Halls?           @relation(fields: [hallsId], references: [id])
+  hallsId         String?
+}
+
+model OperatorDetails {
+  id          String    @id @default(uuid())
+  name        String
+  email       String    @unique
+  opearators  Operators @relation(fields: [operatorsId], references: [id])
+  operatorsId String    @unique
 }
 
 model Students {
@@ -78,6 +101,7 @@ model StudentProfiles {
   id        String @id @default(uuid())
   name      String
   studentId String
+  session   String
   email     String
 }
 
