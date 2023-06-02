@@ -20,6 +20,7 @@ model Halls {
   staffs      Staffs[]
   operators   Operators[]
   Students    Students[]
+  Notices     Notices[]
 }
 
 model Departments {
@@ -29,6 +30,14 @@ model Departments {
   authorities Authorities[]
   staffs      Staffs[]
   Students    Students[]
+}
+
+model Notices {
+  id          String  @id @default(uuid())
+  title       String
+  description String
+  halls       Halls?  @relation(fields: [hallsId], references: [id])
+  hallsId     String?
 }
 
 model Authorities {
