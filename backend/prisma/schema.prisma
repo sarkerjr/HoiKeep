@@ -21,6 +21,7 @@ model Halls {
   operators   Operators[]
   Students    Students[]
   Notices     Notices[]
+  Rooms       Rooms[]
 }
 
 model Departments {
@@ -33,11 +34,15 @@ model Departments {
 }
 
 model Notices {
-  id          String  @id @default(uuid())
-  title       String
-  description String
-  halls       Halls?  @relation(fields: [hallsId], references: [id])
-  hallsId     String?
+  id            String       @id @default(uuid())
+  title         String
+  description   String
+  halls         Halls?       @relation(fields: [hallsId], references: [id])
+  hallsId       String?
+  Staffs        Staffs?      @relation(fields: [staffsId], references: [id])
+  staffsId      String?
+  Authorities   Authorities? @relation(fields: [authoritiesId], references: [id])
+  authoritiesId String?
 }
 
 model Authorities {
@@ -49,6 +54,7 @@ model Authorities {
   hallsId          String?
   departments      Departments?      @relation(fields: [departmentsId], references: [id])
   departmentsId    String?
+  notices          Notices[]
 }
 
 model AuthorityDetails {
@@ -69,6 +75,7 @@ model Staffs {
   hallsId       String?
   departments   Departments?  @relation(fields: [departmentsId], references: [id])
   departmentsId String?
+  notices       Notices[]
 }
 
 model StaffDetails {
@@ -112,6 +119,26 @@ model StudentProfiles {
   studentId String
   session   String
   email     String
+}
+
+model Rooms {
+  id           String  @id @default(uuid())
+  no           String
+  seatQuantity Int
+  halls        Halls   @relation(fields: [hallsId], references: [id])
+  hallsId      String
+  Seats        Seats[]
+}
+
+model Seats {
+  id      String @id @default(uuid())
+  no      Int
+  rooms   Rooms  @relation(fields: [roomsId], references: [id])
+  roomsId String
+}
+
+model SeatStudents {
+  id String @id @default(uuid())
 }
 
 enum Gender {
