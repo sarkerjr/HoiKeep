@@ -141,6 +141,23 @@ model SeatStudents {
   id String @id @default(uuid())
 }
 
+model Fees {
+  id     String @id @default(uuid())
+  amount Int
+}
+
+model Bills {
+  id     String  @id @default(uuid())
+  amount Int
+  paid   Boolean
+}
+
+model Transactions {
+  id     String  @id @default(uuid())
+  amount Int
+  paid   Boolean
+}
+
 enum Gender {
   MALE
   FEMALE
