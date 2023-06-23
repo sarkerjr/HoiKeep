@@ -16,6 +16,9 @@ model Halls {
   name        String
   nameTag     String
   type        Gender
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  // ------------------------------
   authorities Authorities[]
   staffs      Staffs[]
   operators   Operators[]
@@ -28,6 +31,9 @@ model Departments {
   id          String        @id @default(uuid())
   name        String
   nameTag     String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  // ------------------------------
   authorities Authorities[]
   staffs      Staffs[]
   Students    Students[]
@@ -37,6 +43,10 @@ model Notices {
   id            String       @id @default(uuid())
   title         String
   description   String
+  isActive      Boolean      @default(false)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  // ------------------------------
   halls         Halls?       @relation(fields: [hallsId], references: [id])
   hallsId       String?
   Staffs        Staffs?      @relation(fields: [staffsId], references: [id])
@@ -49,6 +59,9 @@ model Authorities {
   id               String            @id @default(uuid())
   active           Boolean           @default(false)
   role             String
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  // ------------------------------
   authorityDetails AuthorityDetails?
   halls            Halls?            @relation(fields: [hallsId], references: [id])
   hallsId          String?
@@ -62,6 +75,9 @@ model AuthorityDetails {
   name          String
   email         String      @unique
   designation   String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  // ------------------------------
   authorities   Authorities @relation(fields: [authoritiesId], references: [id])
   authoritiesId String      @unique
 }
@@ -70,6 +86,7 @@ model Staffs {
   id            String        @id @default(uuid())
   role          String
   active        Boolean       @default(false)
+  // ------------------------------
   staffDetails  StaffDetails?
   halls         Halls?        @relation(fields: [hallsId], references: [id])
   hallsId       String?
