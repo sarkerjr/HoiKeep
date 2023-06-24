@@ -2,10 +2,8 @@ const prismaClient = require('@prisma/client');
 
 const prisma = new prismaClient.PrismaClient();
 
-exports.create = (req, res) => {
-  const { name, nameTag, type } = req.body;
-
-  prisma.halls
+exports.create = async (name, nameTag, type) => {
+  return await prisma.halls
     .create({
       data: {
         name,
@@ -13,14 +11,13 @@ exports.create = (req, res) => {
         type,
       },
     })
-    .then(() => {
-      res.status(200).json({
-        message: 'New hall created!',
-      });
+    .then((hall) => {
+      return hall;
     })
     .catch((error) => {
-      res.status(400).json({
-        message: err.message.toString(),
-      });
+      if (error.code === 'P2002') {
+        throw new Error('hall already exists.');
+      }
+      throw new Error('Something went wrong.');
     });
 };

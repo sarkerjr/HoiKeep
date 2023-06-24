@@ -1,6 +1,6 @@
 generator client {
   provider                  = "prisma-client-js"
-  previewFeatures           = ["fieldReference", "clientExtensions"]
+  previewFeatures           = ["fieldReference"]
   binaryTargets             = ["native"]
   uncheckedRelationalInputs = "true"
   uncheckedScalarInputs     = "true"
@@ -96,18 +96,20 @@ model Staffs {
 }
 
 model StaffDetails {
-  id       String @id @default(uuid())
-  name     String
-  email    String @unique
-  staffs   Staffs @relation(fields: [staffsId], references: [id])
-  staffsId String @unique
+  id          String @id @default(uuid())
+  name        String
+  email       String @unique
+  designation String
+  // ------------------------------
+  staffs      Staffs @relation(fields: [staffsId], references: [id])
+  staffsId    String @unique
 }
 
 model Operators {
   id              String           @id @default(uuid())
-  name            String
-  email           String           @unique
   role            String
+  active          Boolean          @default(false)
+  // ------------------------------
   operatorDetails OperatorDetails?
   halls           Halls?           @relation(fields: [hallsId], references: [id])
   hallsId         String?
@@ -117,6 +119,7 @@ model OperatorDetails {
   id          String    @id @default(uuid())
   name        String
   email       String    @unique
+  // ------------------------------
   opearators  Operators @relation(fields: [operatorsId], references: [id])
   operatorsId String    @unique
 }
