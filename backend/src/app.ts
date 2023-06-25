@@ -1,12 +1,12 @@
 // third party imports
-const express = require('express');
-const compression = require('compression');
+import express from 'express';
+import compression from 'compression';
 
 // project imports
 // import cors from '@utils/cors.js';
 // import helmet from '@/utils/helmet.js';
 // import morgan from '@/utils/morgan.js';
-const routes = require('./routes/index');
+import routes from '@routes/index';
 
 const app = express();
 
@@ -26,4 +26,4 @@ app.use(express.static('public'));
 
 app.use('/api', routes); // add app routes here
 
-module.exports = app;
+export default app;

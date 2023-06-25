@@ -1,4 +1,4 @@
-const helmet = require('helmet');
+import helmet from 'helmet';
 
 module.exports = function () {
   return helmet();

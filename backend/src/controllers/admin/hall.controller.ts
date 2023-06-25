@@ -1,8 +1,7 @@
-const prismaClient = require('@prisma/client');
+import { Gender } from '@prisma/client';
+import { Prisma, prisma } from '@/utils/prisma';
 
-const prisma = new prismaClient.PrismaClient();
-
-exports.create = async (name, nameTag, type) => {
+export const create = async (name: string, nameTag: string, type: Gender) => {
   return await prisma.halls
     .create({
       data: {
@@ -14,7 +13,7 @@ exports.create = async (name, nameTag, type) => {
     .then((hall) => {
       return hall;
     })
-    .catch((error) => {
+    .catch((error: Prisma.PrismaClientKnownRequestError) => {
       if (error.code === 'P2002') {
         throw new Error('hall already exists.');
       }

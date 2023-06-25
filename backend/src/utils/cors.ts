@@ -1,4 +1,4 @@
-const cors = require('cors');
+import cors from 'cors';
 
 module.exports = function () {
   const corsOptions = {

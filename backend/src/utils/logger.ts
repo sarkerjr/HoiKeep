@@ -1,14 +1,14 @@
-const fs = require('fs');
-const path = require('path');
-const winston = require('winston');
-const winstonDaily = require('winston-daily-rotate-file');
-const LOG_DIR = require('../config/index').LOG_DIR;
+import { existsSync, mkdirSync } from 'fs';
+import { join } from 'path';
+import winston from 'winston';
+import winstonDaily from 'winston-daily-rotate-file';
+import { LOG_DIR } from '@/config';
 
 // logs dir
-const logDir = path.join(__dirname, LOG_DIR || 'logs');
+const logDir: string = join(__dirname, LOG_DIR || 'logs');
 
-if (!fs.existsSync(logDir)) {
-  fs.mkdirSync(logDir);
+if (!existsSync(logDir)) {
+  mkdirSync(logDir);
 }
 
 // Define log format
@@ -63,7 +63,7 @@ logger.add(
 );
 
 const stream = {
-  write: (message) => {
+  write: (message: string) => {
     logger.info(message.substring(0, message.lastIndexOf('\n')));
   },
 };
