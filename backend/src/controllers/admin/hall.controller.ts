@@ -49,12 +49,12 @@ export const update = async (
   return await prisma.halls
     .update({
       where: {
-        id,
+        id: id,
       },
       data: {
-        name,
-        nameTag,
-        type,
+        name: name,
+        nameTag: nameTag,
+        type: type,
       },
     })
     .then((hall) => {
