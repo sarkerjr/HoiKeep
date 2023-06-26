@@ -13,8 +13,8 @@ datasource db {
 
 model Halls {
   id          String        @id @default(uuid())
-  name        String
-  nameTag     String
+  name        String        @unique
+  nameTag     String        @unique
   type        Gender
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
@@ -29,8 +29,8 @@ model Halls {
 
 model Departments {
   id          String        @id @default(uuid())
-  name        String
-  nameTag     String
+  name        String        @unique
+  nameTag     String        @unique
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   // ------------------------------
@@ -136,14 +136,14 @@ model Students {
 model StudentProfiles {
   id        String @id @default(uuid())
   name      String
-  studentId String
+  studentId String @unique
   session   String
-  email     String
+  email     String @unique
 }
 
 model Rooms {
   id           String  @id @default(uuid())
-  no           String
+  no           String  @unique
   seatQuantity Int
   halls        Halls   @relation(fields: [hallsId], references: [id])
   hallsId      String

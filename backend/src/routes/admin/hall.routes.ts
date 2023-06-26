@@ -1,9 +1,15 @@
 import express from 'express';
 
-import { createHall } from '@services/admin/hall.services';
+import {
+  createHall,
+  getHalls,
+  updateHall,
+} from '@services/admin/hall.services';
 
 const router = express.Router();
 
-router.post('/create', createHall);
+router.get('/', getHalls);
+router.post('/', createHall);
+router.put('/', updateHall);
 
 export default router;
