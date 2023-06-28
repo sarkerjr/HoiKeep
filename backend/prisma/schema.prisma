@@ -40,19 +40,27 @@ model Departments {
 }
 
 model Notices {
-  id            String       @id @default(uuid())
+  id            String        @id @default(uuid())
   title         String
   description   String
-  isActive      Boolean      @default(false)
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  isActive      Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
   // ------------------------------
-  halls         Halls?       @relation(fields: [hallsId], references: [id])
+  NoticeFiles   NoticeFiles[]
+  halls         Halls?        @relation(fields: [hallsId], references: [id])
   hallsId       String?
-  Staffs        Staffs?      @relation(fields: [staffsId], references: [id])
+  Staffs        Staffs?       @relation(fields: [staffsId], references: [id])
   staffsId      String?
-  Authorities   Authorities? @relation(fields: [authoritiesId], references: [id])
+  Authorities   Authorities?  @relation(fields: [authoritiesId], references: [id])
   authoritiesId String?
+}
+
+model NoticeFiles {
+  id        String  @id @default(uuid())
+  url       String
+  notices   Notices @relation(fields: [noticesId], references: [id])
+  noticesId String
 }
 
 model Authorities {
