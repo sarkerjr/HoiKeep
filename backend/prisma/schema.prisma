@@ -48,8 +48,8 @@ model Notices {
   updatedAt     DateTime      @updatedAt
   // ------------------------------
   NoticeFiles   NoticeFiles[]
-  halls         Halls?        @relation(fields: [hallsId], references: [id])
-  hallsId       String?
+  halls         Halls         @relation(fields: [hallsId], references: [id])
+  hallsId       String
   Staffs        Staffs?       @relation(fields: [staffsId], references: [id])
   staffsId      String?
   Authorities   Authorities?  @relation(fields: [authoritiesId], references: [id])

@@ -1,11 +1,16 @@
 import { Prisma, prisma } from '@/utils/prisma';
 
-export const create = async (title: string, description: string) => {
+export const create = async (
+  title: string,
+  description: string,
+  hallId: string
+) => {
   return await prisma.notices
     .create({
       data: {
         title,
         description,
+        hallsId: hallId,
       },
     })
     .then((notice) => {
@@ -24,6 +29,9 @@ export const get = async () => {
         title: true,
         description: true,
         isActive: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
     })
     .then((notices) => {

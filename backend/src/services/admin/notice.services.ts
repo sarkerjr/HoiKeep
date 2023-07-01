@@ -7,12 +7,12 @@ import {
 } from '@/controllers/admin/notice.controller';
 
 export const createNotice = async (req: Request, res: Response) => {
-  const { title, description } = req.body;
+  const { title, description, hallId } = req.body;
 
-  const notice = await create(title, description);
+  const notice = await create(title, description, hallId);
 
   if (notice instanceof Error) {
-    return res.status(400).json({ message: notice.message });
+    return res.status(400).json({ message: 'Something went wrong!' });
   }
 
   return res.status(201).json({
