@@ -1,38 +1,62 @@
-import { Request, Response } from 'express';
-import { create, get, update } from '@/controllers/admin/hall.controller';
+import { Gender } from '@prisma/client';
+import { Prisma, prisma } from '@/utils/prisma';
 
-export const createHall = async (req: Request, res: Response) => {
-  const { name, nameTag, type } = req.body;
-
-  const hall = await create(name, nameTag, type);
-
-  if (hall instanceof Error) {
-    return res.status(400).json({ message: hall.message });
-  }
-
-  return res.status(201).json({
-    message: 'Hall created successfully.',
-  });
+export const create = async (name: string, nameTag: string, type: Gender) => {
+  return await prisma.halls
+    .create({
+      data: {
+        name,
+        nameTag,
+        type,
+      },
+    })
+    .then((hall) => {
+      return hall;
+    })
+    .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      return error;
+    });
 };
 
-export const getHalls = async (req: Request, res: Response) => {
-  const halls = await get();
-
-  if (halls instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
-  }
-
-  return res.status(200).json(halls);
+export const get = async () => {
+  return await prisma.halls
+    .findMany({
+      select: {
+        id: true,
+        name: true,
+        nameTag: true,
+        type: true,
+      },
+    })
+    .then((halls) => {
+      return halls;
+    })
+    .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      return error;
+    });
 };
 
-export const updateHall = async (req: Request, res: Response) => {
-  const { id, name, nameTag, type } = req.body;
-
-  const hall = await update(id, name, nameTag, type);
-
-  if (hall instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
-  }
-
-  return res.status(200).json({ message: 'Hall updated successfully.' });
+export const update = async (
+  id: string,
+  name: string,
+  nameTag: string,
+  type: Gender
+) => {
+  return await prisma.halls
+    .update({
+      where: {
+        id: id,
+      },
+      data: {
+        name: name,
+        nameTag: nameTag,
+        type: type,
+      },
+    })
+    .then((hall) => {
+      return hall;
+    })
+    .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      return error;
+    });
 };

@@ -1,38 +1,53 @@
-import { Request, Response } from 'express';
-import { create, get, update } from '@/controllers/admin/department.controller';
+import { Prisma, prisma } from '@/utils/prisma';
 
-export const createDepartment = async (req: Request, res: Response) => {
-  const { name, nameTag } = req.body;
-
-  const department = await create(name, nameTag);
-
-  if (department instanceof Error) {
-    return res.status(400).json({ message: department.message });
-  }
-
-  return res.status(201).json({
-    message: 'Department created successfully.',
-  });
+export const create = async (name: string, nameTag: string) => {
+  return await prisma.departments
+    .create({
+      data: {
+        name,
+        nameTag,
+      },
+    })
+    .then((department) => {
+      return department;
+    })
+    .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      return error;
+    });
 };
 
-export const getDepartments = async (req: Request, res: Response) => {
-  const departments = await get();
-
-  if (departments instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
-  }
-
-  return res.status(200).json(departments);
+export const get = async () => {
+  return await prisma.departments
+    .findMany({
+      select: {
+        id: true,
+        name: true,
+        nameTag: true,
+      },
+    })
+    .then((departments) => {
+      return departments;
+    })
+    .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      return error;
+    });
 };
 
-export const updateDepartment = async (req: Request, res: Response) => {
-  const { id, name, nameTag } = req.body;
-
-  const department = await update(id, name, nameTag);
-
-  if (department instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
-  }
-
-  return res.status(200).json({ message: 'department updated successfully.' });
+export const update = async (id: string, name: string, nameTag: string) => {
+  return await prisma.departments
+    .update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        nameTag,
+      },
+    })
+    .then((department) => {
+      return department;
+    })
+    .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      return error;
+    });
 };

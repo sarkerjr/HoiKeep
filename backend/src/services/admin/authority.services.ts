@@ -1,77 +1,108 @@
-import { Request, Response } from 'express';
-import {
-  create,
-  get,
-  update,
-  remove,
-} from '@/controllers/admin/authority.controller';
+import { Prisma, prisma } from '@/utils/prisma';
 
-export const createAuthority = async (req: Request, res: Response) => {
-  const { name, email, designation, positionsId, hallsId, departmentsId } =
-    req.body;
-
-  const authority = await create(
-    name,
-    email,
-    designation,
-    positionsId,
-    hallsId,
-    departmentsId
-  );
-
-  if (authority instanceof Error) {
-    return res.status(400).json({
-      message:
-        authority.code === 'P2002'
-          ? 'Authority already exists.'
-          : 'Something went wrong.',
+export const create = async (
+  name: string,
+  email: string,
+  designation: string,
+  positionsId: string,
+  hallsId: string,
+  departmentsId: string
+) => {
+  return await prisma.authorities
+    .create({
+      data: {
+        positionsId,
+        hallsId,
+        departmentsId,
+        authorityDetails: {
+          create: {
+            name,
+            email,
+            designation,
+          },
+        },
+      },
+    })
+    .then((authority) => {
+      return authority;
+    })
+    .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      return error;
     });
-  }
-
-  return res.status(201).json({
-    message: 'Authority created successfully.',
-  });
 };
 
-export const getAuthorities = async (req: Request, res: Response) => {
-  const authorities = await get();
-
-  if (authorities instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
-  }
-
-  return res.status(200).json(authorities);
+export const get = async () => {
+  return await prisma.authorities
+    .findMany({
+      select: {
+        id: true,
+        isActive: true,
+        positionsId: true,
+        hallsId: true,
+        departmentsId: true,
+        authorityDetails: {
+          select: {
+            name: true,
+            email: true,
+            designation: true,
+          },
+        },
+      },
+    })
+    .then((notices) => {
+      return notices;
+    })
+    .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      return error;
+    });
 };
 
-export const updateAuthority = async (req: Request, res: Response) => {
-  const { id, name, email, designation, positionsId, hallsId, departmentsId } =
-    req.body;
-
-  const authority = await update(
-    id,
-    name,
-    email,
-    designation,
-    positionsId,
-    hallsId,
-    departmentsId
-  );
-
-  if (authority instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
-  }
-
-  return res.status(200).json({ message: 'Authority updated successfully.' });
+export const update = async (
+  id: string,
+  name: string,
+  email: string,
+  designation: string,
+  positionsId: string,
+  hallsId: string,
+  departmentsId: string
+) => {
+  return await prisma.authorities
+    .update({
+      where: {
+        id,
+      },
+      data: {
+        positionsId,
+        hallsId,
+        departmentsId,
+        authorityDetails: {
+          update: {
+            name,
+            email,
+            designation,
+          },
+        },
+      },
+    })
+    .then((authority) => {
+      return authority;
+    })
+    .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      return error;
+    });
 };
 
-export const removeAuthority = async (req: Request, res: Response) => {
-  const { id } = req.body;
-
-  const authority = await remove(id);
-
-  if (authority instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
-  }
-
-  return res.status(200).json({ message: 'Authority deleted successfully.' });
+export const remove = async (id: string) => {
+  return await prisma.authorities
+    .delete({
+      where: {
+        id,
+      },
+    })
+    .then((notice) => {
+      return notice;
+    })
+    .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      return error;
+    });
 };

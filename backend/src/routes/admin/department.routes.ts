@@ -4,7 +4,7 @@ import {
   createDepartment,
   getDepartments,
   updateDepartment,
-} from '@services/admin/department.services';
+} from '@/controllers/admin/department.controllers';
 
 const router = express.Router();
 

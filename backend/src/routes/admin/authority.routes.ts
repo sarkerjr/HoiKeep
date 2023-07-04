@@ -5,7 +5,7 @@ import {
   getAuthorities,
   updateAuthority,
   removeAuthority,
-} from '@services/admin/authority.services';
+} from '@/controllers/admin/authority.controllers';
 
 const router = express.Router();
 
