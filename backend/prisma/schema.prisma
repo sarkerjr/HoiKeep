@@ -46,35 +46,36 @@ model Notices {
   isActive      Boolean       @default(true)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
+  hallsId       String
+  staffsId      String?
+  authoritiesId String?
   // ------------------------------
   NoticeFiles   NoticeFiles[]
   halls         Halls         @relation(fields: [hallsId], references: [id])
-  hallsId       String
   Staffs        Staffs?       @relation(fields: [staffsId], references: [id])
-  staffsId      String?
   Authorities   Authorities?  @relation(fields: [authoritiesId], references: [id])
-  authoritiesId String?
 }
 
 model NoticeFiles {
   id        String  @id @default(uuid())
   url       String
-  notices   Notices @relation(fields: [noticesId], references: [id])
   noticesId String
+  notices   Notices @relation(fields: [noticesId], references: [id])
 }
 
 model Authorities {
   id               String            @id @default(uuid())
-  active           Boolean           @default(false)
-  role             String
+  isActive         Boolean           @default(true)
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
+  positionsId      String
+  hallsId          String?
+  departmentsId    String?
   // ------------------------------
   authorityDetails AuthorityDetails?
   halls            Halls?            @relation(fields: [hallsId], references: [id])
-  hallsId          String?
   departments      Departments?      @relation(fields: [departmentsId], references: [id])
-  departmentsId    String?
+  Position         Positions         @relation(fields: [positionsId], references: [id])
   notices          Notices[]
 }
 
@@ -85,21 +86,23 @@ model AuthorityDetails {
   designation   String
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
-  // ------------------------------
-  authorities   Authorities @relation(fields: [authoritiesId], references: [id])
   authoritiesId String      @unique
+  // ------------------------------
+  authorities   Authorities @relation(fields: [authoritiesId], references: [id], onDelete: Cascade)
 }
 
 model Staffs {
   id            String        @id @default(uuid())
-  role          String
+  position      String
   active        Boolean       @default(false)
+  hallsId       String?
+  departmentsId String?
+  positionsId   String
   // ------------------------------
   staffDetails  StaffDetails?
   halls         Halls?        @relation(fields: [hallsId], references: [id])
-  hallsId       String?
   departments   Departments?  @relation(fields: [departmentsId], references: [id])
-  departmentsId String?
+  Positions     Positions     @relation(fields: [positionsId], references: [id])
   notices       Notices[]
 }
 
@@ -108,28 +111,41 @@ model StaffDetails {
   name        String
   email       String @unique
   designation String
+  staffsId    String @unique
   // ------------------------------
   staffs      Staffs @relation(fields: [staffsId], references: [id])
-  staffsId    String @unique
 }
 
 model Operators {
   id              String           @id @default(uuid())
-  role            String
+  position        String
   active          Boolean          @default(false)
+  positionsId     String
+  hallsId         String?
   // ------------------------------
   operatorDetails OperatorDetails?
   halls           Halls?           @relation(fields: [hallsId], references: [id])
-  hallsId         String?
+  Positions       Positions        @relation(fields: [positionsId], references: [id])
 }
 
 model OperatorDetails {
   id          String    @id @default(uuid())
   name        String
   email       String    @unique
+  operatorsId String    @unique
   // ------------------------------
   opearators  Operators @relation(fields: [operatorsId], references: [id])
-  operatorsId String    @unique
+}
+
+model Positions {
+  id          String           @id @default(uuid())
+  name        String
+  category    PositionCategory
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  Authorities Authorities[]
+  Staffs      Staffs[]
+  Operators   Operators[]
 }
 
 model Students {
@@ -189,4 +205,10 @@ model Transactions {
 enum Gender {
   MALE
   FEMALE
+}
+
+enum PositionCategory {
+  AUTHORITY
+  STAFF
+  OPERATOR
 }
