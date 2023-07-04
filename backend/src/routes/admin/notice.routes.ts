@@ -5,7 +5,7 @@ import {
   getNotices,
   updateNotice,
   removeNotice,
-} from '@services/admin/notice.services';
+} from '@/controllers/admin/notice.controllers';
 
 const router = express.Router();
 

@@ -4,7 +4,7 @@ import {
   createHall,
   getHalls,
   updateHall,
-} from '@services/admin/hall.services';
+} from '@/controllers/admin/hall.controllers';
 
 const router = express.Router();
 
