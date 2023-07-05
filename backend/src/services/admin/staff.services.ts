@@ -3,32 +3,28 @@ import { Prisma, prisma } from '@/utils/prisma';
 export const create = async (
   name: string,
   email: string,
-  designation: string,
   joinedAt: Date,
   leftAt: Date,
   positionsId: string,
-  hallsId: string,
-  departmentsId: string
+  hallsId: string
 ) => {
-  return await prisma.authorities
+  return await prisma.staffs
     .create({
       data: {
         positionsId,
         hallsId,
-        departmentsId,
-        authorityDetails: {
+        staffDetails: {
           create: {
             name,
             email,
-            designation,
             joinedAt: joinedAt ? new Date(joinedAt) : null,
             leftAt: leftAt ? new Date(leftAt) : null,
           },
         },
       },
     })
-    .then((authority) => {
-      return authority;
+    .then((staff) => {
+      return staff;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;
@@ -36,25 +32,23 @@ export const create = async (
 };
 
 export const get = async () => {
-  return await prisma.authorities
+  return await prisma.staffs
     .findMany({
       select: {
         id: true,
         isActive: true,
         positionsId: true,
         hallsId: true,
-        departmentsId: true,
-        authorityDetails: {
+        staffDetails: {
           select: {
             name: true,
             email: true,
-            designation: true,
           },
         },
       },
     })
-    .then((authorities) => {
-      return authorities;
+    .then((staffs) => {
+      return staffs;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;
@@ -62,7 +56,7 @@ export const get = async () => {
 };
 
 export const getById = async (id: string) => {
-  return await prisma.authorities
+  return await prisma.staffs
     .findUnique({
       where: {
         id,
@@ -72,20 +66,18 @@ export const getById = async (id: string) => {
         isActive: true,
         positionsId: true,
         hallsId: true,
-        departmentsId: true,
-        authorityDetails: {
+        staffDetails: {
           select: {
             name: true,
             email: true,
-            designation: true,
             joinedAt: true,
             leftAt: true,
           },
         },
       },
     })
-    .then((authority) => {
-      return authority;
+    .then((staff) => {
+      return staff;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;
@@ -96,14 +88,12 @@ export const update = async (
   id: string,
   name: string,
   email: string,
-  designation: string,
   joinedAt: Date,
   leftAt: Date,
   positionsId: string,
-  hallsId: string,
-  departmentsId: string
+  hallsId: string
 ) => {
-  return await prisma.authorities
+  return await prisma.staffs
     .update({
       where: {
         id,
@@ -111,20 +101,18 @@ export const update = async (
       data: {
         positionsId,
         hallsId,
-        departmentsId,
-        authorityDetails: {
+        staffDetails: {
           update: {
             name,
             email,
-            designation,
             joinedAt,
             leftAt,
           },
         },
       },
     })
-    .then((authority) => {
-      return authority;
+    .then((staff) => {
+      return staff;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;
@@ -132,14 +120,14 @@ export const update = async (
 };
 
 export const remove = async (id: string) => {
-  return await prisma.authorities
+  return await prisma.staffs
     .delete({
       where: {
         id,
       },
     })
-    .then((notice) => {
-      return notice;
+    .then((staff) => {
+      return staff;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;

@@ -35,7 +35,6 @@ model Departments {
   updatedAt   DateTime      @updatedAt
   // ------------------------------
   authorities Authorities[]
-  staffs      Staffs[]
   Students    Students[]
 }
 
@@ -84,6 +83,8 @@ model AuthorityDetails {
   name          String
   email         String      @unique
   designation   String
+  joinedAt      DateTime?
+  leftAt        DateTime?
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   authoritiesId String      @unique
@@ -92,34 +93,37 @@ model AuthorityDetails {
 }
 
 model Staffs {
-  id            String        @id @default(uuid())
-  position      String
-  active        Boolean       @default(false)
-  hallsId       String?
-  departmentsId String?
-  positionsId   String
+  id           String        @id @default(uuid())
+  isActive     Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  hallsId      String?
+  positionsId  String
   // ------------------------------
-  staffDetails  StaffDetails?
-  halls         Halls?        @relation(fields: [hallsId], references: [id])
-  departments   Departments?  @relation(fields: [departmentsId], references: [id])
-  Positions     Positions     @relation(fields: [positionsId], references: [id])
-  notices       Notices[]
+  staffDetails StaffDetails?
+  halls        Halls?        @relation(fields: [hallsId], references: [id])
+  Positions    Positions     @relation(fields: [positionsId], references: [id])
+  notices      Notices[]
 }
 
 model StaffDetails {
-  id          String @id @default(uuid())
-  name        String
-  email       String @unique
-  designation String
-  staffsId    String @unique
+  id        String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  joinedAt  DateTime?
+  leftAt    DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  staffsId  String    @unique
   // ------------------------------
-  staffs      Staffs @relation(fields: [staffsId], references: [id])
+  staffs    Staffs    @relation(fields: [staffsId], references: [id])
 }
 
 model Operators {
   id              String           @id @default(uuid())
-  position        String
-  active          Boolean          @default(false)
+  isActive        Boolean          @default(true)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
   positionsId     String
   hallsId         String?
   // ------------------------------
@@ -132,6 +136,10 @@ model OperatorDetails {
   id          String    @id @default(uuid())
   name        String
   email       String    @unique
+  joinedAt    DateTime?
+  leftAt      DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
   operatorsId String    @unique
   // ------------------------------
   opearators  Operators @relation(fields: [operatorsId], references: [id])
