@@ -2,18 +2,31 @@ import { Request, Response } from 'express';
 import {
   create,
   get,
+  getById,
   update,
   remove,
 } from '@/services/admin/authority.services';
 
 export const createAuthority = async (req: Request, res: Response) => {
-  const { name, email, designation, positionsId, hallsId, departmentsId } =
-    req.body;
+  const {
+    name,
+    email,
+    designation,
+    joinedAt,
+    leftAt,
+    positionsId,
+    hallsId,
+    departmentsId,
+  } = req.body;
+
+  console.log(req.body);
 
   const authority = await create(
     name,
     email,
     designation,
+    joinedAt,
+    leftAt,
     positionsId,
     hallsId,
     departmentsId
@@ -43,15 +56,38 @@ export const getAuthorities = async (req: Request, res: Response) => {
   return res.status(200).json(authorities);
 };
 
+export const getAuthority = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const authority = await getById(id);
+
+  if (authority instanceof Error) {
+    return res.status(400).json({ message: 'Something went wrong!' });
+  }
+
+  return res.status(200).json(authority);
+};
+
 export const updateAuthority = async (req: Request, res: Response) => {
-  const { id, name, email, designation, positionsId, hallsId, departmentsId } =
-    req.body;
+  const {
+    id,
+    name,
+    email,
+    designation,
+    joinedAt,
+    leftAt,
+    positionsId,
+    hallsId,
+    departmentsId,
+  } = req.body;
 
   const authority = await update(
     id,
     name,
     email,
     designation,
+    joinedAt,
+    leftAt,
     positionsId,
     hallsId,
     departmentsId

@@ -4,6 +4,8 @@ export const create = async (
   name: string,
   email: string,
   designation: string,
+  joinedAt: Date,
+  leftAt: Date,
   positionsId: string,
   hallsId: string,
   departmentsId: string
@@ -19,6 +21,8 @@ export const create = async (
             name,
             email,
             designation,
+            joinedAt: joinedAt ? new Date(joinedAt) : null,
+            leftAt: leftAt ? new Date(leftAt) : null,
           },
         },
       },
@@ -57,11 +61,44 @@ export const get = async () => {
     });
 };
 
+export const getById = async (id: string) => {
+  return await prisma.authorities
+    .findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        isActive: true,
+        positionsId: true,
+        hallsId: true,
+        departmentsId: true,
+        authorityDetails: {
+          select: {
+            name: true,
+            email: true,
+            designation: true,
+            joinedAt: true,
+            leftAt: true,
+          },
+        },
+      },
+    })
+    .then((authority) => {
+      return authority;
+    })
+    .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      return error;
+    });
+};
+
 export const update = async (
   id: string,
   name: string,
   email: string,
   designation: string,
+  joinedAt: Date,
+  leftAt: Date,
   positionsId: string,
   hallsId: string,
   departmentsId: string
@@ -80,6 +117,8 @@ export const update = async (
             name,
             email,
             designation,
+            joinedAt,
+            leftAt,
           },
         },
       },
