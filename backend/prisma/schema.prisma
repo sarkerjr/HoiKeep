@@ -35,7 +35,6 @@ model Departments {
   updatedAt   DateTime      @updatedAt
   // ------------------------------
   authorities Authorities[]
-  staffs      Staffs[]
   Students    Students[]
 }
 
@@ -94,19 +93,17 @@ model AuthorityDetails {
 }
 
 model Staffs {
-  id            String        @id @default(uuid())
-  isActive      Boolean       @default(true)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  hallsId       String?
-  departmentsId String?
-  positionsId   String
+  id           String        @id @default(uuid())
+  isActive     Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  hallsId      String?
+  positionsId  String
   // ------------------------------
-  staffDetails  StaffDetails?
-  halls         Halls?        @relation(fields: [hallsId], references: [id])
-  departments   Departments?  @relation(fields: [departmentsId], references: [id])
-  Positions     Positions     @relation(fields: [positionsId], references: [id])
-  notices       Notices[]
+  staffDetails StaffDetails?
+  halls        Halls?        @relation(fields: [hallsId], references: [id])
+  Positions    Positions     @relation(fields: [positionsId], references: [id])
+  notices      Notices[]
 }
 
 model StaffDetails {

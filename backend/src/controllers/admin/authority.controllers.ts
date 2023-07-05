@@ -19,8 +19,6 @@ export const createAuthority = async (req: Request, res: Response) => {
     departmentsId,
   } = req.body;
 
-  console.log(req.body);
-
   const authority = await create(
     name,
     email,
