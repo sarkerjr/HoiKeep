@@ -49,10 +49,6 @@ export const getStaff = async (req: Request, res: Response) => {
   const staff = await getById(id);
 
   if (staff instanceof Error) {
-    console.log(
-      '🚀 ~ file: staff.controllers.ts:52 ~ getStaff ~ staff:',
-      staff
-    );
     return res.status(400).json({ message: 'Something went wrong!' });
   }
 
