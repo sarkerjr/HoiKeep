@@ -53,8 +53,8 @@ export const get = async () => {
         },
       },
     })
-    .then((notices) => {
-      return notices;
+    .then((authorities) => {
+      return authorities;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;

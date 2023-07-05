@@ -23,8 +23,8 @@ export const create = async (
         },
       },
     })
-    .then((authority) => {
-      return authority;
+    .then((staff) => {
+      return staff;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;
@@ -47,8 +47,8 @@ export const get = async () => {
         },
       },
     })
-    .then((notices) => {
-      return notices;
+    .then((staffs) => {
+      return staffs;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;
@@ -76,8 +76,8 @@ export const getById = async (id: string) => {
         },
       },
     })
-    .then((authority) => {
-      return authority;
+    .then((staff) => {
+      return staff;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;
@@ -111,8 +111,8 @@ export const update = async (
         },
       },
     })
-    .then((authority) => {
-      return authority;
+    .then((staff) => {
+      return staff;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;
@@ -126,8 +126,8 @@ export const remove = async (id: string) => {
         id,
       },
     })
-    .then((notice) => {
-      return notice;
+    .then((staff) => {
+      return staff;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;
