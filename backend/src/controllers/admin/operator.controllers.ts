@@ -5,7 +5,7 @@ import {
   getById,
   update,
   remove,
-} from '@/services/admin/opearator.services';
+} from '@/services/opearator.services';
 
 export const createOperator = async (req: Request, res: Response) => {
   const { name, email, joinedAt, leftAt, positionsId, hallsId } = req.body;

@@ -5,7 +5,7 @@ import {
   getById,
   update,
   remove,
-} from '@/services/admin/authority.services';
+} from '@/services/authority.services';
 
 export const createAuthority = async (req: Request, res: Response) => {
   const {
