@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { create, get, update } from '@/services/admin/department.services';
+import { create, get, update } from '@/services/department.services';
 
 export const createDepartment = async (req: Request, res: Response) => {
   const { name, nameTag } = req.body;

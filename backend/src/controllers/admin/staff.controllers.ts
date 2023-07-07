@@ -5,7 +5,7 @@ import {
   getById,
   update,
   remove,
-} from '@/services/admin/staff.services';
+} from '@/services/staff.services';
 
 export const createStaff = async (req: Request, res: Response) => {
   const { name, email, joinedAt, leftAt, positionsId, hallsId } = req.body;

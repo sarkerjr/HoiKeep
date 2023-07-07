@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { create, get, update } from '@/services/admin/hall.services';
+import { create, get, update } from '@/services/hall.services';
 
 export const createHall = async (req: Request, res: Response) => {
   const { name, nameTag, type } = req.body;

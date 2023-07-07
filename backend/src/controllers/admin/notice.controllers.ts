@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { create, get, update, remove } from '@/services/admin/notice.services';
+import { create, get, update, remove } from '@/services/notice.services';
 
 export const createNotice = async (req: Request, res: Response) => {
   const { title, description, hallId } = req.body;
