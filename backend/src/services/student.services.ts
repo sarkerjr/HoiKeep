@@ -167,8 +167,8 @@ export const remove = async (id: string) => {
         id,
       },
     })
-    .then((notice) => {
-      return notice;
+    .then((student) => {
+      return student;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;
