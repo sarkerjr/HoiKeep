@@ -105,8 +105,8 @@ export const update = async (
           update: {
             name,
             email,
-            joinedAt,
-            leftAt,
+            joinedAt: new Date(joinedAt),
+            leftAt: new Date(leftAt),
           },
         },
       },
