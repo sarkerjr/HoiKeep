@@ -6,6 +6,10 @@ import noticeRoutes from './notice.routes';
 import authorityRoutes from './authority.routes';
 import staffRoutes from './staff.routes';
 import operatorRoutes from './operator.routes';
+import studentRoutes from './student.routes';
+import degreeRoutes from './degree.routes';
+import roomRoutes from './room.routes';
+import seatRoutes from './seat.routes';
 
 const router = Router();
 
@@ -15,5 +19,9 @@ router.use('/notice', noticeRoutes);
 router.use('/authority', authorityRoutes);
 router.use('/staff', staffRoutes);
 router.use('/operator', operatorRoutes);
+router.use('/student', studentRoutes);
+router.use('/degree', degreeRoutes);
+router.use('/room', roomRoutes);
+router.use('/seat', seatRoutes);
 
 export default router;
