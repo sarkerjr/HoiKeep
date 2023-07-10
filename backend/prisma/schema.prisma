@@ -165,6 +165,7 @@ model Students {
   studentProfiles StudentProfiles?
   halls           Halls            @relation(fields: [hallsId], references: [id])
   departments     Departments      @relation(fields: [departmentsId], references: [id])
+  accommodations  Accommodations[]
 }
 
 model StudentProfiles {
@@ -207,20 +208,32 @@ model Rooms {
   id           String  @id @default(uuid())
   no           String  @unique
   seatQuantity Int
-  halls        Halls   @relation(fields: [hallsId], references: [id])
   hallsId      String
+  // ------------------------------
+  halls        Halls   @relation(fields: [hallsId], references: [id])
   Seats        Seats[]
 }
 
 model Seats {
-  id      String @id @default(uuid())
-  no      Int
-  rooms   Rooms  @relation(fields: [roomsId], references: [id])
-  roomsId String
+  id             String           @id @default(uuid())
+  no             String
+  isAvailable    Boolean          @default(true)
+  roomsId        String
+  // ------------------------------
+  rooms          Rooms            @relation(fields: [roomsId], references: [id])
+  accommodations Accommodations[]
+
+  @@unique([no, roomsId])
 }
 
-model SeatStudents {
-  id String @id @default(uuid())
+model Accommodations {
+  id         String   @id @default(uuid())
+  isActive   Boolean  @default(true)
+  studentsId String
+  seatsId    String
+  // ------------------------------
+  seats      Seats    @relation(fields: [seatsId], references: [id])
+  students   Students @relation(fields: [studentsId], references: [id])
 }
 
 model Fees {
