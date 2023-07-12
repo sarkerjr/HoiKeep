@@ -53,7 +53,6 @@ const Department = () => {
   const {
     order,
     orderBy,
-    selected,
     rowsPerPage,
     filteredList,
     handleChangePage,
@@ -68,7 +67,7 @@ const Department = () => {
 
   return (
     <>
-      <Box component={Paper} elevation={1} p={2}>
+      <Box width="100%">
         <H3 mb={2}>Departments</H3>
 
         <SearchArea
@@ -88,7 +87,6 @@ const Department = () => {
                   orderBy={orderBy}
                   heading={tableHeading}
                   rowCount={departments?.length}
-                  numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                 />
 
@@ -97,7 +95,6 @@ const Department = () => {
                     <DepartmentRow
                       department={department}
                       key={department.id}
-                      selected={selected}
                     />
                   ))}
                 </TableBody>

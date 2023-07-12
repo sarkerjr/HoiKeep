@@ -10,16 +10,13 @@ import {
 
 type DepartmentRowProps = {
   department: any;
-  selected: any[];
 };
 
-const DepartmentRow: FC<DepartmentRowProps> = ({ department, selected }) => {
+const DepartmentRow: FC<DepartmentRowProps> = ({ department }) => {
   const { id, name, nameTag } = department;
 
-  const isItemSelected = selected.indexOf(name) !== -1;
-
   return (
-    <StyledTableRow tabIndex={-1} role="checkbox" selected={isItemSelected}>
+    <StyledTableRow tabIndex={-1} role="checkbox">
       <StyledTableCell align="center">#{id}</StyledTableCell>
 
       <StyledTableCell align="center">{name}</StyledTableCell>
