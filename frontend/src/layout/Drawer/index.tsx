@@ -1,50 +1,118 @@
+import { styled } from '@mui/material/styles';
 import {
-  Toolbar,
+  Container,
+  Box,
   Drawer as MuiDrawer,
-  useTheme,
-  useMediaQuery,
-} from '@mui/material/';
+  List,
+  Divider,
+  IconButton,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
 
 // project imports
-import { drawerWidth } from '@/utils/constants';
-import MenuList from './MenuList';
+import { DRAWER_WIDTH } from '@/utils/constants';
 import { useSelector, useDispatch } from '@/store';
 import { setDrawerState } from '@/store/slices/layoutSlice';
 
-const drawerStyle = {
-  width: drawerWidth,
-  flexShrink: 0,
-  '& .MuiDrawer-paper': {
-    backgroundColor: 'primary.light',
-    width: drawerWidth,
-    boxSizing: 'border-box',
-  },
-};
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
+  open?: boolean;
+}>(({ theme, open }) => ({
+  flexGrow: 1,
+  padding: theme.spacing(3),
+  transition: theme.transitions.create('margin', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  marginLeft: `-${DRAWER_WIDTH}px`,
+  ...(open && {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  }),
+}));
 
-const Drawer = () => {
-  const { openDrawer } = useSelector((state) => state.layout);
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+}));
+
+export default function Drawer(props) {
+  const { openDrawer } = useSelector((state: any) => state.layout);
 
   const dispatch = useDispatch();
-  const theme = useTheme();
 
-  const screenMd = useMediaQuery(theme.breakpoints.up('md'));
-
-  const handleCloseDrawer = () => {
+  const handleDrawerClose = () => {
     dispatch(setDrawerState(false));
   };
 
   return (
-    <MuiDrawer
-      sx={drawerStyle}
-      open={openDrawer}
-      onClose={handleCloseDrawer}
-      variant={screenMd ? 'permanent' : 'temporary'}
-      anchor="left"
+    <Box
+      display="flex"
+      width={openDrawer ? `calc(100% - ${DRAWER_WIDTH}px)` : '100%'}
     >
-      <Toolbar />
-      <MenuList />
-    </MuiDrawer>
+      <MuiDrawer
+        sx={{
+          width: DRAWER_WIDTH,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: DRAWER_WIDTH,
+            boxSizing: 'border-box',
+          },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={openDrawer}
+      >
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </MuiDrawer>
+      <Container maxWidth="xl">
+        <Main open={openDrawer}>
+          <DrawerHeader />
+          {props.children}
+        </Main>
+      </Container>
+    </Box>
   );
-};
-
-export default Drawer;
+}

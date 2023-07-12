@@ -21,7 +21,7 @@ type TableHeaderProps = {
   heading: any[];
   orderBy: string;
   rowCount: number;
-  numSelected: number;
+  numSelected?: number;
   order: 'asc' | 'desc';
   hideSelectBtn?: boolean;
   onRequestSort: (id: string) => void;
