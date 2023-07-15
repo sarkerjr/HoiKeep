@@ -1,7 +1,6 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
-  Paper,
   Card,
   Stack,
   Table,
@@ -18,6 +17,7 @@ import { H3 } from "components/Typography";
 import useMuiTable from "hooks/useMuiTable";
 import useMuiTableSearch from "hooks/useMuiTableSearch";
 import DepartmentRow from "@/page-setions/admin/department/DepartmentRow";
+import DepartmentModal from "@/page-setions/admin/department/DepartmentModal";
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
@@ -28,6 +28,7 @@ const tableHeading = [
 ];
 
 const Department = () => {
+  const [openModal, setOpenModal] = useState(false);
   const departments = [
     {
       id: "1",
@@ -48,6 +49,7 @@ const Department = () => {
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
     "name",
+    "nameTag",
   ]);
 
   const {
@@ -74,7 +76,7 @@ const Department = () => {
           handleSearch={handleSearchQuery}
           buttonText="Add Department"
           searchPlaceholder="Search Department..."
-          handleBtnClick={() => null}
+          handleBtnClick={() => setOpenModal(true)}
         />
 
         <Card>
@@ -110,6 +112,13 @@ const Department = () => {
           </Stack>
         </Card>
       </Box>
+
+      <DepartmentModal
+        mode="CREATE"
+        open={openModal}
+        close={() => setOpenModal(false)}
+        department={null}
+      />
     </>
   );
 };
