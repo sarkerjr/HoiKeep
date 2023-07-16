@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import {
   Box,
   Card,
@@ -16,40 +16,61 @@ import Scrollbar from "components/Scrollbar";
 import { H3 } from "components/Typography";
 import useMuiTable from "hooks/useMuiTable";
 import useMuiTableSearch from "hooks/useMuiTableSearch";
-import DepartmentRow from "@/page-setions/admin/department/DepartmentRow";
-import DepartmentModal from "@/page-setions/admin/department/DepartmentModal";
+import AuthorityRow from "@/page-setions/admin/auhority/AuthorityRow";
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
   { id: "id", label: "ID", align: "center" },
   { id: "name", label: "Name", align: "center" },
-  { id: "nameTag", label: "Tag", align: "center" },
+  { id: "email", label: "Email", align: "center" },
+  { id: "designation", label: "Designation", align: "center" },
+  { id: "joinedAt", label: "Joined At", align: "center" },
+  { id: "leftAt", label: "Left At", align: "center" },
+  { id: "position", label: "Position", align: "center" },
+  { id: "hall", label: "Hall", align: "center" },
+  { id: "department", label: "Department", align: "center" },
   { id: "action", label: "Action", align: "center" },
 ];
 
-const Department = () => {
-  const [openModal, setOpenModal] = useState(false);
-  const departments = [
+const Authority = () => {
+  const authorities = [
     {
       id: "1",
       name: "Department 1",
-      nameTag: "TEST",
+      email: "TEST",
+      designation: "TEST",
+      joinedAt: "",
+      leftAt: "",
+      position: "",
+      hall: "",
+      department: "",
     },
     {
       id: "2",
       name: "Department 2",
-      nameTag: "TEST",
+      email: "TEST",
+      designation: "TEST",
+      joinedAt: "",
+      leftAt: "",
+      position: "",
+      hall: "",
+      department: "",
     },
     {
       id: "3",
       name: "Department 3",
-      nameTag: "TEST",
+      email: "TEST",
+      designation: "TEST",
+      joinedAt: "",
+      leftAt: "",
+      position: "",
+      hall: "",
+      department: "",
     },
   ];
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
     "name",
-    "nameTag",
   ]);
 
   const {
@@ -64,19 +85,19 @@ const Department = () => {
   });
 
   useEffect(() => {
-    setInitialData(departments);
+    setInitialData(authorities);
   }, []);
 
   return (
     <>
       <Box width="100%">
-        <H3 mb={2}>Departments</H3>
+        <H3 mb={2}>Authorities</H3>
 
         <SearchArea
           handleSearch={handleSearchQuery}
-          buttonText="Add Department"
-          searchPlaceholder="Search Department..."
-          handleBtnClick={() => setOpenModal(true)}
+          buttonText="Add Authority"
+          searchPlaceholder="Search Authority..."
+          handleBtnClick={() => null}
         />
 
         <Card>
@@ -88,16 +109,13 @@ const Department = () => {
                   hideSelectBtn
                   orderBy={orderBy}
                   heading={tableHeading}
-                  rowCount={departments?.length}
+                  rowCount={authorities?.length}
                   onRequestSort={handleRequestSort}
                 />
 
                 <TableBody>
-                  {filteredList.map((department) => (
-                    <DepartmentRow
-                      department={department}
-                      key={department.id}
-                    />
+                  {filteredList.map((authority) => (
+                    <AuthorityRow authority={authority} key={authority.id} />
                   ))}
                 </TableBody>
               </Table>
@@ -107,20 +125,13 @@ const Department = () => {
           <Stack alignItems="center" my={4}>
             <TablePagination
               onChange={handleChangePage}
-              count={Math.ceil(departments?.length / rowsPerPage) || 0}
+              count={Math.ceil(authorities?.length / rowsPerPage) || 0}
             />
           </Stack>
         </Card>
       </Box>
-
-      <DepartmentModal
-        mode="CREATE"
-        open={openModal}
-        close={() => setOpenModal(false)}
-        department={null}
-      />
     </>
   );
 };
 
-export default Department;
+export default Authority;

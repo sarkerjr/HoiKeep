@@ -1,9 +1,9 @@
-import { useRoutes } from 'react-router-dom';
+import { useRoutes } from "react-router-dom";
 
 // routes
-import PublicRoutes from './PublicRoutes';
-import DepartmentRoutes from './adminRoutes';
+import PublicRoutes from "./PublicRoutes";
+import AdminRoutes from "./AdminRoutes";
 
 export default function ThemeRoutes() {
-  return useRoutes([PublicRoutes, DepartmentRoutes]);
+  return useRoutes([PublicRoutes, AdminRoutes]);
 }
