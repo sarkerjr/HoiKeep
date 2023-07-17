@@ -16,58 +16,30 @@ import Scrollbar from "components/Scrollbar";
 import { H3 } from "components/Typography";
 import useMuiTable from "hooks/useMuiTable";
 import useMuiTableSearch from "hooks/useMuiTableSearch";
-import AuthorityRow from "@/page-setions/admin/auhority/AuthorityRow";
-import AuthorityModal from "@/page-setions/admin/auhority/AuthorityModal";
+import DegreeRow from "@/page-setions/admin/degree/DegreeRow";
+import DegreeModal from "@/page-setions/admin/degree/DegreeModal";
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
   { id: "id", label: "ID", align: "center" },
   { id: "name", label: "Name", align: "center" },
-  { id: "email", label: "Email", align: "center" },
-  { id: "designation", label: "Designation", align: "center" },
-  { id: "joinedAt", label: "Joined At", align: "center" },
-  { id: "leftAt", label: "Left At", align: "center" },
-  { id: "position", label: "Position", align: "center" },
-  { id: "hall", label: "Hall", align: "center" },
-  { id: "department", label: "Department", align: "center" },
   { id: "action", label: "Action", align: "center" },
 ];
 
-const Authority = () => {
+const Degree = () => {
   const [openModal, setOpenModal] = useState(false);
-  const authorities = [
+  const degrees = [
     {
       id: "1",
-      name: "Department 1",
-      email: "TEST",
-      designation: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-      department: "",
+      name: "TEST",
     },
     {
       id: "2",
-      name: "Department 2",
-      email: "TEST",
-      designation: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-      department: "",
+      name: "TEST",
     },
     {
       id: "3",
-      name: "Department 3",
-      email: "TEST",
-      designation: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-      department: "",
+      name: "TEST",
     },
   ];
 
@@ -87,18 +59,18 @@ const Authority = () => {
   });
 
   useEffect(() => {
-    setInitialData(authorities);
+    setInitialData(degrees);
   }, []);
 
   return (
     <>
       <Box width="100%">
-        <H3 mb={2}>Authorities</H3>
+        <H3 mb={2}>Degrees</H3>
 
         <SearchArea
           handleSearch={handleSearchQuery}
-          buttonText="Add Authority"
-          searchPlaceholder="Search Authority..."
+          buttonText="Add Degree"
+          searchPlaceholder="Search Degree..."
           handleBtnClick={() => setOpenModal(true)}
         />
 
@@ -111,13 +83,13 @@ const Authority = () => {
                   hideSelectBtn
                   orderBy={orderBy}
                   heading={tableHeading}
-                  rowCount={authorities?.length}
+                  rowCount={degrees?.length}
                   onRequestSort={handleRequestSort}
                 />
 
                 <TableBody>
-                  {filteredList.map((authority) => (
-                    <AuthorityRow authority={authority} key={authority.id} />
+                  {filteredList.map((degree) => (
+                    <DegreeRow degree={degree} key={degree.id} />
                   ))}
                 </TableBody>
               </Table>
@@ -127,19 +99,19 @@ const Authority = () => {
           <Stack alignItems="center" my={4}>
             <TablePagination
               onChange={handleChangePage}
-              count={Math.ceil(authorities?.length / rowsPerPage) || 0}
+              count={Math.ceil(degrees?.length / rowsPerPage) || 0}
             />
           </Stack>
         </Card>
       </Box>
-      <AuthorityModal
+      <DegreeModal
         mode="CREATE"
         open={openModal}
         close={() => setOpenModal(false)}
-        authority={null}
+        degree={null}
       />
     </>
   );
 };
 
-export default Authority;
+export default Degree;

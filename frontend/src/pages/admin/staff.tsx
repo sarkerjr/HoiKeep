@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Card,
@@ -17,6 +17,7 @@ import { H3 } from "components/Typography";
 import useMuiTable from "hooks/useMuiTable";
 import useMuiTableSearch from "hooks/useMuiTableSearch";
 import StaffRow from "@/page-setions/admin/staff/StaffRow";
+import StaffModal from "@/page-setions/admin/staff/StaffModal";
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
@@ -31,6 +32,7 @@ const tableHeading = [
 ];
 
 const Staff = () => {
+  const [openModal, setOpenModal] = useState(false);
   const staffs = [
     {
       id: "1",
@@ -89,7 +91,7 @@ const Staff = () => {
           handleSearch={handleSearchQuery}
           buttonText="Add Staff"
           searchPlaceholder="Search Staff..."
-          handleBtnClick={() => null}
+          handleBtnClick={() => setOpenModal(true)}
         />
 
         <Card>
@@ -122,6 +124,12 @@ const Staff = () => {
           </Stack>
         </Card>
       </Box>
+      <StaffModal
+        mode="CREATE"
+        open={openModal}
+        close={() => setOpenModal(false)}
+        staff={null}
+      />
     </>
   );
 };

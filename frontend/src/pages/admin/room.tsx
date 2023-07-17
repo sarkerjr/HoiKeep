@@ -16,58 +16,38 @@ import Scrollbar from "components/Scrollbar";
 import { H3 } from "components/Typography";
 import useMuiTable from "hooks/useMuiTable";
 import useMuiTableSearch from "hooks/useMuiTableSearch";
-import AuthorityRow from "@/page-setions/admin/auhority/AuthorityRow";
-import AuthorityModal from "@/page-setions/admin/auhority/AuthorityModal";
+import RoomRow from "@/page-setions/admin/room/RoomRow";
+import RoomModal from "@/page-setions/admin/room/RoomModal";
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
   { id: "id", label: "ID", align: "center" },
-  { id: "name", label: "Name", align: "center" },
-  { id: "email", label: "Email", align: "center" },
-  { id: "designation", label: "Designation", align: "center" },
-  { id: "joinedAt", label: "Joined At", align: "center" },
-  { id: "leftAt", label: "Left At", align: "center" },
-  { id: "position", label: "Position", align: "center" },
-  { id: "hall", label: "Hall", align: "center" },
-  { id: "department", label: "Department", align: "center" },
+  { id: "no", label: "Room Number", align: "center" },
+  { id: "seatQuantity", label: "Seat Quantity", align: "center" },
+  { id: "hallsId", label: "Halls Id", align: "center" },
   { id: "action", label: "Action", align: "center" },
 ];
 
-const Authority = () => {
+const Room = () => {
   const [openModal, setOpenModal] = useState(false);
-  const authorities = [
+  const rooms = [
     {
       id: "1",
-      name: "Department 1",
-      email: "TEST",
-      designation: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-      department: "",
+      no: "TEST",
+      seatQuantity: "TEST",
+      hallsId: "TEST",
     },
     {
       id: "2",
-      name: "Department 2",
-      email: "TEST",
-      designation: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-      department: "",
+      no: "TEST",
+      seatQuantity: "TEST",
+      hallsId: "TEST",
     },
     {
       id: "3",
-      name: "Department 3",
-      email: "TEST",
-      designation: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-      department: "",
+      no: "TEST",
+      seatQuantity: "TEST",
+      hallsId: "TEST",
     },
   ];
 
@@ -87,18 +67,18 @@ const Authority = () => {
   });
 
   useEffect(() => {
-    setInitialData(authorities);
+    setInitialData(rooms);
   }, []);
 
   return (
     <>
       <Box width="100%">
-        <H3 mb={2}>Authorities</H3>
+        <H3 mb={2}>Rooms</H3>
 
         <SearchArea
           handleSearch={handleSearchQuery}
-          buttonText="Add Authority"
-          searchPlaceholder="Search Authority..."
+          buttonText="Add Room"
+          searchPlaceholder="Search Room..."
           handleBtnClick={() => setOpenModal(true)}
         />
 
@@ -111,13 +91,13 @@ const Authority = () => {
                   hideSelectBtn
                   orderBy={orderBy}
                   heading={tableHeading}
-                  rowCount={authorities?.length}
+                  rowCount={rooms?.length}
                   onRequestSort={handleRequestSort}
                 />
 
                 <TableBody>
-                  {filteredList.map((authority) => (
-                    <AuthorityRow authority={authority} key={authority.id} />
+                  {filteredList.map((room) => (
+                    <RoomRow room={room} key={room.id} />
                   ))}
                 </TableBody>
               </Table>
@@ -127,19 +107,19 @@ const Authority = () => {
           <Stack alignItems="center" my={4}>
             <TablePagination
               onChange={handleChangePage}
-              count={Math.ceil(authorities?.length / rowsPerPage) || 0}
+              count={Math.ceil(rooms?.length / rowsPerPage) || 0}
             />
           </Stack>
         </Card>
       </Box>
-      <AuthorityModal
+      <RoomModal
         mode="CREATE"
         open={openModal}
         close={() => setOpenModal(false)}
-        authority={null}
+        room={null}
       />
     </>
   );
 };
 
-export default Authority;
+export default Room;
