@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Card,
@@ -17,6 +17,7 @@ import { H3 } from "components/Typography";
 import useMuiTable from "hooks/useMuiTable";
 import useMuiTableSearch from "hooks/useMuiTableSearch";
 import OperatorRow from "@/page-setions/admin/operator/OperatorRow";
+import OperatorModal from "@/page-setions/admin/operator/OperatorModal";
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
@@ -31,6 +32,7 @@ const tableHeading = [
 ];
 
 const Operator = () => {
+  const [openModal, setOpenModal] = useState(false);
   const operators = [
     {
       id: "1",
@@ -89,7 +91,7 @@ const Operator = () => {
           handleSearch={handleSearchQuery}
           buttonText="Add Operator"
           searchPlaceholder="Search Operator..."
-          handleBtnClick={() => null}
+          handleBtnClick={() => setOpenModal(true)}
         />
 
         <Card>
@@ -122,6 +124,12 @@ const Operator = () => {
           </Stack>
         </Card>
       </Box>
+      <OperatorModal
+        mode="CREATE"
+        open={openModal}
+        close={() => setOpenModal(false)}
+        operator={null}
+      />
     </>
   );
 };

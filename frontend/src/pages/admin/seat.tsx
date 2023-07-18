@@ -16,58 +16,34 @@ import Scrollbar from "components/Scrollbar";
 import { H3 } from "components/Typography";
 import useMuiTable from "hooks/useMuiTable";
 import useMuiTableSearch from "hooks/useMuiTableSearch";
-import AuthorityRow from "@/page-setions/admin/auhority/AuthorityRow";
-import AuthorityModal from "@/page-setions/admin/auhority/AuthorityModal";
+import SeatRow from "@/page-setions/admin/seat/SeatRow";
+import SeatModal from "@/page-setions/admin/seat/SeatModal";
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
   { id: "id", label: "ID", align: "center" },
-  { id: "name", label: "Name", align: "center" },
-  { id: "email", label: "Email", align: "center" },
-  { id: "designation", label: "Designation", align: "center" },
-  { id: "joinedAt", label: "Joined At", align: "center" },
-  { id: "leftAt", label: "Left At", align: "center" },
-  { id: "position", label: "Position", align: "center" },
-  { id: "hall", label: "Hall", align: "center" },
-  { id: "department", label: "Department", align: "center" },
+  { id: "no", label: "Seat Number", align: "center" },
+  { id: "roomsId", label: "Rooms Id", align: "center" },
   { id: "action", label: "Action", align: "center" },
 ];
 
-const Authority = () => {
+const Seat = () => {
   const [openModal, setOpenModal] = useState(false);
-  const authorities = [
+  const seats = [
     {
       id: "1",
-      name: "Department 1",
-      email: "TEST",
-      designation: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-      department: "",
+      no: "TEST",
+      roomsId: "TEST",
     },
     {
       id: "2",
-      name: "Department 2",
-      email: "TEST",
-      designation: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-      department: "",
+      no: "TEST",
+      roomsId: "TEST",
     },
     {
       id: "3",
-      name: "Department 3",
-      email: "TEST",
-      designation: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-      department: "",
+      no: "TEST",
+      roomsId: "TEST",
     },
   ];
 
@@ -87,18 +63,18 @@ const Authority = () => {
   });
 
   useEffect(() => {
-    setInitialData(authorities);
+    setInitialData(seats);
   }, []);
 
   return (
     <>
       <Box width="100%">
-        <H3 mb={2}>Authorities</H3>
+        <H3 mb={2}>Seats</H3>
 
         <SearchArea
           handleSearch={handleSearchQuery}
-          buttonText="Add Authority"
-          searchPlaceholder="Search Authority..."
+          buttonText="Add Seat"
+          searchPlaceholder="Search Seat..."
           handleBtnClick={() => setOpenModal(true)}
         />
 
@@ -111,13 +87,13 @@ const Authority = () => {
                   hideSelectBtn
                   orderBy={orderBy}
                   heading={tableHeading}
-                  rowCount={authorities?.length}
+                  rowCount={seats?.length}
                   onRequestSort={handleRequestSort}
                 />
 
                 <TableBody>
-                  {filteredList.map((authority) => (
-                    <AuthorityRow authority={authority} key={authority.id} />
+                  {filteredList.map((seat) => (
+                    <SeatRow seat={seat} key={seat.id} />
                   ))}
                 </TableBody>
               </Table>
@@ -127,19 +103,19 @@ const Authority = () => {
           <Stack alignItems="center" my={4}>
             <TablePagination
               onChange={handleChangePage}
-              count={Math.ceil(authorities?.length / rowsPerPage) || 0}
+              count={Math.ceil(seats?.length / rowsPerPage) || 0}
             />
           </Stack>
         </Card>
       </Box>
-      <AuthorityModal
+      <SeatModal
         mode="CREATE"
         open={openModal}
         close={() => setOpenModal(false)}
-        authority={null}
+        seat={null}
       />
     </>
   );
 };
 
-export default Authority;
+export default Seat;

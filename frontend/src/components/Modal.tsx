@@ -1,22 +1,34 @@
-import { Box, Typography, Modal as MuiModal, Grid, Divider } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import {
+  Box,
+  Typography,
+  Modal as MuiModal,
+  Grid,
+  Divider,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
-import MainCard from '@/components/Cards/MainCard';
+import MainCard from "@/components/Cards/MainCard";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  boxShadow: 24
+  bgcolor: "background.paper",
+  boxShadow: 24,
 };
 
 const Modal = ({ children, title, open, close }) => {
   return (
     <MuiModal open={open} onClose={close}>
-      <Box sx={style}>
+      <Box
+        sx={{
+          ...style,
+          maxHeight: "80vh",
+          overflow: "auto",
+        }}
+      >
         <MainCard>
           <Grid container spacing={2}>
             {/* Modal Header Section */}
@@ -24,7 +36,7 @@ const Modal = ({ children, title, open, close }) => {
               <Typography>{title}</Typography>
             </Grid>
             <Grid item xs={1} justifyContent="center">
-              <CloseIcon sx={{ cursor: 'pointer' }} onClick={close} />
+              <CloseIcon sx={{ cursor: "pointer" }} onClick={close} />
             </Grid>
             <Grid item xs={12}>
               <Divider />
