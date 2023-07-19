@@ -16,6 +16,7 @@ import Scrollbar from "components/Scrollbar";
 import { H3 } from "components/Typography";
 import useMuiTable from "hooks/useMuiTable";
 import useMuiTableSearch from "hooks/useMuiTableSearch";
+import useModal from "@/hooks/useModal";
 import AuthorityRow from "@/page-setions/admin/auhority/AuthorityRow";
 import AuthorityModal from "@/page-setions/admin/auhority/AuthorityModal";
 
@@ -34,7 +35,6 @@ const tableHeading = [
 ];
 
 const Authority = () => {
-  const [openModal, setOpenModal] = useState(false);
   const authorities = [
     {
       id: "1",
@@ -70,7 +70,7 @@ const Authority = () => {
       department: "",
     },
   ];
-
+  const { modal, setModal, mode, setMode, data, setData } = useModal();
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
     "name",
   ]);
@@ -89,6 +89,10 @@ const Authority = () => {
   useEffect(() => {
     setInitialData(authorities);
   }, []);
+  const handleOnCreate = () => {
+    setMode("CREATE");
+    setModal(true);
+  };
 
   return (
     <>
@@ -99,7 +103,7 @@ const Authority = () => {
           handleSearch={handleSearchQuery}
           buttonText="Add Authority"
           searchPlaceholder="Search Authority..."
-          handleBtnClick={() => setOpenModal(true)}
+          handleBtnClick={handleOnCreate}
         />
 
         <Card>
@@ -117,7 +121,13 @@ const Authority = () => {
 
                 <TableBody>
                   {filteredList.map((authority) => (
-                    <AuthorityRow authority={authority} key={authority.id} />
+                    <AuthorityRow
+                      authority={authority}
+                      key={authority.id}
+                      setModal={setModal}
+                      setMode={setMode}
+                      setData={setData}
+                    />
                   ))}
                 </TableBody>
               </Table>
@@ -133,10 +143,10 @@ const Authority = () => {
         </Card>
       </Box>
       <AuthorityModal
-        mode="CREATE"
-        open={openModal}
-        close={() => setOpenModal(false)}
-        authority={null}
+        mode={mode}
+        open={modal}
+        close={() => setModal(false)}
+        authority={data}
       />
     </>
   );

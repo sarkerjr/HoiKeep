@@ -16,6 +16,7 @@ import Scrollbar from "components/Scrollbar";
 import { H3 } from "components/Typography";
 import useMuiTable from "hooks/useMuiTable";
 import useMuiTableSearch from "hooks/useMuiTableSearch";
+import useModal from "@/hooks/useModal";
 import RoomRow from "@/page-setions/admin/room/RoomRow";
 import RoomModal from "@/page-setions/admin/room/RoomModal";
 
@@ -29,7 +30,6 @@ const tableHeading = [
 ];
 
 const Room = () => {
-  const [openModal, setOpenModal] = useState(false);
   const rooms = [
     {
       id: "1",
@@ -50,6 +50,7 @@ const Room = () => {
       hallsId: "TEST",
     },
   ];
+  const { modal, setModal, mode, setMode, data, setData } = useModal();
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
     "name",
@@ -69,6 +70,10 @@ const Room = () => {
   useEffect(() => {
     setInitialData(rooms);
   }, []);
+  const handleOnCreate = () => {
+    setMode("CREATE");
+    setModal(true);
+  };
 
   return (
     <>
@@ -79,7 +84,7 @@ const Room = () => {
           handleSearch={handleSearchQuery}
           buttonText="Add Room"
           searchPlaceholder="Search Room..."
-          handleBtnClick={() => setOpenModal(true)}
+          handleBtnClick={handleOnCreate}
         />
 
         <Card>
@@ -97,7 +102,13 @@ const Room = () => {
 
                 <TableBody>
                   {filteredList.map((room) => (
-                    <RoomRow room={room} key={room.id} />
+                    <RoomRow
+                      room={room}
+                      key={room.id}
+                      setModal={setModal}
+                      setMode={setMode}
+                      setData={setData}
+                    />
                   ))}
                 </TableBody>
               </Table>
@@ -113,10 +124,10 @@ const Room = () => {
         </Card>
       </Box>
       <RoomModal
-        mode="CREATE"
-        open={openModal}
-        close={() => setOpenModal(false)}
-        room={null}
+        mode={mode}
+        open={modal}
+        close={() => setModal(false)}
+        room={data}
       />
     </>
   );

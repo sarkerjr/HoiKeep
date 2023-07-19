@@ -10,10 +10,18 @@ import {
 
 type StaffRowProps = {
   staff: any;
+  setModal: any;
+  setMode: any;
+  setData: any;
 };
 
-const StaffRow: FC<StaffRowProps> = ({ staff }) => {
+const StaffRow: FC<StaffRowProps> = ({ staff, setModal, setMode, setData }) => {
   const { id, name, email, joinedAt, leftAt, positionsId, hallsId } = staff;
+  const handleOnEdit = () => {
+    setData(staff);
+    setMode("EDIT");
+    setModal(true);
+  };
 
   return (
     <StyledTableRow tabIndex={-1} role="checkbox">
@@ -32,7 +40,7 @@ const StaffRow: FC<StaffRowProps> = ({ staff }) => {
       <StyledTableCell align="center">{hallsId}</StyledTableCell>
 
       <StyledTableCell align="center">
-        <StyledIconButton>
+        <StyledIconButton onClick={handleOnEdit}>
           <Edit />
         </StyledIconButton>
 

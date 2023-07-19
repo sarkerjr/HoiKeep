@@ -16,6 +16,7 @@ import Scrollbar from "components/Scrollbar";
 import { H3 } from "components/Typography";
 import useMuiTable from "hooks/useMuiTable";
 import useMuiTableSearch from "hooks/useMuiTableSearch";
+import useModal from "@/hooks/useModal";
 import OperatorRow from "@/page-setions/admin/operator/OperatorRow";
 import OperatorModal from "@/page-setions/admin/operator/OperatorModal";
 
@@ -32,7 +33,6 @@ const tableHeading = [
 ];
 
 const Operator = () => {
-  const [openModal, setOpenModal] = useState(false);
   const operators = [
     {
       id: "1",
@@ -62,6 +62,7 @@ const Operator = () => {
       hall: "",
     },
   ];
+  const { modal, setModal, mode, setMode, data, setData } = useModal();
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
     "name",
@@ -81,6 +82,10 @@ const Operator = () => {
   useEffect(() => {
     setInitialData(operators);
   }, []);
+  const handleOnCreate = () => {
+    setMode("CREATE");
+    setModal(true);
+  };
 
   return (
     <>
@@ -91,7 +96,7 @@ const Operator = () => {
           handleSearch={handleSearchQuery}
           buttonText="Add Operator"
           searchPlaceholder="Search Operator..."
-          handleBtnClick={() => setOpenModal(true)}
+          handleBtnClick={handleOnCreate}
         />
 
         <Card>
@@ -109,7 +114,13 @@ const Operator = () => {
 
                 <TableBody>
                   {filteredList.map((operator) => (
-                    <OperatorRow operator={operator} key={operator.id} />
+                    <OperatorRow
+                      operator={operator}
+                      key={operator.id}
+                      setModal={setModal}
+                      setMode={setMode}
+                      setData={setData}
+                    />
                   ))}
                 </TableBody>
               </Table>
@@ -125,10 +136,10 @@ const Operator = () => {
         </Card>
       </Box>
       <OperatorModal
-        mode="CREATE"
-        open={openModal}
-        close={() => setOpenModal(false)}
-        operator={null}
+        mode={mode}
+        open={modal}
+        close={() => setModal(false)}
+        operator={data}
       />
     </>
   );

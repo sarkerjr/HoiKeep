@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Grid, TextField } from "@mui/material";
 
 import Modal from "@/components/Modal";
@@ -12,12 +12,19 @@ const DegreeModal = ({
   open: boolean;
   close: () => void;
   degree: any;
-  mode: "CREATE" | "EDIT";
+  mode: string;
 }) => {
-  const [name, setName] = useState(degree?.name ?? "");
+  const [name, setName] = useState(degree?.name ? degree.name : "");
+  useEffect(() => {
+    setName(degree?.name ? degree.name : "");
+  }, [degree]);
 
   return (
-    <Modal title={"Add New Degree"} open={open} close={close}>
+    <Modal
+      title={mode === "CREATE" ? "Add New Degree" : "Edit Degree"}
+      open={open}
+      close={close}
+    >
       <Grid container rowSpacing={2}>
         <Grid item xs={12}>
           <TextField

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Grid, TextField } from "@mui/material";
 
 import Modal from "@/components/Modal";
@@ -12,17 +12,34 @@ const OperatorModal = ({
   open: boolean;
   close: () => void;
   operator: any;
-  mode: "CREATE" | "EDIT";
+  mode: string;
 }) => {
-  const [name, setName] = useState(operator?.name ?? "");
-  const [email, setEmail] = useState(operator?.email ?? "");
-  const [joinedAt, setJoinedAt] = useState(operator?.joinedAt ?? "");
-  const [leftAt, setLeftAt] = useState(operator?.leftAt ?? "");
-  const [position, setPosition] = useState(operator?.position ?? "");
-  const [hall, setHall] = useState(operator?.hall ?? "");
+  const [name, setName] = useState(operator?.name ? operator.name : "");
+  const [email, setEmail] = useState(operator?.email ? operator.email : "");
+  const [joinedAt, setJoinedAt] = useState(
+    operator?.joinedAt ? operator.joinedAt : ""
+  );
+  const [leftAt, setLeftAt] = useState(operator?.leftAt ? operator.leftAt : "");
+  const [position, setPosition] = useState(
+    operator?.position ? operator.position : ""
+  );
+  const [hall, setHall] = useState(operator?.hall ? operator.hall : "");
+
+  useEffect(() => {
+    setName(operator?.name ? operator.name : "");
+    setEmail(operator?.email ? operator.email : "");
+    setJoinedAt(operator?.joinedAt ? operator.joinedAt : "");
+    setLeftAt(operator?.leftAt ? operator.leftAt : "");
+    setPosition(operator?.position ? operator.position : "");
+    setHall(operator?.hall ? operator.hall : "");
+  }, [operator]);
 
   return (
-    <Modal title={"Add New Operator"} open={open} close={close}>
+    <Modal
+      title={mode === "CREATE" ? "Add New Operator" : "Edit Operator"}
+      open={open}
+      close={close}
+    >
       <Grid container rowSpacing={2}>
         <Grid item xs={12}>
           <TextField

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Grid, TextField } from "@mui/material";
 
 import Modal from "@/components/Modal";
@@ -12,13 +12,22 @@ const SeatModal = ({
   open: boolean;
   close: () => void;
   seat: any;
-  mode: "CREATE" | "EDIT";
+  mode: string;
 }) => {
-  const [no, setNo] = useState(seat?.no ?? "");
-  const [roomssId, setRoomsId] = useState(seat?.roomsId ?? "");
+  const [no, setNo] = useState(seat?.no ? seat.no : "");
+  const [roomsId, setRoomsId] = useState(seat?.roomsId ? seat.roomsId : "");
+
+  useEffect(() => {
+    setNo(seat?.no ? seat.no : "");
+    setRoomsId(seat?.roomsId ? seat.roomsId : "");
+  }, [seat]);
 
   return (
-    <Modal title={"Add New Seat"} open={open} close={close}>
+    <Modal
+      title={mode === "CREATE" ? "Add New Seat" : "Edit Seat"}
+      open={open}
+      close={close}
+    >
       <Grid container rowSpacing={2}>
         <Grid item xs={12}>
           <TextField
@@ -31,7 +40,7 @@ const SeatModal = ({
         <Grid item xs={12}>
           <TextField
             label="Rooms Id"
-            value={roomssId}
+            value={roomsId}
             onChange={(e) => setRoomsId(e.target.value)}
             fullWidth
           />

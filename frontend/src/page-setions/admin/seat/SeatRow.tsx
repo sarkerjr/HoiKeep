@@ -10,10 +10,18 @@ import {
 
 type SeatRowProps = {
   seat: any;
+  setModal: any;
+  setMode: any;
+  setData: any;
 };
 
-const SeatRow: FC<SeatRowProps> = ({ seat }) => {
+const SeatRow: FC<SeatRowProps> = ({ seat, setModal, setMode, setData }) => {
   const { id, no, roomsId } = seat;
+  const handleOnEdit = () => {
+    setData(seat);
+    setMode("EDIT");
+    setModal(true);
+  };
 
   return (
     <StyledTableRow tabIndex={-1} role="checkbox">
@@ -24,7 +32,7 @@ const SeatRow: FC<SeatRowProps> = ({ seat }) => {
       <StyledTableCell align="center">{roomsId}</StyledTableCell>
 
       <StyledTableCell align="center">
-        <StyledIconButton>
+        <StyledIconButton onClick={handleOnEdit}>
           <Edit />
         </StyledIconButton>
 
