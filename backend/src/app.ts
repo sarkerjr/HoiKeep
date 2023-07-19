@@ -1,6 +1,7 @@
 // third party imports
 import express from 'express';
 import compression from 'compression';
+import cors from 'cors';
 
 // project imports
 // import cors from '@utils/cors.js';
@@ -12,7 +13,11 @@ const app = express();
 
 /* express settings */
 
-// app.use(cors());
+app.use(
+  cors({
+    origin: '*',
+  })
+);
 // app.use(helmet()); // set security headers
 app.disable('x-powered-by'); // hide powered by express
 app.use(express.json()); // parse application/json

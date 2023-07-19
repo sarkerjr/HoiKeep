@@ -21,7 +21,7 @@ const DepartmentRow: FC<DepartmentRowProps> = ({
   setMode,
   setData,
 }) => {
-  const { id, name, nameTag } = department;
+  const { sl, name, nameTag } = department;
 
   const handleOnEdit = () => {
     setData(department);
@@ -31,7 +31,7 @@ const DepartmentRow: FC<DepartmentRowProps> = ({
 
   return (
     <StyledTableRow tabIndex={-1} role="checkbox">
-      <StyledTableCell align="center">#{id}</StyledTableCell>
+      <StyledTableCell align="center">#{sl}</StyledTableCell>
 
       <StyledTableCell align="center">{name}</StyledTableCell>
 

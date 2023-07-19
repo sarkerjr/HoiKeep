@@ -1,10 +1,10 @@
 import cors from 'cors';
 
-module.exports = function () {
+export default function () {
   const corsOptions = {
     // credentials: true,
     origin: '*',
   };
 
   return cors(corsOptions);
-};
+}
