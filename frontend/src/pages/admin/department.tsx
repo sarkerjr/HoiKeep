@@ -32,10 +32,6 @@ const tableHeading = [
 
 const Department = () => {
   const { data: departments } = useReadDepartmentsQuery();
-  console.log(
-    '🚀 ~ file: department.tsx:35 ~ Department ~ departments:',
-    departments
-  );
 
   const { modal, setModal, mode, setMode, data, setData } = useModal();
 

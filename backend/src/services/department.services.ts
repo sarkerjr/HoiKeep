@@ -26,10 +26,6 @@ export const get = async () => {
       },
     })
     .then((departments) => {
-      console.log(
-        '🚀 ~ file: department.services.ts:29 ~ .then ~ departments:',
-        new Date().toLocaleString()
-      );
       return departments;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
