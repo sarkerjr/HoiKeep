@@ -10,10 +10,24 @@ import {
 
 type DepartmentRowProps = {
   department: any;
+  setModal: any;
+  setMode: any;
+  setData: any;
 };
 
-const DepartmentRow: FC<DepartmentRowProps> = ({ department }) => {
+const DepartmentRow: FC<DepartmentRowProps> = ({
+  department,
+  setModal,
+  setMode,
+  setData,
+}) => {
   const { id, name, nameTag } = department;
+
+  const handleOnEdit = () => {
+    setData(department);
+    setMode('EDIT');
+    setModal(true);
+  };
 
   return (
     <StyledTableRow tabIndex={-1} role="checkbox">
@@ -24,7 +38,7 @@ const DepartmentRow: FC<DepartmentRowProps> = ({ department }) => {
       <StyledTableCell align="center">{nameTag}</StyledTableCell>
 
       <StyledTableCell align="center">
-        <StyledIconButton>
+        <StyledIconButton onClick={handleOnEdit}>
           <Edit />
         </StyledIconButton>
 
