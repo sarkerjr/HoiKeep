@@ -10,9 +10,17 @@ import {
 
 type AuthorityRowProps = {
   authority: any;
+  setModal: any;
+  setMode: any;
+  setData: any;
 };
 
-const AuthorityRow: FC<AuthorityRowProps> = ({ authority }) => {
+const AuthorityRow: FC<AuthorityRowProps> = ({
+  authority,
+  setModal,
+  setMode,
+  setData,
+}) => {
   const {
     id,
     name,
@@ -24,6 +32,11 @@ const AuthorityRow: FC<AuthorityRowProps> = ({ authority }) => {
     hallsId,
     departmentsId,
   } = authority;
+  const handleOnEdit = () => {
+    setData(authority);
+    setMode("EDIT");
+    setModal(true);
+  };
 
   return (
     <StyledTableRow tabIndex={-1} role="checkbox">
@@ -46,7 +59,7 @@ const AuthorityRow: FC<AuthorityRowProps> = ({ authority }) => {
       <StyledTableCell align="center">{departmentsId}</StyledTableCell>
 
       <StyledTableCell align="center">
-        <StyledIconButton>
+        <StyledIconButton onClick={handleOnEdit}>
           <Edit />
         </StyledIconButton>
 

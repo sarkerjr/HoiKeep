@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Grid, TextField } from "@mui/material";
 
 import Modal from "@/components/Modal";
@@ -12,14 +12,25 @@ const RoomModal = ({
   open: boolean;
   close: () => void;
   room: any;
-  mode: "CREATE" | "EDIT";
+  mode: string;
 }) => {
-  const [no, setNo] = useState(room?.no ?? "");
-  const [seatQuantity, setSeatQuantity] = useState(room?.seatQuantity ?? "");
-  const [hallsId, setHallsId] = useState(room?.hallsId ?? "");
+  const [no, setNo] = useState(room?.no ? room.no : "");
+  const [seatQuantity, setSeatQuantity] = useState(
+    room?.seatQuantity ? room.seatQuantity : ""
+  );
+  const [hallsId, setHallsId] = useState(room?.hallsId ? room.hallsId : "");
+  useEffect(() => {
+    setNo(room?.no ? room.no : "");
+    setSeatQuantity(room?.seatQuantity ? room.seatQuantity : "");
+    setHallsId(room?.hallsId ? room.hallsId : "");
+  }, [room]);
 
   return (
-    <Modal title={"Add New Room"} open={open} close={close}>
+    <Modal
+      title={mode === "CREATE" ? "Add New Room" : "Edit Room"}
+      open={open}
+      close={close}
+    >
       <Grid container rowSpacing={2}>
         <Grid item xs={12}>
           <TextField

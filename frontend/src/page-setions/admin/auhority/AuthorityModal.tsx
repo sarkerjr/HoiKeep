@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Grid, TextField } from "@mui/material";
 
 import Modal from "@/components/Modal";
@@ -12,19 +12,43 @@ const AuthorityModal = ({
   open: boolean;
   close: () => void;
   authority: any;
-  mode: "CREATE" | "EDIT";
+  mode: string;
 }) => {
-  const [name, setName] = useState(authority?.name ?? "");
-  const [email, setEmail] = useState(authority?.email ?? "");
-  const [designation, setDesignation] = useState(authority?.designation ?? "");
-  const [joinedAt, setJoinedAt] = useState(authority?.joinedAt ?? "");
-  const [leftAt, setLeftAt] = useState(authority?.leftAt ?? "");
-  const [position, setPosition] = useState(authority?.position ?? "");
-  const [hall, setHall] = useState(authority?.hall ?? "");
-  const [department, setDepartment] = useState(authority?.department ?? "");
+  const [name, setName] = useState(authority?.name ? authority.name : "");
+  const [email, setEmail] = useState(authority?.email ? authority.email : "");
+  const [designation, setDesignation] = useState(
+    authority?.designation ? authority.designation : ""
+  );
+  const [joinedAt, setJoinedAt] = useState(
+    authority?.joinedAt ? authority.joinedAt : ""
+  );
+  const [leftAt, setLeftAt] = useState(
+    authority?.leftAt ? authority.leftAt : ""
+  );
+  const [position, setPosition] = useState(
+    authority?.position ? authority.position : ""
+  );
+  const [hall, setHall] = useState(authority?.hall ? authority.hall : "");
+  const [department, setDepartment] = useState(
+    authority?.department ? authority.department : ""
+  );
+  useEffect(() => {
+    setName(authority?.name ? authority.name : "");
+    setEmail(authority?.email ? authority.email : "");
+    setDesignation(authority?.designation ? authority.designation : "");
+    setJoinedAt(authority?.joinedAt ? authority.joinedAt : "");
+    setLeftAt(authority?.leftAt ? authority.leftAt : "");
+    setPosition(authority?.position ? authority.position : "");
+    setHall(authority?.hall ? authority.hall : "");
+    setDepartment(authority?.department ? authority.department : "");
+  }, [authority]);
 
   return (
-    <Modal title={"Add New Authority"} open={open} close={close}>
+    <Modal
+      title={mode === "CREATE" ? "Add New Authority" : "Edit Authority"}
+      open={open}
+      close={close}
+    >
       <Grid container rowSpacing={2}>
         <Grid item xs={12}>
           <TextField

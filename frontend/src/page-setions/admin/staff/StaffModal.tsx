@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Grid, TextField } from "@mui/material";
 
 import Modal from "@/components/Modal";
@@ -12,17 +12,34 @@ const StaffModal = ({
   open: boolean;
   close: () => void;
   staff: any;
-  mode: "CREATE" | "EDIT";
+  mode: string;
 }) => {
-  const [name, setName] = useState(staff?.name ?? "");
-  const [email, setEmail] = useState(staff?.email ?? "");
-  const [joinedAt, setJoinedAt] = useState(staff?.joinedAt ?? "");
-  const [leftAt, setLeftAt] = useState(staff?.leftAt ?? "");
-  const [position, setPosition] = useState(staff?.position ?? "");
-  const [hall, setHall] = useState(staff?.hall ?? "");
+  const [name, setName] = useState(staff?.name ? staff.name : "");
+  const [email, setEmail] = useState(staff?.email ? staff.email : "");
+  const [joinedAt, setJoinedAt] = useState(
+    staff?.joinedAt ? staff.joinedAt : ""
+  );
+  const [leftAt, setLeftAt] = useState(staff?.leftAt ? staff.leftAt : "");
+  const [position, setPosition] = useState(
+    staff?.position ? staff.position : ""
+  );
+  const [hall, setHall] = useState(staff?.hall ? staff.hall : "");
+
+  useEffect(() => {
+    setName(staff?.name ? staff.name : "");
+    setEmail(staff?.email ? staff.email : "");
+    setJoinedAt(staff?.joinedAt ? staff.joinedAt : "");
+    setLeftAt(staff?.leftAt ? staff.leftAt : "");
+    setPosition(staff?.position ? staff.position : "");
+    setHall(staff?.hall ? staff.hall : "");
+  }, [staff]);
 
   return (
-    <Modal title={"Add New Staff"} open={open} close={close}>
+    <Modal
+      title={mode === "CREATE" ? "Add New Staff" : "Edit Staff"}
+      open={open}
+      close={close}
+    >
       <Grid container rowSpacing={2}>
         <Grid item xs={12}>
           <TextField

@@ -16,6 +16,7 @@ import Scrollbar from "components/Scrollbar";
 import { H3 } from "components/Typography";
 import useMuiTable from "hooks/useMuiTable";
 import useMuiTableSearch from "hooks/useMuiTableSearch";
+import useModal from "@/hooks/useModal";
 import StaffRow from "@/page-setions/admin/staff/StaffRow";
 import StaffModal from "@/page-setions/admin/staff/StaffModal";
 
@@ -32,7 +33,6 @@ const tableHeading = [
 ];
 
 const Staff = () => {
-  const [openModal, setOpenModal] = useState(false);
   const staffs = [
     {
       id: "1",
@@ -62,6 +62,7 @@ const Staff = () => {
       hall: "",
     },
   ];
+  const { modal, setModal, mode, setMode, data, setData } = useModal();
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
     "name",
@@ -81,6 +82,10 @@ const Staff = () => {
   useEffect(() => {
     setInitialData(staffs);
   }, []);
+  const handleOnCreate = () => {
+    setMode("CREATE");
+    setModal(true);
+  };
 
   return (
     <>
@@ -91,7 +96,7 @@ const Staff = () => {
           handleSearch={handleSearchQuery}
           buttonText="Add Staff"
           searchPlaceholder="Search Staff..."
-          handleBtnClick={() => setOpenModal(true)}
+          handleBtnClick={handleOnCreate}
         />
 
         <Card>
@@ -109,7 +114,13 @@ const Staff = () => {
 
                 <TableBody>
                   {filteredList.map((staff) => (
-                    <StaffRow staff={staff} key={staff.id} />
+                    <StaffRow
+                      staff={staff}
+                      key={staff.id}
+                      setModal={setModal}
+                      setMode={setMode}
+                      setData={setData}
+                    />
                   ))}
                 </TableBody>
               </Table>
@@ -125,10 +136,10 @@ const Staff = () => {
         </Card>
       </Box>
       <StaffModal
-        mode="CREATE"
-        open={openModal}
-        close={() => setOpenModal(false)}
-        staff={null}
+        mode={mode}
+        open={modal}
+        close={() => setModal(false)}
+        staff={data}
       />
     </>
   );

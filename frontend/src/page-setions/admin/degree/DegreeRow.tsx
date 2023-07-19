@@ -10,10 +10,23 @@ import {
 
 type DegreeRowProps = {
   degree: any;
+  setModal: any;
+  setMode: any;
+  setData: any;
 };
 
-const DegreeRow: FC<DegreeRowProps> = ({ degree }) => {
+const DegreeRow: FC<DegreeRowProps> = ({
+  degree,
+  setModal,
+  setMode,
+  setData,
+}) => {
   const { id, name } = degree;
+  const handleOnEdit = () => {
+    setData(degree);
+    setMode("EDIT");
+    setModal(true);
+  };
 
   return (
     <StyledTableRow tabIndex={-1} role="checkbox">
@@ -22,7 +35,7 @@ const DegreeRow: FC<DegreeRowProps> = ({ degree }) => {
       <StyledTableCell align="center">{name}</StyledTableCell>
 
       <StyledTableCell align="center">
-        <StyledIconButton>
+        <StyledIconButton onClick={handleOnEdit}>
           <Edit />
         </StyledIconButton>
 

@@ -16,6 +16,7 @@ import Scrollbar from "components/Scrollbar";
 import { H3 } from "components/Typography";
 import useMuiTable from "hooks/useMuiTable";
 import useMuiTableSearch from "hooks/useMuiTableSearch";
+import useModal from "@/hooks/useModal";
 import DegreeRow from "@/page-setions/admin/degree/DegreeRow";
 import DegreeModal from "@/page-setions/admin/degree/DegreeModal";
 
@@ -27,7 +28,6 @@ const tableHeading = [
 ];
 
 const Degree = () => {
-  const [openModal, setOpenModal] = useState(false);
   const degrees = [
     {
       id: "1",
@@ -42,6 +42,7 @@ const Degree = () => {
       name: "TEST",
     },
   ];
+  const { modal, setModal, mode, setMode, data, setData } = useModal();
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
     "name",
@@ -61,6 +62,10 @@ const Degree = () => {
   useEffect(() => {
     setInitialData(degrees);
   }, []);
+  const handleOnCreate = () => {
+    setMode("CREATE");
+    setModal(true);
+  };
 
   return (
     <>
@@ -71,7 +76,7 @@ const Degree = () => {
           handleSearch={handleSearchQuery}
           buttonText="Add Degree"
           searchPlaceholder="Search Degree..."
-          handleBtnClick={() => setOpenModal(true)}
+          handleBtnClick={handleOnCreate}
         />
 
         <Card>
@@ -89,7 +94,13 @@ const Degree = () => {
 
                 <TableBody>
                   {filteredList.map((degree) => (
-                    <DegreeRow degree={degree} key={degree.id} />
+                    <DegreeRow
+                      degree={degree}
+                      key={degree.id}
+                      setModal={setModal}
+                      setMode={setMode}
+                      setData={setData}
+                    />
                   ))}
                 </TableBody>
               </Table>
@@ -105,10 +116,10 @@ const Degree = () => {
         </Card>
       </Box>
       <DegreeModal
-        mode="CREATE"
-        open={openModal}
-        close={() => setOpenModal(false)}
-        degree={null}
+        mode={mode}
+        open={modal}
+        close={() => setModal(false)}
+        degree={data}
       />
     </>
   );

@@ -10,10 +10,23 @@ import {
 
 type OperatorRowProps = {
   operator: any;
+  setModal: any;
+  setMode: any;
+  setData: any;
 };
 
-const OperatorRow: FC<OperatorRowProps> = ({ operator }) => {
+const OperatorRow: FC<OperatorRowProps> = ({
+  operator,
+  setModal,
+  setMode,
+  setData,
+}) => {
   const { id, name, email, joinedAt, leftAt, positionsId, hallsId } = operator;
+  const handleOnEdit = () => {
+    setData(operator);
+    setMode("EDIT");
+    setModal(true);
+  };
 
   return (
     <StyledTableRow tabIndex={-1} role="checkbox">
@@ -32,7 +45,7 @@ const OperatorRow: FC<OperatorRowProps> = ({ operator }) => {
       <StyledTableCell align="center">{hallsId}</StyledTableCell>
 
       <StyledTableCell align="center">
-        <StyledIconButton>
+        <StyledIconButton onClick={handleOnEdit}>
           <Edit />
         </StyledIconButton>
 

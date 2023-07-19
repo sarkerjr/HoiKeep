@@ -16,6 +16,7 @@ import Scrollbar from "components/Scrollbar";
 import { H3 } from "components/Typography";
 import useMuiTable from "hooks/useMuiTable";
 import useMuiTableSearch from "hooks/useMuiTableSearch";
+import useModal from "@/hooks/useModal";
 import SeatRow from "@/page-setions/admin/seat/SeatRow";
 import SeatModal from "@/page-setions/admin/seat/SeatModal";
 
@@ -28,7 +29,6 @@ const tableHeading = [
 ];
 
 const Seat = () => {
-  const [openModal, setOpenModal] = useState(false);
   const seats = [
     {
       id: "1",
@@ -46,6 +46,7 @@ const Seat = () => {
       roomsId: "TEST",
     },
   ];
+  const { modal, setModal, mode, setMode, data, setData } = useModal();
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
     "name",
@@ -65,6 +66,10 @@ const Seat = () => {
   useEffect(() => {
     setInitialData(seats);
   }, []);
+  const handleOnCreate = () => {
+    setMode("CREATE");
+    setModal(true);
+  };
 
   return (
     <>
@@ -75,7 +80,7 @@ const Seat = () => {
           handleSearch={handleSearchQuery}
           buttonText="Add Seat"
           searchPlaceholder="Search Seat..."
-          handleBtnClick={() => setOpenModal(true)}
+          handleBtnClick={handleOnCreate}
         />
 
         <Card>
@@ -93,7 +98,13 @@ const Seat = () => {
 
                 <TableBody>
                   {filteredList.map((seat) => (
-                    <SeatRow seat={seat} key={seat.id} />
+                    <SeatRow
+                      seat={seat}
+                      key={seat.id}
+                      setModal={setModal}
+                      setMode={setMode}
+                      setData={setData}
+                    />
                   ))}
                 </TableBody>
               </Table>
@@ -109,10 +120,10 @@ const Seat = () => {
         </Card>
       </Box>
       <SeatModal
-        mode="CREATE"
-        open={openModal}
-        close={() => setOpenModal(false)}
-        seat={null}
+        mode={mode}
+        open={modal}
+        close={() => setModal(false)}
+        seat={data}
       />
     </>
   );
