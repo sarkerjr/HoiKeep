@@ -18,7 +18,7 @@ export const departmentApi = createApi({
 
     createDepartment: builder.mutation<any, Partial<any>>({
       query: (body) => ({
-        url: 'admin/department',
+        url: `admin/department`,
         method: 'POST',
         body: body,
       }),
@@ -27,7 +27,7 @@ export const departmentApi = createApi({
 
     updateDepartment: builder.mutation<any, Partial<any>>({
       query: (body) => ({
-        url: `admin/department/${body.id}`,
+        url: 'admin/department',
         method: 'PUT',
         body: body,
       }),
@@ -36,7 +36,7 @@ export const departmentApi = createApi({
 
     deleteDepartment: builder.mutation<any, Partial<any>>({
       query: (body) => ({
-        url: `admin/department/${body.id}`,
+        url: 'admin/department',
         method: 'DELETE',
         body: body,
       }),

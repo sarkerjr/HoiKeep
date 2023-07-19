@@ -1,12 +1,12 @@
-import { FC } from "react";
-import { Delete, Edit } from "@mui/icons-material";
+import { FC } from 'react';
+import { Delete, Edit } from '@mui/icons-material';
 
 // project imports
 import {
   StyledTableRow,
   StyledIconButton,
   StyledTableCell,
-} from "components/data-table/StyledComponents";
+} from 'components/data-table/StyledComponents';
 
 type StaffRowProps = {
   staff: any;
@@ -19,7 +19,7 @@ const StaffRow: FC<StaffRowProps> = ({ staff, setModal, setMode, setData }) => {
   const { id, name, email, joinedAt, leftAt, positionsId, hallsId } = staff;
   const handleOnEdit = () => {
     setData(staff);
-    setMode("EDIT");
+    setMode('UPDATE');
     setModal(true);
   };
 

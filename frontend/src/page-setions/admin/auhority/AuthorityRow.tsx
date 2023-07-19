@@ -1,12 +1,12 @@
-import { FC } from "react";
-import { Delete, Edit } from "@mui/icons-material";
+import { FC } from 'react';
+import { Delete, Edit } from '@mui/icons-material';
 
 // project imports
 import {
   StyledTableRow,
   StyledIconButton,
   StyledTableCell,
-} from "components/data-table/StyledComponents";
+} from 'components/data-table/StyledComponents';
 
 type AuthorityRowProps = {
   authority: any;
@@ -34,7 +34,7 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
   } = authority;
   const handleOnEdit = () => {
     setData(authority);
-    setMode("EDIT");
+    setMode('UPDATE');
     setModal(true);
   };
 

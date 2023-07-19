@@ -1,12 +1,12 @@
-import { FC } from "react";
-import { Delete, Edit } from "@mui/icons-material";
+import { FC } from 'react';
+import { Delete, Edit } from '@mui/icons-material';
 
 // project imports
 import {
   StyledTableRow,
   StyledIconButton,
   StyledTableCell,
-} from "components/data-table/StyledComponents";
+} from 'components/data-table/StyledComponents';
 
 type OperatorRowProps = {
   operator: any;
@@ -24,7 +24,7 @@ const OperatorRow: FC<OperatorRowProps> = ({
   const { id, name, email, joinedAt, leftAt, positionsId, hallsId } = operator;
   const handleOnEdit = () => {
     setData(operator);
-    setMode("EDIT");
+    setMode('UPDATE');
     setModal(true);
   };
 
