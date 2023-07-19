@@ -5,11 +5,15 @@ import {
 } from 'react-redux';
 
 import rootReducer from './reducer';
+import middlewares from './middlewares';
 
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false, immutableCheck: false }),
+    getDefaultMiddleware({
+      serializableCheck: false,
+      immutableCheck: false,
+    }).concat(middlewares),
 });
 
 const { dispatch } = store;
