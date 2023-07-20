@@ -19,6 +19,7 @@ import useMuiTableSearch from "hooks/useMuiTableSearch";
 import useModal from "@/hooks/useModal";
 import AuthorityRow from "@/page-setions/admin/auhority/AuthorityRow";
 import AuthorityModal from "@/page-setions/admin/auhority/AuthorityModal";
+import { useReadAuthoritiesQuery } from "@/store/services/authority.services";
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
@@ -35,44 +36,18 @@ const tableHeading = [
 ];
 
 const Authority = () => {
-  const authorities = [
-    {
-      id: "1",
-      name: "Department 1",
-      email: "TEST",
-      designation: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-      department: "",
-    },
-    {
-      id: "2",
-      name: "Department 2",
-      email: "TEST",
-      designation: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-      department: "",
-    },
-    {
-      id: "3",
-      name: "Department 3",
-      email: "TEST",
-      designation: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-      department: "",
-    },
-  ];
+  const { data: authorities } = useReadAuthoritiesQuery();
+
   const { modal, setModal, mode, setMode, data, setData } = useModal();
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
     "name",
+    "email",
+    "designation",
+    "joinedAt",
+    "leftAt",
+    "position",
+    "hall",
+    "department",
   ]);
 
   const {
@@ -87,8 +62,13 @@ const Authority = () => {
   });
 
   useEffect(() => {
-    setInitialData(authorities);
-  }, []);
+    const newAuthorities = authorities?.map((authority, index) => ({
+      ...authority,
+      sl: index + 1,
+    }));
+    setInitialData(newAuthorities);
+  }, [authorities]);
+
   const handleOnCreate = () => {
     setMode("CREATE");
     setModal(true);

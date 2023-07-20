@@ -22,7 +22,7 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
   setData,
 }) => {
   const {
-    id,
+    sl,
     name,
     email,
     designation,
@@ -40,7 +40,7 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
 
   return (
     <StyledTableRow tabIndex={-1} role="checkbox">
-      <StyledTableCell align="center">#{id}</StyledTableCell>
+      <StyledTableCell align="center">#{sl}</StyledTableCell>
 
       <StyledTableCell align="center">{name}</StyledTableCell>
 
