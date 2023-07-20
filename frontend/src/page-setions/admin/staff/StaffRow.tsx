@@ -16,7 +16,7 @@ type StaffRowProps = {
 };
 
 const StaffRow: FC<StaffRowProps> = ({ staff, setModal, setMode, setData }) => {
-  const { id, name, email, joinedAt, leftAt, positionsId, hallsId } = staff;
+  const { sl, name, email, joinedAt, leftAt, positionsId, hallsId } = staff;
   const handleOnEdit = () => {
     setData(staff);
     setMode("EDIT");
@@ -25,7 +25,7 @@ const StaffRow: FC<StaffRowProps> = ({ staff, setModal, setMode, setData }) => {
 
   return (
     <StyledTableRow tabIndex={-1} role="checkbox">
-      <StyledTableCell align="center">#{id}</StyledTableCell>
+      <StyledTableCell align="center">#{sl}</StyledTableCell>
 
       <StyledTableCell align="center">{name}</StyledTableCell>
 
