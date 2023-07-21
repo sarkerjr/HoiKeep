@@ -140,8 +140,8 @@ export const remove = async (id: string) => {
         id,
       },
     })
-    .then((notice) => {
-      return notice;
+    .then((authority) => {
+      return authority;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;
