@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import { Button, Grid, TextField } from "@mui/material";
+import { useEffect, useState } from 'react';
+import { Button, Grid, TextField } from '@mui/material';
+import DatePicker from '@/components/DatePicker';
 
-import Modal from "@/components/Modal";
+import Modal from '@/components/Modal';
 
 const AuthorityModal = ({
   open,
@@ -14,38 +15,49 @@ const AuthorityModal = ({
   authority: any;
   mode: string;
 }) => {
-  const [name, setName] = useState(authority?.name ? authority.name : "");
-  const [email, setEmail] = useState(authority?.email ? authority.email : "");
+  const [name, setName] = useState(
+    authority?.authorityDetails?.name ? authority.authorityDetails?.name : ''
+  );
+  const [email, setEmail] = useState(
+    authority?.authorityDetails?.email ? authority.authorityDetails?.email : ''
+  );
   const [designation, setDesignation] = useState(
-    authority?.designation ? authority.designation : ""
+    authority?.authorityDetails?.designation
+      ? authority.authorityDetails?.designation
+      : ''
   );
   const [joinedAt, setJoinedAt] = useState(
-    authority?.joinedAt ? authority.joinedAt : ""
+    authority?.authorityDetails?.joinedAt
+      ? authority.authorityDetails?.joinedAt
+      : ''
   );
   const [leftAt, setLeftAt] = useState(
-    authority?.leftAt ? authority.leftAt : ""
+    authority?.authorityDetails?.leftAt
+      ? authority.authorityDetails?.leftAt
+      : ''
   );
   const [position, setPosition] = useState(
-    authority?.position ? authority.position : ""
+    authority?.position ? authority.position : ''
   );
-  const [hall, setHall] = useState(authority?.hall ? authority.hall : "");
+  const [hall, setHall] = useState(authority?.hall ? authority.hall : '');
   const [department, setDepartment] = useState(
-    authority?.department ? authority.department : ""
+    authority?.department ? authority.department : ''
   );
+
   useEffect(() => {
-    setName(authority?.name ? authority.name : "");
-    setEmail(authority?.email ? authority.email : "");
-    setDesignation(authority?.designation ? authority.designation : "");
-    setJoinedAt(authority?.joinedAt ? authority.joinedAt : "");
-    setLeftAt(authority?.leftAt ? authority.leftAt : "");
-    setPosition(authority?.position ? authority.position : "");
-    setHall(authority?.hall ? authority.hall : "");
-    setDepartment(authority?.department ? authority.department : "");
+    setName(authority?.name ? authority.name : '');
+    setEmail(authority?.email ? authority.email : '');
+    setDesignation(authority?.designation ? authority.designation : '');
+    setJoinedAt(authority?.joinedAt ? authority.joinedAt : '');
+    setLeftAt(authority?.leftAt ? authority.leftAt : '');
+    setPosition(authority?.position ? authority.position : '');
+    setHall(authority?.hall ? authority.hall : '');
+    setDepartment(authority?.department ? authority.department : '');
   }, [authority]);
 
   return (
     <Modal
-      title={mode === "CREATE" ? "Add New Authority" : "Edit Authority"}
+      title={mode === 'CREATE' ? 'Add New Authority' : 'Edit Authority'}
       open={open}
       close={close}
     >
@@ -75,19 +87,19 @@ const AuthorityModal = ({
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
+          <DatePicker
+            sx={{ width: '100%' }}
             label="Joined At"
             value={joinedAt}
-            onChange={(e) => setJoinedAt(e.target.value)}
-            fullWidth
+            onChange={(value: Date) => setJoinedAt(value)}
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
+          <DatePicker
+            sx={{ width: '100%' }}
             label="Left At"
             value={leftAt}
-            onChange={(e) => setLeftAt(e.target.value)}
-            fullWidth
+            onChange={(value: Date) => setLeftAt(value)}
           />
         </Grid>
         <Grid item xs={12}>
