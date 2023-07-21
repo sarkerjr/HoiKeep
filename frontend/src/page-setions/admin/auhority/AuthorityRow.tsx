@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Delete, Edit } from '@mui/icons-material';
+import { generalFormat } from '@/utils/dayjs';
 
 // project imports
 import {
@@ -22,15 +23,11 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
   setData,
 }) => {
   const {
-    id,
-    name,
-    email,
-    designation,
-    joinedAt,
-    leftAt,
+    sl,
     positionsId,
     hallsId,
     departmentsId,
+    authorityDetails: { name, email, designation, joinedAt, leftAt },
   } = authority;
   const handleOnEdit = () => {
     setData(authority);
@@ -40,7 +37,7 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
 
   return (
     <StyledTableRow tabIndex={-1} role="checkbox">
-      <StyledTableCell align="center">#{id}</StyledTableCell>
+      <StyledTableCell align="center">#{sl}</StyledTableCell>
 
       <StyledTableCell align="center">{name}</StyledTableCell>
 
@@ -48,9 +45,13 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
 
       <StyledTableCell align="center">{designation}</StyledTableCell>
 
-      <StyledTableCell align="center">{joinedAt}</StyledTableCell>
+      <StyledTableCell align="center">
+        {joinedAt ? generalFormat(joinedAt) : 'N/A'}
+      </StyledTableCell>
 
-      <StyledTableCell align="center">{leftAt}</StyledTableCell>
+      <StyledTableCell align="center">
+        {leftAt ? generalFormat(leftAt) : 'N/A'}
+      </StyledTableCell>
 
       <StyledTableCell align="center">{positionsId}</StyledTableCell>
 

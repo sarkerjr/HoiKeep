@@ -21,7 +21,7 @@ const OperatorRow: FC<OperatorRowProps> = ({
   setMode,
   setData,
 }) => {
-  const { id, name, email, joinedAt, leftAt, positionsId, hallsId } = operator;
+  const { sl, name, email, joinedAt, leftAt, positionsId, hallsId } = operator;
   const handleOnEdit = () => {
     setData(operator);
     setMode('UPDATE');
@@ -30,7 +30,7 @@ const OperatorRow: FC<OperatorRowProps> = ({
 
   return (
     <StyledTableRow tabIndex={-1} role="checkbox">
-      <StyledTableCell align="center">#{id}</StyledTableCell>
+      <StyledTableCell align="center">#{sl}</StyledTableCell>
 
       <StyledTableCell align="center">{name}</StyledTableCell>
 

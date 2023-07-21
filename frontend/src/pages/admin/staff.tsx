@@ -19,6 +19,7 @@ import useMuiTableSearch from "hooks/useMuiTableSearch";
 import useModal from "@/hooks/useModal";
 import StaffRow from "@/page-setions/admin/staff/StaffRow";
 import StaffModal from "@/page-setions/admin/staff/StaffModal";
+import { useReadStaffsQuery } from "@/store/services/staff.services";
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
@@ -33,39 +34,17 @@ const tableHeading = [
 ];
 
 const Staff = () => {
-  const staffs = [
-    {
-      id: "1",
-      name: "Department 1",
-      email: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-    },
-    {
-      id: "2",
-      name: "Department 2",
-      email: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-    },
-    {
-      id: "3",
-      name: "Department 3",
-      email: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-    },
-  ];
+  const { data: staffs } = useReadStaffsQuery();
+
   const { modal, setModal, mode, setMode, data, setData } = useModal();
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
     "name",
+    "email",
+    "joinedAt",
+    "leftAt",
+    "position",
+    "hall",
   ]);
 
   const {
@@ -80,8 +59,12 @@ const Staff = () => {
   });
 
   useEffect(() => {
-    setInitialData(staffs);
-  }, []);
+    const newStaffs = staffs?.map((staff, index) => ({
+      ...staff,
+      sl: index + 1,
+    }));
+    setInitialData(newStaffs);
+  }, [staffs]);
   const handleOnCreate = () => {
     setMode("CREATE");
     setModal(true);

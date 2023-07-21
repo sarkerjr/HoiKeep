@@ -19,6 +19,7 @@ import useMuiTableSearch from "hooks/useMuiTableSearch";
 import useModal from "@/hooks/useModal";
 import OperatorRow from "@/page-setions/admin/operator/OperatorRow";
 import OperatorModal from "@/page-setions/admin/operator/OperatorModal";
+import { useReadOperatorsQuery } from "@/store/services/operator.services";
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
@@ -33,39 +34,17 @@ const tableHeading = [
 ];
 
 const Operator = () => {
-  const operators = [
-    {
-      id: "1",
-      name: "Department 1",
-      email: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-    },
-    {
-      id: "2",
-      name: "Department 2",
-      email: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-    },
-    {
-      id: "3",
-      name: "Department 3",
-      email: "TEST",
-      joinedAt: "",
-      leftAt: "",
-      position: "",
-      hall: "",
-    },
-  ];
+  const { data: operators } = useReadOperatorsQuery();
+
   const { modal, setModal, mode, setMode, data, setData } = useModal();
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
     "name",
+    "email",
+    "joinedAt",
+    "leftAt",
+    "position",
+    "hall",
   ]);
 
   const {
@@ -80,8 +59,12 @@ const Operator = () => {
   });
 
   useEffect(() => {
-    setInitialData(operators);
-  }, []);
+    const newOperators = operators?.map((operator, index) => ({
+      ...operator,
+      sl: index + 1,
+    }));
+    setInitialData(newOperators);
+  }, [operators]);
   const handleOnCreate = () => {
     setMode("CREATE");
     setModal(true);

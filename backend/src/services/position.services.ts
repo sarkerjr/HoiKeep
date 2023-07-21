@@ -1,17 +1,16 @@
-import { Gender } from '@prisma/client';
 import { Prisma, prisma } from '@/utils/prisma';
+import { PositionCategory } from '@prisma/client';
 
-export const create = async (name: string, nameTag: string, type: Gender) => {
-  return await prisma.halls
+export const create = async (name: string, category: PositionCategory) => {
+  return await prisma.positions
     .create({
       data: {
         name,
-        nameTag,
-        type,
+        category,
       },
     })
-    .then((hall) => {
-      return hall;
+    .then((position) => {
+      return position;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;
@@ -19,17 +18,16 @@ export const create = async (name: string, nameTag: string, type: Gender) => {
 };
 
 export const get = async () => {
-  return await prisma.halls
+  return await prisma.positions
     .findMany({
       select: {
         id: true,
         name: true,
-        nameTag: true,
-        type: true,
+        category: true,
       },
     })
-    .then((halls) => {
-      return halls;
+    .then((positions) => {
+      return positions;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;
@@ -37,7 +35,7 @@ export const get = async () => {
 };
 
 export const getById = async (id: string) => {
-  return await prisma.halls
+  return await prisma.positions
     .findUnique({
       where: {
         id,
@@ -45,12 +43,11 @@ export const getById = async (id: string) => {
       select: {
         id: true,
         name: true,
-        nameTag: true,
-        type: true,
+        category: true,
       },
     })
-    .then((hall) => {
-      return hall;
+    .then((position) => {
+      return position;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;
@@ -60,22 +57,35 @@ export const getById = async (id: string) => {
 export const update = async (
   id: string,
   name: string,
-  nameTag: string,
-  type: Gender
+  category: PositionCategory
 ) => {
-  return await prisma.halls
+  return await prisma.positions
     .update({
       where: {
-        id: id,
+        id,
       },
       data: {
-        name: name,
-        nameTag: nameTag,
-        type: type,
+        name,
+        category,
       },
     })
-    .then((hall) => {
-      return hall;
+    .then((position) => {
+      return position;
+    })
+    .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      return error;
+    });
+};
+
+export const remove = async (id: string) => {
+  return await prisma.positions
+    .delete({
+      where: {
+        id,
+      },
+    })
+    .then((position) => {
+      return position;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
       return error;
