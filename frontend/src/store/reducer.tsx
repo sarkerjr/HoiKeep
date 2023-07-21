@@ -10,6 +10,7 @@ import { operatorApi } from "./services/operator.services";
 import { staffApi } from "./services/staff.services";
 import { roomApi } from "./services/room.services";
 import { seatApi } from "./services/seat.services";
+import { degreeApi } from "./services/degree.services";
 
 const reducer = combineReducers({
   layout: layoutSlice,
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   [staffApi.reducerPath]: staffApi.reducer,
   [roomApi.reducerPath]: roomApi.reducer,
   [seatApi.reducerPath]: seatApi.reducer,
+  [degreeApi.reducerPath]: degreeApi.reducer,
 });
 
 export default reducer;

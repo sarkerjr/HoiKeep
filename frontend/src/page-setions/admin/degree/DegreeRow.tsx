@@ -21,7 +21,7 @@ const DegreeRow: FC<DegreeRowProps> = ({
   setMode,
   setData,
 }) => {
-  const { id, name } = degree;
+  const { sl, name } = degree;
   const handleOnEdit = () => {
     setData(degree);
     setMode("EDIT");
@@ -30,7 +30,7 @@ const DegreeRow: FC<DegreeRowProps> = ({
 
   return (
     <StyledTableRow tabIndex={-1} role="checkbox">
-      <StyledTableCell align="center">#{id}</StyledTableCell>
+      <StyledTableCell align="center">#{sl}</StyledTableCell>
 
       <StyledTableCell align="center">{name}</StyledTableCell>
 

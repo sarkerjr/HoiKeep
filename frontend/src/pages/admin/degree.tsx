@@ -19,6 +19,7 @@ import useMuiTableSearch from "hooks/useMuiTableSearch";
 import useModal from "@/hooks/useModal";
 import DegreeRow from "@/page-setions/admin/degree/DegreeRow";
 import DegreeModal from "@/page-setions/admin/degree/DegreeModal";
+import { useReadDegreesQuery } from "@/store/services/degree.services";
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
@@ -28,20 +29,7 @@ const tableHeading = [
 ];
 
 const Degree = () => {
-  const degrees = [
-    {
-      id: "1",
-      name: "TEST",
-    },
-    {
-      id: "2",
-      name: "TEST",
-    },
-    {
-      id: "3",
-      name: "TEST",
-    },
-  ];
+  const { data: degrees } = useReadDegreesQuery();
   const { modal, setModal, mode, setMode, data, setData } = useModal();
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
@@ -60,8 +48,13 @@ const Degree = () => {
   });
 
   useEffect(() => {
-    setInitialData(degrees);
-  }, []);
+    const newDegrees = degrees?.map((degree, index) => ({
+      ...degree,
+      sl: index + 1,
+    }));
+    setInitialData(newDegrees);
+  }, [degrees]);
+
   const handleOnCreate = () => {
     setMode("CREATE");
     setModal(true);
