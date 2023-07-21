@@ -36,6 +36,27 @@ export const get = async () => {
     });
 };
 
+export const getById = async (id: string) => {
+  return await prisma.halls
+    .findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        name: true,
+        nameTag: true,
+        type: true,
+      },
+    })
+    .then((hall) => {
+      return hall;
+    })
+    .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      return error;
+    });
+};
+
 export const update = async (
   id: string,
   name: string,

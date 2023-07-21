@@ -33,6 +33,26 @@ export const get = async () => {
     });
 };
 
+export const getById = async (id: string) => {
+  return await prisma.departments
+    .findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        name: true,
+        nameTag: true,
+      },
+    })
+    .then((department) => {
+      return department;
+    })
+    .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      return error;
+    });
+};
+
 export const update = async (id: string, name: string, nameTag: string) => {
   return await prisma.departments
     .update({
