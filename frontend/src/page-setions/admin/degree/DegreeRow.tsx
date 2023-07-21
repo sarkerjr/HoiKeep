@@ -1,12 +1,12 @@
-import { FC } from "react";
-import { Delete, Edit } from "@mui/icons-material";
+import { FC } from 'react';
+import { Delete, Edit } from '@mui/icons-material';
 
 // project imports
 import {
   StyledTableRow,
   StyledIconButton,
   StyledTableCell,
-} from "components/data-table/StyledComponents";
+} from 'components/data-table/StyledComponents';
 
 type DegreeRowProps = {
   degree: any;
@@ -24,7 +24,7 @@ const DegreeRow: FC<DegreeRowProps> = ({
   const { id, name } = degree;
   const handleOnEdit = () => {
     setData(degree);
-    setMode("EDIT");
+    setMode('UPDATE');
     setModal(true);
   };
 

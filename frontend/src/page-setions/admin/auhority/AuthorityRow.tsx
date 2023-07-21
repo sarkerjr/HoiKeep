@@ -31,7 +31,7 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
   } = authority;
   const handleOnEdit = () => {
     setData(authority);
-    setMode('EDIT');
+    setMode('UPDATE');
     setModal(true);
   };
 
