@@ -6,6 +6,9 @@ import {
   update,
   remove,
 } from '@/services/authority.services';
+import { getById as getHallById } from '@/services/hall.services';
+import { getById as getDepartmentById } from '@/services/department.services';
+import { getById as getPositionById } from '@/services/position.services';
 
 export const createAuthority = async (req: Request, res: Response) => {
   const {
