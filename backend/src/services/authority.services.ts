@@ -49,6 +49,8 @@ export const get = async () => {
             name: true,
             email: true,
             designation: true,
+            joinedAt: true,
+            leftAt: true,
           },
         },
       },
