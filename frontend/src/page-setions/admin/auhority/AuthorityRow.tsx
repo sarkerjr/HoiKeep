@@ -32,6 +32,7 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
     hallsId,
     departmentsId,
   } = authority;
+
   const handleOnEdit = () => {
     setData(authority);
     setMode("EDIT");
