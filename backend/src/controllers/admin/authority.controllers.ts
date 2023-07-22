@@ -10,8 +10,43 @@ import {
 // import { getById as getDepartmentById } from '@/services/department.services';
 // import { getById as getPositionById } from '@/services/position.services';
 
+type Authority = {
+  id: string;
+  isActive: boolean;
+  positionsId: string;
+  hallsId: string;
+  departmentsId: string;
+  authorityDetails: {
+    name: string;
+    email: string;
+    joinedAt: Date;
+    leftAt: Date;
+    designationsId: string;
+  };
+};
+
 export const createAuthority = async (req: Request, res: Response) => {
-  const authority = await create(req.body);
+  const {
+    name,
+    email,
+    joinedAt,
+    leftAt,
+    positionsId,
+    hallsId,
+    departmentsId,
+    designationsId,
+  } = req.body;
+
+  const authority = await create({
+    name,
+    email,
+    joinedAt,
+    leftAt,
+    positionsId,
+    hallsId,
+    departmentsId,
+    designationsId,
+  });
 
   if (authority instanceof Error) {
     return res.status(400).json({
@@ -50,7 +85,31 @@ export const getAuthority = async (req: Request, res: Response) => {
 };
 
 export const updateAuthority = async (req: Request, res: Response) => {
-  const authority = await update(req.body);
+  const {
+    id,
+    name,
+    email,
+    joinedAt,
+    leftAt,
+    positionsId,
+    hallsId,
+    departmentsId,
+    designationsId,
+  } = req.body;
+
+  const oldData = await getById(id);
+
+  const authority = await update({
+    id,
+    name,
+    email,
+    joinedAt: joinedAt || oldData?.authorityDetails?.joinedAt,
+    leftAt: leftAt || oldData?.authorityDetails?.leftAt,
+    positionsId,
+    hallsId,
+    departmentsId,
+    designationsId,
+  });
 
   if (authority instanceof Error) {
     return res.status(400).json({ message: 'Something went wrong!' });

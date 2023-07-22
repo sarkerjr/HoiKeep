@@ -21,33 +21,21 @@ const AuthorityModal = ({
   authority: any;
   mode: string;
 }) => {
-  const [name, setName] = useState(
-    authority?.authorityDetails?.name ? authority.authorityDetails.name : ''
-  );
-  const [email, setEmail] = useState(
-    authority?.authorityDetails?.email ? authority.authorityDetails.email : ''
-  );
+  const [name, setName] = useState(authority?.authorityDetails?.name ?? '');
+  const [email, setEmail] = useState(authority?.authorityDetails?.email ?? '');
   const [joinedAt, setJoinedAt] = useState(
-    authority?.authorityDetails?.joinedAt
-      ? authority.authorityDetails.joinedAt
-      : ''
+    authority?.authorityDetails?.joinedAt ?? ''
   );
   const [leftAt, setLeftAt] = useState(
-    authority?.authorityDetails?.leftAt ? authority.authorityDetails.leftAt : ''
+    authority?.authorityDetails?.leftAt ?? ''
   );
   const [designationsId, setDesignationsId] = useState(
-    authority?.authorityDetails?.designation
-      ? authority.authorityDetails.designation
-      : ''
+    authority?.authorityDetails?.designation ?? ''
   );
-  const [positionsId, setPositionsId] = useState(
-    authority?.positionsId ? authority.positionsId : ''
-  );
-  const [hallsId, setHallsId] = useState(
-    authority?.hall ? authority.hallsId : ''
-  );
+  const [positionsId, setPositionsId] = useState(authority?.positionsId ?? '');
+  const [hallsId, setHallsId] = useState(authority?.hall ?? '');
   const [departmentsId, setDepartmentsId] = useState(
-    authority?.departmentsId ? authority.departmentsId : ''
+    authority?.departmentsId ?? ''
   );
 
   // setting alert for CREATE request
@@ -95,30 +83,14 @@ const AuthorityModal = ({
   );
 
   useEffect(() => {
-    setName(
-      authority?.authorityDetails?.name ? authority.authorityDetails.name : ''
-    );
-    setEmail(
-      authority?.authorityDetails?.email ? authority.authorityDetails.email : ''
-    );
-    setJoinedAt(
-      authority?.authorityDetails?.joinedAt
-        ? authority.authorityDetails.joinedAt
-        : ''
-    );
-    setLeftAt(
-      authority?.authorityDetails?.leftAt
-        ? authority.authorityDetails.leftAt
-        : ''
-    );
-    setDesignationsId(
-      authority?.authorityDetails?.designationsId
-        ? authority.authorityDetails.designationsId
-        : ''
-    );
-    setPositionsId(authority?.positionsId ? authority.positionsId : '');
-    setHallsId(authority?.hallsId ? authority.hallsId : '');
-    setDepartmentsId(authority?.departmentsId ? authority.departmentsId : '');
+    setName(authority?.authorityDetails?.name ?? '');
+    setEmail(authority?.authorityDetails?.email ?? '');
+    setJoinedAt(authority?.authorityDetails?.joinedAt ?? '');
+    setLeftAt(authority?.authorityDetails?.leftAt ?? '');
+    setDesignationsId(authority?.authorityDetails?.designationsId ?? '');
+    setPositionsId(authority?.positionsId ?? '');
+    setHallsId(authority?.hallsId ?? '');
+    setDepartmentsId(authority?.departmentsId ?? '');
   }, [authority]);
 
   const handleOnSubmit = () => {
@@ -188,14 +160,14 @@ const AuthorityModal = ({
             onChange={(value: Date) => setJoinedAt(value)}
           />
         </Grid>
-        {/* <Grid item xs={12}>
+        <Grid item xs={12}>
           <DatePicker
             sx={{ width: '100%' }}
             label="Left At"
             value={leftAt}
             onChange={(value: Date) => setLeftAt(value)}
           />
-        </Grid> */}
+        </Grid>
         <Grid item xs={12}>
           <TextField
             label="Position"
