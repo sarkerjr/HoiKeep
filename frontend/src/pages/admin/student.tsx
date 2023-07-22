@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import {
   Box,
   Card,
@@ -17,23 +17,45 @@ import { H3 } from "components/Typography";
 import useMuiTable from "hooks/useMuiTable";
 import useMuiTableSearch from "hooks/useMuiTableSearch";
 import useModal from "@/hooks/useModal";
-import DegreeRow from "@/page-setions/admin/degree/DegreeRow";
-import DegreeModal from "@/page-setions/admin/degree/DegreeModal";
-import { useReadDegreesQuery } from "@/store/services/degree.services";
+import StudentRow from "@/page-setions/admin/student/StudentRow";
+import StudentModal from "@/page-setions/admin/student/StudentModal";
+
+import { useReadStudentsQuery } from "@/store/services/student.services";
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
   { id: "id", label: "ID", align: "center" },
   { id: "name", label: "Name", align: "center" },
+  { id: "email", label: "Email", align: "center" },
+  { id: "studentNo", label: "Student Number", align: "center" },
+  { id: "session", label: "Session", align: "center" },
+  { id: "semester", label: "Semester", align: "center" },
+  { id: "year", label: "Year", align: "center" },
+  { id: "admissionDate", label: "Admission Date", align: "center" },
+  { id: "imageUrl", label: "Image Url", align: "center" },
+  { id: "hallsId", label: "Hall Id", align: "center" },
+  { id: "departmentsId", label: "Department Id", align: "center" },
+  { id: "degreesId", label: "Degree Id", align: "center" },
   { id: "action", label: "Action", align: "center" },
 ];
 
-const Degree = () => {
-  const { data: degrees } = useReadDegreesQuery();
+const Student = () => {
+  const { data: students } = useReadStudentsQuery();
+
   const { modal, setModal, mode, setMode, data, setData } = useModal();
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
     "name",
+    "email",
+    "studentNo",
+    "session",
+    "semester",
+    "year",
+    "admissionDate",
+    "imageUrl",
+    "hallsId",
+    "departmentsId",
+    "degreesId",
   ]);
 
   const {
@@ -48,12 +70,12 @@ const Degree = () => {
   });
 
   useEffect(() => {
-    const newDegrees = degrees?.map((degree, index) => ({
-      ...degree,
+    const newStudents = students?.map((student, index) => ({
+      ...student,
       sl: index + 1,
     }));
-    setInitialData(newDegrees);
-  }, [degrees]);
+    setInitialData(newStudents);
+  }, [students]);
 
   const handleOnCreate = () => {
     setMode("CREATE");
@@ -63,12 +85,12 @@ const Degree = () => {
   return (
     <>
       <Box width="100%">
-        <H3 mb={2}>Degrees</H3>
+        <H3 mb={2}>Students</H3>
 
         <SearchArea
           handleSearch={handleSearchQuery}
-          buttonText="Add Degree"
-          searchPlaceholder="Search Degree..."
+          buttonText="Add Student"
+          searchPlaceholder="Search Student..."
           handleBtnClick={handleOnCreate}
         />
 
@@ -81,15 +103,15 @@ const Degree = () => {
                   hideSelectBtn
                   orderBy={orderBy}
                   heading={tableHeading}
-                  rowCount={degrees?.length}
+                  rowCount={students?.length}
                   onRequestSort={handleRequestSort}
                 />
 
                 <TableBody>
-                  {filteredList.map((degree) => (
-                    <DegreeRow
-                      degree={degree}
-                      key={degree.id}
+                  {filteredList.map((student) => (
+                    <StudentRow
+                      student={student}
+                      key={student.id}
                       setModal={setModal}
                       setMode={setMode}
                       setData={setData}
@@ -103,19 +125,20 @@ const Degree = () => {
           <Stack alignItems="center" my={4}>
             <TablePagination
               onChange={handleChangePage}
-              count={Math.ceil(degrees?.length / rowsPerPage) || 0}
+              count={Math.ceil(students?.length / rowsPerPage) || 0}
             />
           </Stack>
         </Card>
       </Box>
-      <DegreeModal
+
+      <StudentModal
         mode={mode}
         open={modal}
         close={() => setModal(false)}
-        degree={data}
+        student={data}
       />
     </>
   );
 };
 
-export default Degree;
+export default Student;

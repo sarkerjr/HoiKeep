@@ -9,6 +9,7 @@ const Operator = lazy(() => import("@/pages/admin/operator"));
 const Seat = lazy(() => import("@/pages/admin/seat"));
 const Room = lazy(() => import("@/pages/admin/room"));
 const Degree = lazy(() => import("@/pages/admin/degree"));
+const Student = lazy(() => import("@/pages/admin/student"));
 
 const AdminRoutes = {
   path: "/",
@@ -41,6 +42,10 @@ const AdminRoutes = {
     {
       path: "/degree",
       element: <Degree />,
+    },
+    {
+      path: "/student",
+      element: <Student />,
     },
   ],
 };

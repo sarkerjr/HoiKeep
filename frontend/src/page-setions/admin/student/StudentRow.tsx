@@ -1,37 +1,44 @@
-import { FC } from 'react';
-import { Delete, Edit } from '@mui/icons-material';
-import { generalFormat } from '@/utils/dayjs';
+import { FC } from "react";
+import { Delete, Edit } from "@mui/icons-material";
 
 // project imports
 import {
   StyledTableRow,
   StyledIconButton,
   StyledTableCell,
-} from 'components/data-table/StyledComponents';
+} from "components/data-table/StyledComponents";
 
-type AuthorityRowProps = {
-  authority: any;
+type StudentRowProps = {
+  student: any;
   setModal: any;
   setMode: any;
   setData: any;
 };
 
-const AuthorityRow: FC<AuthorityRowProps> = ({
-  authority,
+const StudentRow: FC<StudentRowProps> = ({
+  student,
   setModal,
   setMode,
   setData,
 }) => {
   const {
     sl,
-    positionsId,
+    name,
+    email,
+    studentNo,
+    session,
+    semester,
+    year,
+    admissionDate,
+    imageUrl,
     hallsId,
     departmentsId,
-    authorityDetails: { name, email, designation, joinedAt, leftAt },
-  } = authority;
+    degreesId,
+  } = student;
+
   const handleOnEdit = () => {
-    setData(authority);
-    setMode('UPDATE');
+    setData(student);
+    setMode("EDIT");
     setModal(true);
   };
 
@@ -43,21 +50,23 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
 
       <StyledTableCell align="center">{email}</StyledTableCell>
 
-      <StyledTableCell align="center">{designation}</StyledTableCell>
+      <StyledTableCell align="center">{studentNo}</StyledTableCell>
 
-      <StyledTableCell align="center">
-        {joinedAt ? generalFormat(joinedAt) : 'N/A'}
-      </StyledTableCell>
+      <StyledTableCell align="center">{session}</StyledTableCell>
 
-      <StyledTableCell align="center">
-        {leftAt ? generalFormat(leftAt) : 'N/A'}
-      </StyledTableCell>
+      <StyledTableCell align="center">{semester}</StyledTableCell>
 
-      <StyledTableCell align="center">{positionsId}</StyledTableCell>
+      <StyledTableCell align="center">{year}</StyledTableCell>
+
+      <StyledTableCell align="center">{admissionDate}</StyledTableCell>
+
+      <StyledTableCell align="center">{imageUrl}</StyledTableCell>
 
       <StyledTableCell align="center">{hallsId}</StyledTableCell>
 
       <StyledTableCell align="center">{departmentsId}</StyledTableCell>
+
+      <StyledTableCell align="center">{degreesId}</StyledTableCell>
 
       <StyledTableCell align="center">
         <StyledIconButton onClick={handleOnEdit}>
@@ -72,4 +81,4 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
   );
 };
 
-export default AuthorityRow;
+export default StudentRow;
