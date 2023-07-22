@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from 'react';
 import {
   Box,
   Card,
@@ -6,33 +6,33 @@ import {
   Table,
   TableBody,
   TableContainer,
-} from "@mui/material";
+} from '@mui/material';
 
 // project imports
-import SearchArea from "components/SearchArea";
-import TableHeader from "components/data-table/TableHeader";
-import TablePagination from "components/data-table/TablePagination";
-import Scrollbar from "components/Scrollbar";
-import { H3 } from "components/Typography";
-import useMuiTable from "hooks/useMuiTable";
-import useMuiTableSearch from "hooks/useMuiTableSearch";
-import useModal from "@/hooks/useModal";
-import AuthorityRow from "@/page-setions/admin/auhority/AuthorityRow";
-import AuthorityModal from "@/page-setions/admin/auhority/AuthorityModal";
-import { useReadAuthoritiesQuery } from "@/store/services/authority.services";
+import SearchArea from 'components/SearchArea';
+import TableHeader from 'components/data-table/TableHeader';
+import TablePagination from 'components/data-table/TablePagination';
+import Scrollbar from 'components/Scrollbar';
+import { H3 } from 'components/Typography';
+import useMuiTable from 'hooks/useMuiTable';
+import useMuiTableSearch from 'hooks/useMuiTableSearch';
+import useModal from '@/hooks/useModal';
+import AuthorityRow from '@/page-setions/admin/authority/AuthorityRow';
+import AuthorityModal from '@/page-setions/admin/authority/AuthorityModal';
+import { useReadAuthoritiesQuery } from '@/store/services/authority.services';
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
-  { id: "id", label: "ID", align: "center" },
-  { id: "name", label: "Name", align: "center" },
-  { id: "email", label: "Email", align: "center" },
-  { id: "designation", label: "Designation", align: "center" },
-  { id: "joinedAt", label: "Joined At", align: "center" },
-  { id: "leftAt", label: "Left At", align: "center" },
-  { id: "position", label: "Position", align: "center" },
-  { id: "hall", label: "Hall", align: "center" },
-  { id: "department", label: "Department", align: "center" },
-  { id: "action", label: "Action", align: "center" },
+  { id: 'id', label: 'ID', align: 'center' },
+  { id: 'name', label: 'Name', align: 'center' },
+  { id: 'email', label: 'Email', align: 'center' },
+  { id: 'designation', label: 'Designation', align: 'center' },
+  { id: 'joinedAt', label: 'Joined At', align: 'center' },
+  { id: 'leftAt', label: 'Left At', align: 'center' },
+  { id: 'position', label: 'Position', align: 'center' },
+  { id: 'hall', label: 'Hall', align: 'center' },
+  { id: 'department', label: 'Department', align: 'center' },
+  { id: 'action', label: 'Action', align: 'center' },
 ];
 
 const Authority = () => {
@@ -40,14 +40,11 @@ const Authority = () => {
 
   const { modal, setModal, mode, setMode, data, setData } = useModal();
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
-    "name",
-    "email",
-    "designation",
-    "joinedAt",
-    "leftAt",
-    "position",
-    "hall",
-    "department",
+    'name',
+    'email',
+    'designation',
+    'joinedAt',
+    'leftAt',
   ]);
 
   const {
@@ -70,7 +67,7 @@ const Authority = () => {
   }, [authorities]);
 
   const handleOnCreate = () => {
-    setMode("CREATE");
+    setMode('CREATE');
     setModal(true);
   };
 
