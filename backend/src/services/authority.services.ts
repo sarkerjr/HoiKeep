@@ -1,15 +1,27 @@
 import { Prisma, prisma } from '@/utils/prisma';
 
-export const create = async (
-  name: string,
-  email: string,
-  designation: string,
-  joinedAt: Date,
-  leftAt: Date,
-  positionsId: string,
-  hallsId: string,
-  departmentsId: string
-) => {
+type AuthorityType = {
+  id?: string;
+  name: string;
+  email: string;
+  joinedAt: Date;
+  leftAt: Date;
+  hallsId: string;
+  departmentsId: string;
+  designationsId: string;
+  positionsId: string;
+};
+
+export const create = async ({
+  name,
+  email,
+  joinedAt,
+  leftAt,
+  positionsId,
+  hallsId,
+  departmentsId,
+  designationsId,
+}: AuthorityType) => {
   return await prisma.authorities
     .create({
       data: {
@@ -20,9 +32,9 @@ export const create = async (
           create: {
             name,
             email,
-            designation,
             joinedAt: joinedAt ? new Date(joinedAt) : null,
             leftAt: leftAt ? new Date(leftAt) : null,
+            designationsId,
           },
         },
       },
@@ -31,6 +43,7 @@ export const create = async (
       return authority;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      console.log('🚀 ~ file: authority.services.ts:46 ~ error:', error);
       return error;
     });
 };
@@ -48,9 +61,9 @@ export const get = async () => {
           select: {
             name: true,
             email: true,
-            designation: true,
             joinedAt: true,
             leftAt: true,
+            designationsId: true,
           },
         },
       },
@@ -79,7 +92,6 @@ export const getById = async (id: string) => {
           select: {
             name: true,
             email: true,
-            designation: true,
             joinedAt: true,
             leftAt: true,
           },
@@ -94,17 +106,17 @@ export const getById = async (id: string) => {
     });
 };
 
-export const update = async (
-  id: string,
-  name: string,
-  email: string,
-  designation: string,
-  joinedAt: Date,
-  leftAt: Date,
-  positionsId: string,
-  hallsId: string,
-  departmentsId: string
-) => {
+export const update = async ({
+  id,
+  name,
+  email,
+  joinedAt,
+  leftAt,
+  positionsId,
+  hallsId,
+  departmentsId,
+  designationsId,
+}: AuthorityType) => {
   return await prisma.authorities
     .update({
       where: {
@@ -118,9 +130,9 @@ export const update = async (
           update: {
             name,
             email,
-            designation,
             joinedAt: new Date(joinedAt),
             leftAt: new Date(leftAt),
+            designationsId,
           },
         },
       },

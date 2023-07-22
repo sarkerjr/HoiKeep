@@ -82,7 +82,6 @@ model AuthorityDetails {
   id             String       @id @default(uuid())
   name           String
   email          String       @unique
-  designation    String
   joinedAt       DateTime?
   leftAt         DateTime?
   createdAt      DateTime     @default(now())
