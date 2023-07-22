@@ -1,15 +1,15 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const seatApi = createApi({
-  reducerPath: "seat",
+  reducerPath: 'seat',
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
   }),
-  tagTypes: ["Seats"],
+  tagTypes: ['Seats'],
   endpoints: (builder) => ({
     readSeats: builder.query<any, void>({
-      query: () => "/admin/seat",
-      providesTags: ["Seats"],
+      query: () => '/admin/seat',
+      providesTags: ['Seats'],
     }),
 
     readSeat: builder.query<any, Partial<any>>({
@@ -18,29 +18,29 @@ export const seatApi = createApi({
 
     createSeat: builder.mutation<any, Partial<any>>({
       query: (body) => ({
-        url: "admin/seat",
-        method: "POST",
+        url: 'admin/seat',
+        method: 'POST',
         body: body,
       }),
-      invalidatesTags: ["Seats"],
+      invalidatesTags: ['Seats'],
     }),
 
     updateSeat: builder.mutation<any, Partial<any>>({
       query: (body) => ({
-        url: `admin/seat/${body.id}`,
-        method: "PUT",
+        url: 'admin/seat',
+        method: 'PUT',
         body: body,
       }),
-      invalidatesTags: ["Seats"],
+      invalidatesTags: ['Seats'],
     }),
 
     deleteSeat: builder.mutation<any, Partial<any>>({
       query: (body) => ({
-        url: `admin/seat/${body.id}`,
-        method: "DELETE",
+        url: 'admin/seat',
+        method: 'DELETE',
         body: body,
       }),
-      invalidatesTags: ["Seats"],
+      invalidatesTags: ['Seats'],
     }),
   }),
 });

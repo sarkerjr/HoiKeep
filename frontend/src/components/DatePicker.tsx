@@ -1,10 +1,9 @@
+import dayjs from 'dayjs';
 import {
   LocalizationProvider,
   DatePicker as MuiDatePicker,
 } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-
-import { generalFormat } from '@/utils/dayjs';
 
 const DatePicker = ({ sx, label, value, onChange }) => {
   return (
@@ -12,10 +11,9 @@ const DatePicker = ({ sx, label, value, onChange }) => {
       <MuiDatePicker
         sx={sx}
         label={label}
-        value={value}
+        value={dayjs(value)}
         onChange={(value) => {
-          console.log(generalFormat(value));
-          onChange(generalFormat(value));
+          onChange(value ? dayjs(value) : dayjs());
         }}
       />
     </LocalizationProvider>

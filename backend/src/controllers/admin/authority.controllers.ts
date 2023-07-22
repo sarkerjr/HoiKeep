@@ -6,32 +6,47 @@ import {
   update,
   remove,
 } from '@/services/authority.services';
-import { getById as getHallById } from '@/services/hall.services';
-import { getById as getDepartmentById } from '@/services/department.services';
-import { getById as getPositionById } from '@/services/position.services';
+// import { getById as getHallById } from '@/services/hall.services';
+// import { getById as getDepartmentById } from '@/services/department.services';
+// import { getById as getPositionById } from '@/services/position.services';
+
+type Authority = {
+  id: string;
+  isActive: boolean;
+  positionsId: string;
+  hallsId: string;
+  departmentsId: string;
+  authorityDetails: {
+    name: string;
+    email: string;
+    joinedAt: Date;
+    leftAt: Date;
+    designationsId: string;
+  };
+};
 
 export const createAuthority = async (req: Request, res: Response) => {
   const {
     name,
     email,
-    designation,
     joinedAt,
     leftAt,
     positionsId,
     hallsId,
     departmentsId,
+    designationsId,
   } = req.body;
 
-  const authority = await create(
+  const authority = await create({
     name,
     email,
-    designation,
     joinedAt,
     leftAt,
     positionsId,
     hallsId,
-    departmentsId
-  );
+    departmentsId,
+    designationsId,
+  });
 
   if (authority instanceof Error) {
     return res.status(400).json({
@@ -74,25 +89,27 @@ export const updateAuthority = async (req: Request, res: Response) => {
     id,
     name,
     email,
-    designation,
     joinedAt,
     leftAt,
     positionsId,
     hallsId,
     departmentsId,
+    designationsId,
   } = req.body;
 
-  const authority = await update(
+  const oldData = await getById(id);
+
+  const authority = await update({
     id,
     name,
     email,
-    designation,
-    joinedAt,
-    leftAt,
+    joinedAt: joinedAt || oldData?.authorityDetails?.joinedAt,
+    leftAt: leftAt || oldData?.authorityDetails?.leftAt,
     positionsId,
     hallsId,
-    departmentsId
-  );
+    departmentsId,
+    designationsId,
+  });
 
   if (authority instanceof Error) {
     return res.status(400).json({ message: 'Something went wrong!' });

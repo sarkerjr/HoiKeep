@@ -27,7 +27,7 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
     positionsId,
     hallsId,
     departmentsId,
-    authorityDetails: { name, email, designation, joinedAt, leftAt },
+    authorityDetails: { name, email, joinedAt, leftAt, designationsId },
   } = authority;
   const handleOnEdit = () => {
     setData(authority);
@@ -43,7 +43,7 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
 
       <StyledTableCell align="center">{email}</StyledTableCell>
 
-      <StyledTableCell align="center">{designation}</StyledTableCell>
+      <StyledTableCell align="center">{designationsId}</StyledTableCell>
 
       <StyledTableCell align="center">
         {joinedAt ? generalFormat(joinedAt) : 'N/A'}
