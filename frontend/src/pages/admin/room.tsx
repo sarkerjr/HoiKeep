@@ -19,6 +19,7 @@ import useMuiTableSearch from "hooks/useMuiTableSearch";
 import useModal from "@/hooks/useModal";
 import RoomRow from "@/page-setions/admin/room/RoomRow";
 import RoomModal from "@/page-setions/admin/room/RoomModal";
+import { useReadRoomsQuery } from "@/store/services/room.services";
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
@@ -30,30 +31,13 @@ const tableHeading = [
 ];
 
 const Room = () => {
-  const rooms = [
-    {
-      id: "1",
-      no: "TEST",
-      seatQuantity: "TEST",
-      hallsId: "TEST",
-    },
-    {
-      id: "2",
-      no: "TEST",
-      seatQuantity: "TEST",
-      hallsId: "TEST",
-    },
-    {
-      id: "3",
-      no: "TEST",
-      seatQuantity: "TEST",
-      hallsId: "TEST",
-    },
-  ];
+  const { data: rooms } = useReadRoomsQuery();
   const { modal, setModal, mode, setMode, data, setData } = useModal();
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
     "name",
+    "seatQuantity",
+    "hallsId",
   ]);
 
   const {
@@ -68,8 +52,13 @@ const Room = () => {
   });
 
   useEffect(() => {
-    setInitialData(rooms);
-  }, []);
+    const newRooms = rooms?.map((room, index) => ({
+      ...room,
+      sl: index + 1,
+    }));
+    setInitialData(newRooms);
+  }, [rooms]);
+
   const handleOnCreate = () => {
     setMode("CREATE");
     setModal(true);

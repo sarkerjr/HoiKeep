@@ -19,6 +19,7 @@ import useMuiTableSearch from "hooks/useMuiTableSearch";
 import useModal from "@/hooks/useModal";
 import SeatRow from "@/page-setions/admin/seat/SeatRow";
 import SeatModal from "@/page-setions/admin/seat/SeatModal";
+import { useReadSeatsQuery } from "@/store/services/seat.services";
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
@@ -29,27 +30,12 @@ const tableHeading = [
 ];
 
 const Seat = () => {
-  const seats = [
-    {
-      id: "1",
-      no: "TEST",
-      roomsId: "TEST",
-    },
-    {
-      id: "2",
-      no: "TEST",
-      roomsId: "TEST",
-    },
-    {
-      id: "3",
-      no: "TEST",
-      roomsId: "TEST",
-    },
-  ];
+  const { data: seats } = useReadSeatsQuery();
   const { modal, setModal, mode, setMode, data, setData } = useModal();
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
-    "name",
+    "no",
+    "roomsId",
   ]);
 
   const {
@@ -64,8 +50,12 @@ const Seat = () => {
   });
 
   useEffect(() => {
-    setInitialData(seats);
-  }, []);
+    const newSeats = seats?.map((seat, index) => ({
+      ...seat,
+      sl: index + 1,
+    }));
+    setInitialData(newSeats);
+  }, [seats]);
   const handleOnCreate = () => {
     setMode("CREATE");
     setModal(true);
