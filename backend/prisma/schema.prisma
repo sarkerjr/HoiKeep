@@ -79,17 +79,19 @@ model Authorities {
 }
 
 model AuthorityDetails {
-  id            String      @id @default(uuid())
-  name          String
-  email         String      @unique
-  designation   String
-  joinedAt      DateTime?
-  leftAt        DateTime?
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  authoritiesId String      @unique
+  id             String       @id @default(uuid())
+  name           String
+  email          String       @unique
+  designation    String
+  joinedAt       DateTime?
+  leftAt         DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  authoritiesId  String       @unique
+  designationsId String
   // ------------------------------
-  authorities   Authorities @relation(fields: [authoritiesId], references: [id], onDelete: Cascade)
+  authorities    Authorities  @relation(fields: [authoritiesId], references: [id], onDelete: Cascade)
+  Designations   Designations @relation(fields: [designationsId], references: [id])
 }
 
 model Staffs {
@@ -143,6 +145,15 @@ model OperatorDetails {
   operatorsId String    @unique
   // ------------------------------
   opearators  Operators @relation(fields: [operatorsId], references: [id])
+}
+
+model Designations {
+  id               String             @id @default(uuid())
+  name             String             @unique
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  // ------------------------------
+  authorityDetails AuthorityDetails[]
 }
 
 model Positions {
