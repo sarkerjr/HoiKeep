@@ -1,15 +1,15 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const authorityApi = createApi({
-  reducerPath: "authority",
+  reducerPath: 'authority',
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
   }),
-  tagTypes: ["Authorities"],
+  tagTypes: ['Authorities'],
   endpoints: (builder) => ({
     readAuthorities: builder.query<any, void>({
-      query: () => "/admin/authority",
-      providesTags: ["Authorities"],
+      query: () => '/admin/authority',
+      providesTags: ['Authorities'],
     }),
 
     readAuthority: builder.query<any, Partial<any>>({
@@ -18,29 +18,29 @@ export const authorityApi = createApi({
 
     createAuthority: builder.mutation<any, Partial<any>>({
       query: (body) => ({
-        url: "admin/authority",
-        method: "POST",
+        url: 'admin/authority',
+        method: 'POST',
         body: body,
       }),
-      invalidatesTags: ["Authorities"],
+      invalidatesTags: ['Authorities'],
     }),
 
     updateAuthority: builder.mutation<any, Partial<any>>({
       query: (body) => ({
-        url: `admin/authority/${body.id}`,
-        method: "PUT",
+        url: 'admin/authority',
+        method: 'PUT',
         body: body,
       }),
-      invalidatesTags: ["Authorities"],
+      invalidatesTags: ['Authorities'],
     }),
 
     deleteAuthority: builder.mutation<any, Partial<any>>({
       query: (body) => ({
-        url: `admin/authority/${body.id}`,
-        method: "DELETE",
+        url: 'admin/authority',
+        method: 'DELETE',
         body: body,
       }),
-      invalidatesTags: ["Authorities"],
+      invalidatesTags: ['Authorities'],
     }),
   }),
 });

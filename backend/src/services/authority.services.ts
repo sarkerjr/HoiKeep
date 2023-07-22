@@ -141,6 +141,7 @@ export const update = async ({
       return authority;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      console.log('🚀 ~ file: authority.services.ts:144 ~ error:', error);
       return error;
     });
 };
