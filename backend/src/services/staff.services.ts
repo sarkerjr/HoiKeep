@@ -43,6 +43,8 @@ export const get = async () => {
           select: {
             name: true,
             email: true,
+            joinedAt: true,
+            leftAt: true,
           },
         },
       },

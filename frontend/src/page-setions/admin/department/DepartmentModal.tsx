@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react';
 import { Button, Grid, TextField } from '@mui/material';
 
 import Modal from '@/components/Modal';
+import useAlert from '@/hooks/useAlert';
+import {
+  useCreateDepartmentMutation,
+  useUpdateDepartmentMutation,
+} from '@/store/services/department.services';
 
 const DepartmentModal = ({
   open,
@@ -19,10 +24,62 @@ const DepartmentModal = ({
     department?.nameTag ? department.nameTag : ''
   );
 
+  // for CREATE request
+  const [
+    createDepartment,
+    {
+      data: createData,
+      error: createError,
+      isLoading: createIsLoading,
+      isSuccess: createIsSucess,
+      isError: createIsError,
+      reset: createReset,
+    },
+  ] = useCreateDepartmentMutation();
+
+  useAlert(
+    createData,
+    createError,
+    createIsLoading,
+    createIsSucess,
+    createIsError,
+    createReset
+  );
+
+  // for UPDATE request
+  const [
+    updateDepartment,
+    {
+      data: updateData,
+      error: updateError,
+      isLoading: updateIsLoading,
+      isSuccess: updateIsSucess,
+      isError: updateIsError,
+      reset: updateReset,
+    },
+  ] = useUpdateDepartmentMutation();
+
+  useAlert(
+    updateData,
+    updateError,
+    updateIsLoading,
+    updateIsSucess,
+    updateIsError,
+    updateReset
+  );
+
   useEffect(() => {
     setName(department?.name ? department.name : '');
     setNameTag(department?.nameTag ? department.nameTag : '');
   }, [department]);
+
+  const handleOnSubmit = () => {
+    if (mode === 'CREATE') {
+      createDepartment({ name, nameTag });
+    } else if (mode === 'UPDATE') {
+      updateDepartment({ id: department.id, name, nameTag });
+    }
+  };
 
   return (
     <Modal
@@ -53,9 +110,10 @@ const DepartmentModal = ({
             variant="contained"
             color="primary"
             onClick={() => {
+              handleOnSubmit();
               close();
             }}
-            disabled={true}
+            disabled={mode === 'CREATE' ? createIsLoading : updateIsLoading}
             fullWidth
           >
             {mode}

@@ -25,7 +25,7 @@ const DepartmentRow: FC<DepartmentRowProps> = ({
 
   const handleOnEdit = () => {
     setData(department);
-    setMode('EDIT');
+    setMode('UPDATE');
     setModal(true);
   };
 

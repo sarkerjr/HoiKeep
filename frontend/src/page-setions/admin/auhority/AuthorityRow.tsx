@@ -1,12 +1,13 @@
-import { FC } from "react";
-import { Delete, Edit } from "@mui/icons-material";
+import { FC } from 'react';
+import { Delete, Edit } from '@mui/icons-material';
+import { generalFormat } from '@/utils/dayjs';
 
 // project imports
 import {
   StyledTableRow,
   StyledIconButton,
   StyledTableCell,
-} from "components/data-table/StyledComponents";
+} from 'components/data-table/StyledComponents';
 
 type AuthorityRowProps = {
   authority: any;
@@ -23,19 +24,15 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
 }) => {
   const {
     sl,
-    name,
-    email,
-    designation,
-    joinedAt,
-    leftAt,
     positionsId,
     hallsId,
     departmentsId,
+    authorityDetails: { name, email, designation, joinedAt, leftAt },
   } = authority;
 
   const handleOnEdit = () => {
     setData(authority);
-    setMode("EDIT");
+    setMode('UPDATE');
     setModal(true);
   };
 
@@ -49,9 +46,13 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
 
       <StyledTableCell align="center">{designation}</StyledTableCell>
 
-      <StyledTableCell align="center">{joinedAt}</StyledTableCell>
+      <StyledTableCell align="center">
+        {joinedAt ? generalFormat(joinedAt) : 'N/A'}
+      </StyledTableCell>
 
-      <StyledTableCell align="center">{leftAt}</StyledTableCell>
+      <StyledTableCell align="center">
+        {leftAt ? generalFormat(leftAt) : 'N/A'}
+      </StyledTableCell>
 
       <StyledTableCell align="center">{positionsId}</StyledTableCell>
 
