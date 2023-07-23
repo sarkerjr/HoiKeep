@@ -43,7 +43,6 @@ export const create = async ({
       return authority;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      console.log('🚀 ~ file: authority.services.ts:46 ~ error:', error);
       return error;
     });
 };
@@ -51,19 +50,27 @@ export const create = async ({
 export const get = async () => {
   return await prisma.authorities
     .findMany({
-      select: {
-        id: true,
-        isActive: true,
-        positionsId: true,
-        hallsId: true,
-        departmentsId: true,
+      include: {
         authorityDetails: {
+          include: {
+            designations: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+        positions: {
           select: {
+            id: true,
             name: true,
-            email: true,
-            joinedAt: true,
-            leftAt: true,
-            designationsId: true,
+          },
+        },
+        departments: {
+          select: {
+            id: true,
+            name: true,
           },
         },
       },
@@ -82,18 +89,27 @@ export const getById = async (id: string) => {
       where: {
         id,
       },
-      select: {
-        id: true,
-        isActive: true,
-        positionsId: true,
-        hallsId: true,
-        departmentsId: true,
+      include: {
         authorityDetails: {
+          include: {
+            designations: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+        positions: {
           select: {
+            id: true,
             name: true,
-            email: true,
-            joinedAt: true,
-            leftAt: true,
+          },
+        },
+        departments: {
+          select: {
+            id: true,
+            name: true,
           },
         },
       },
@@ -141,7 +157,6 @@ export const update = async ({
       return authority;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      console.log('🚀 ~ file: authority.services.ts:144 ~ error:', error);
       return error;
     });
 };

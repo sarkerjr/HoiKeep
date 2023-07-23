@@ -24,9 +24,15 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
 }) => {
   const {
     sl,
-    positionsId,
-    departmentsId,
-    authorityDetails: { name, email, joinedAt, leftAt, designationsId },
+    positions: { name: positionName },
+    departments: { name: departmentName },
+    authorityDetails: {
+      name,
+      email,
+      joinedAt,
+      leftAt,
+      designations: { name: designationName },
+    },
   } = authority;
   const handleOnEdit = () => {
     setData(authority);
@@ -42,7 +48,7 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
 
       <StyledTableCell align="center">{email}</StyledTableCell>
 
-      <StyledTableCell align="center">{designationsId}</StyledTableCell>
+      <StyledTableCell align="center">{designationName}</StyledTableCell>
 
       <StyledTableCell align="center">
         {joinedAt ? generalFormat(joinedAt) : 'N/A'}
@@ -52,9 +58,9 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
         {leftAt ? generalFormat(leftAt) : 'N/A'}
       </StyledTableCell>
 
-      <StyledTableCell align="center">{positionsId}</StyledTableCell>
+      <StyledTableCell align="center">{positionName}</StyledTableCell>
 
-      <StyledTableCell align="center">{departmentsId}</StyledTableCell>
+      <StyledTableCell align="center">{departmentName}</StyledTableCell>
 
       <StyledTableCell align="center">
         <StyledIconButton onClick={handleOnEdit}>

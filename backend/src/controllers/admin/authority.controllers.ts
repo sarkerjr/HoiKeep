@@ -97,7 +97,7 @@ export const updateAuthority = async (req: Request, res: Response) => {
     designationsId,
   } = req.body;
 
-  const oldData = await getById(id);
+  const oldData: any = await getById(id);
 
   const authority = await update({
     id,

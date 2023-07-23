@@ -3,17 +3,10 @@ import {
   Container,
   Box,
   Drawer as MuiDrawer,
-  List,
   Divider,
   IconButton,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
 } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 
 // project imports
 import MenuList from './MenuList';

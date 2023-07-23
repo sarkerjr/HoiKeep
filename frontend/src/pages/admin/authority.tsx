@@ -44,6 +44,8 @@ const Authority = () => {
     'designation',
     'joinedAt',
     'leftAt',
+    'position',
+    'department',
   ]);
 
   const {
