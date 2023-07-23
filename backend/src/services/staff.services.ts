@@ -1,13 +1,23 @@
 import { Prisma, prisma } from '@/utils/prisma';
 
-export const create = async (
-  name: string,
-  email: string,
-  joinedAt: Date,
-  leftAt: Date,
-  positionsId: string,
-  hallsId: string
-) => {
+type StaffType = {
+  id?: string;
+  name: string;
+  email: string;
+  joinedAt: Date;
+  leftAt: Date;
+  positionsId: string;
+  hallsId: string;
+};
+
+export const create = async ({
+  name,
+  email,
+  joinedAt,
+  leftAt,
+  positionsId,
+  hallsId,
+}: StaffType) => {
   return await prisma.staffs
     .create({
       data: {
@@ -86,15 +96,15 @@ export const getById = async (id: string) => {
     });
 };
 
-export const update = async (
-  id: string,
-  name: string,
-  email: string,
-  joinedAt: Date,
-  leftAt: Date,
-  positionsId: string,
-  hallsId: string
-) => {
+export const update = async ({
+  id,
+  name,
+  email,
+  joinedAt,
+  leftAt,
+  positionsId,
+  hallsId,
+}: StaffType) => {
   return await prisma.staffs
     .update({
       where: {

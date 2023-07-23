@@ -10,14 +10,14 @@ import {
 export const createStaff = async (req: Request, res: Response) => {
   const { name, email, joinedAt, leftAt, positionsId, hallsId } = req.body;
 
-  const staff = await create(
+  const staff = await create({
     name,
     email,
     joinedAt,
     leftAt,
     positionsId,
-    hallsId
-  );
+    hallsId,
+  });
 
   if (staff instanceof Error) {
     return res.status(400).json({
@@ -58,15 +58,17 @@ export const getStaff = async (req: Request, res: Response) => {
 export const updateStaff = async (req: Request, res: Response) => {
   const { id, name, email, joinedAt, leftAt, positionsId, hallsId } = req.body;
 
-  const staff = await update(
+  const oldData: any = await getById(id);
+
+  const staff = await update({
     id,
     name,
     email,
-    joinedAt,
-    leftAt,
+    joinedAt: joinedAt || oldData?.staffDetails?.joinedAt,
+    leftAt: leftAt || oldData?.staffDetails?.leftAt,
     positionsId,
-    hallsId
-  );
+    hallsId,
+  });
 
   if (staff instanceof Error) {
     return res.status(400).json({ message: 'Something went wrong!' });

@@ -4,13 +4,15 @@ import { Box, Divider } from '@mui/material/';
 import List from './List';
 
 // lists
+import GeneralList from './GeneralList';
 import ModeratorList from './ModeratorList';
 
 const MenuList = () => {
   return (
     <Box sx={{ overflow: 'auto' }}>
-      <List itemlist={ModeratorList} />
+      <List itemlist={GeneralList} />
       <Divider />
+      <List itemlist={ModeratorList} />
     </Box>
   );
 };

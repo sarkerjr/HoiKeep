@@ -41,11 +41,13 @@ const AuthorityModal = ({
     authority?.authorityDetails?.leftAt ?? ''
   );
   const [designationsId, setDesignationsId] = useState(
-    authority?.authorityDetails?.designation ?? ''
+    authority?.authorityDetails?.designations?.id ?? ''
   );
-  const [positionsId, setPositionsId] = useState(authority?.positionsId ?? '');
+  const [positionsId, setPositionsId] = useState(
+    authority?.positions?.id ?? ''
+  );
   const [departmentsId, setDepartmentsId] = useState(
-    authority?.departmentsId ?? ''
+    authority?.departments?.id ?? ''
   );
 
   const { data: departments } = useReadDepartmentsQuery();
@@ -101,8 +103,9 @@ const AuthorityModal = ({
     setEmail(authority?.authorityDetails?.email ?? '');
     setJoinedAt(authority?.authorityDetails?.joinedAt ?? '');
     setLeftAt(authority?.authorityDetails?.leftAt ?? '');
-    setDesignationsId(authority?.authorityDetails?.designationsId ?? '');
-    setPositionsId(authority?.positionsId ?? '');
+    setDesignationsId(authority?.authorityDetails?.designations?.id ?? '');
+    setPositionsId(authority?.positions?.id ?? '');
+    setDepartmentsId(authority?.departments?.id ?? '');
   }, [authority]);
 
   const handleOnSubmit = () => {
