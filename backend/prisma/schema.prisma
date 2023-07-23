@@ -22,9 +22,9 @@ model Halls {
   authorities Authorities[]
   staffs      Staffs[]
   operators   Operators[]
-  Students    Students[]
-  Notices     Notices[]
-  Rooms       Rooms[]
+  students    Students[]
+  notices     Notices[]
+  rooms       Rooms[]
 }
 
 model Departments {
@@ -35,7 +35,7 @@ model Departments {
   updatedAt   DateTime      @updatedAt
   // ------------------------------
   authorities Authorities[]
-  Students    Students[]
+  students    Students[]
 }
 
 model Notices {
@@ -49,10 +49,10 @@ model Notices {
   staffsId      String?
   authoritiesId String?
   // ------------------------------
-  NoticeFiles   NoticeFiles[]
+  noticeFiles   NoticeFiles[]
   halls         Halls         @relation(fields: [hallsId], references: [id])
-  Staffs        Staffs?       @relation(fields: [staffsId], references: [id])
-  Authorities   Authorities?  @relation(fields: [authoritiesId], references: [id])
+  staffs        Staffs?       @relation(fields: [staffsId], references: [id])
+  authorities   Authorities?  @relation(fields: [authoritiesId], references: [id])
 }
 
 model NoticeFiles {
@@ -74,7 +74,7 @@ model Authorities {
   authorityDetails AuthorityDetails?
   halls            Halls?            @relation(fields: [hallsId], references: [id])
   departments      Departments?      @relation(fields: [departmentsId], references: [id])
-  Position         Positions         @relation(fields: [positionsId], references: [id])
+  positions        Positions         @relation(fields: [positionsId], references: [id])
   notices          Notices[]
 }
 
@@ -90,7 +90,7 @@ model AuthorityDetails {
   designationsId String
   // ------------------------------
   authorities    Authorities  @relation(fields: [authoritiesId], references: [id], onDelete: Cascade)
-  Designations   Designations @relation(fields: [designationsId], references: [id])
+  designations   Designations @relation(fields: [designationsId], references: [id])
 }
 
 model Staffs {
@@ -103,7 +103,7 @@ model Staffs {
   // ------------------------------
   staffDetails StaffDetails?
   halls        Halls?        @relation(fields: [hallsId], references: [id])
-  Positions    Positions     @relation(fields: [positionsId], references: [id])
+  positions    Positions     @relation(fields: [positionsId], references: [id])
   notices      Notices[]
 }
 
@@ -130,7 +130,7 @@ model Operators {
   // ------------------------------
   operatorDetails OperatorDetails?
   halls           Halls?           @relation(fields: [hallsId], references: [id])
-  Positions       Positions        @relation(fields: [positionsId], references: [id])
+  positions       Positions        @relation(fields: [positionsId], references: [id])
 }
 
 model OperatorDetails {
@@ -162,9 +162,9 @@ model Positions {
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
   // ------------------------------
-  Authorities Authorities[]
-  Staffs      Staffs[]
-  Operators   Operators[]
+  authorities Authorities[]
+  staffs      Staffs[]
+  operators   Operators[]
 }
 
 model Students {
