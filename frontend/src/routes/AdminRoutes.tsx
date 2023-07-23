@@ -1,50 +1,51 @@
-import { lazy } from "react";
+import { lazy } from 'react';
+import Loadable from '@/components/Loadable';
 
 // project imports
-import Layout from "@/layout";
-const Department = lazy(() => import("@/pages/admin/department"));
-const Authority = lazy(() => import("@/pages/admin/authority"));
-const Staff = lazy(() => import("@/pages/admin/staff"));
-const Operator = lazy(() => import("@/pages/admin/operator"));
-const Seat = lazy(() => import("@/pages/admin/seat"));
-const Room = lazy(() => import("@/pages/admin/room"));
-const Degree = lazy(() => import("@/pages/admin/degree"));
-const Student = lazy(() => import("@/pages/admin/student"));
+import Layout from '@/layout';
+const Department = Loadable(lazy(() => import('@/pages/admin/department')));
+const Authority = Loadable(lazy(() => import('@/pages/admin/authority')));
+const Staff = Loadable(lazy(() => import('@/pages/admin/staff')));
+const Operator = Loadable(lazy(() => import('@/pages/admin/operator')));
+const Seat = Loadable(lazy(() => import('@/pages/admin/seat')));
+const Room = Loadable(lazy(() => import('@/pages/admin/room')));
+const Degree = Loadable(lazy(() => import('@/pages/admin/degree')));
+const Student = Loadable(lazy(() => import('@/pages/admin/student')));
 
 const AdminRoutes = {
-  path: "/",
+  path: '/',
   element: <Layout />,
   children: [
     {
-      path: "/department",
+      path: '/department',
       element: <Department />,
     },
     {
-      path: "/authority",
+      path: '/authority',
       element: <Authority />,
     },
     {
-      path: "/staff",
+      path: '/staff',
       element: <Staff />,
     },
     {
-      path: "/operator",
+      path: '/operator',
       element: <Operator />,
     },
     {
-      path: "/seat",
+      path: '/seat',
       element: <Seat />,
     },
     {
-      path: "/room",
+      path: '/room',
       element: <Room />,
     },
     {
-      path: "/degree",
+      path: '/degree',
       element: <Degree />,
     },
     {
-      path: "/student",
+      path: '/student',
       element: <Student />,
     },
   ],
