@@ -3,19 +3,20 @@ function removeSpecialChars(str: string) {
 }
 
 export function hasValue(obj, searchValue) {
-  for (const prop in obj) {
-    if (obj.hasOwnProperty(prop)) {
-      const propValue = obj[prop];
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const value = obj[key];
 
-      if (typeof propValue === 'string' || typeof propValue === 'number') {
-        if (
-          removeSpecialChars(String(propValue)) ===
-          removeSpecialChars(String(searchValue))
-        ) {
+      if (typeof value === 'object' && value !== null) {
+        if (hasValue(value, searchValue)) {
           return true;
         }
-      } else if (typeof propValue === 'object' && !Array.isArray(propValue)) {
-        if (hasValue(propValue, searchValue)) {
+      } else {
+        if (
+          String(value)
+            .toLowerCase()
+            .includes(String(searchValue).toLowerCase())
+        ) {
           return true;
         }
       }

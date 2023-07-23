@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+import { hasValue } from '@/utils/helper';
+
 const useMuiTableSearch = (queryFields: Array<string>) => {
   const [initialData, setInitialData] = useState([] as any);
   const [rows, setRows] = useState([]);
@@ -10,19 +12,9 @@ const useMuiTableSearch = (queryFields: Array<string>) => {
 
   const handleSearchQuery = (event) => {
     const filteredList = initialData.filter((row) => {
-      const properties = queryFields;
-      let containsQuery = false;
+      const result = hasValue(row, event.target.value);
 
-      properties.forEach((property) => {
-        if (row[property]?.toString().toLowerCase().includes(event.target.value.toString().toLowerCase())) {
-          containsQuery = true;
-        }
-      });
-
-      if (!containsQuery) {
-        return false;
-      }
-      return true;
+      return result;
     });
 
     setRows(filteredList);
