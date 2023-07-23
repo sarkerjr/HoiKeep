@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { Button, Grid, TextField } from "@mui/material";
-
+import DatePicker from "@/components/DatePicker";
 import Modal from "@/components/Modal";
+import useAlert from "@/hooks/useAlert";
+import {
+  useCreateOperatorMutation,
+  useUpdateOperatorMutation,
+} from "@/store/services/operator.services";
 
 const OperatorModal = ({
   open,
@@ -14,25 +19,91 @@ const OperatorModal = ({
   operator: any;
   mode: string;
 }) => {
-  const [name, setName] = useState(operator?.name ? operator.name : "");
-  const [email, setEmail] = useState(operator?.email ? operator.email : "");
+  const [name, setName] = useState(operator?.operatorDetails?.name ?? "");
+  const [email, setEmail] = useState(operator?.operatorDetails?.email ?? "");
   const [joinedAt, setJoinedAt] = useState(
-    operator?.joinedAt ? operator.joinedAt : ""
+    operator?.operatorDetails?.joinedAt ?? ""
   );
-  const [leftAt, setLeftAt] = useState(operator?.leftAt ? operator.leftAt : "");
-  const [position, setPosition] = useState(
-    operator?.position ? operator.position : ""
+  const [leftAt, setLeftAt] = useState(operator?.operatorDetails?.leftAt ?? "");
+  const [positionsId, setPositionsId] = useState(operator?.positionsId ?? "");
+  const [hallsId, setHallsId] = useState(operator?.hallsId ?? "");
+
+  // setting alert for CREATE request
+  const [
+    createOperator,
+    {
+      data: createData,
+      error: createError,
+      isLoading: createIsLoading,
+      isSuccess: createIsSucess,
+      isError: createIsError,
+      reset: createReset,
+    },
+  ] = useCreateOperatorMutation();
+
+  useAlert(
+    createData,
+    createError,
+    createIsLoading,
+    createIsSucess,
+    createIsError,
+    createReset
   );
-  const [hall, setHall] = useState(operator?.hall ? operator.hall : "");
+
+  //setting alert for UPDATE request
+  const [
+    updateOperator,
+    {
+      data: updateData,
+      error: updateError,
+      isLoading: updateIsLoading,
+      isSuccess: updateIsSucess,
+      isError: updateIsError,
+      reset: updateReset,
+    },
+  ] = useUpdateOperatorMutation();
+
+  useAlert(
+    updateData,
+    updateError,
+    updateIsLoading,
+    updateIsSucess,
+    updateIsError,
+    updateReset
+  );
 
   useEffect(() => {
-    setName(operator?.name ? operator.name : "");
-    setEmail(operator?.email ? operator.email : "");
-    setJoinedAt(operator?.joinedAt ? operator.joinedAt : "");
-    setLeftAt(operator?.leftAt ? operator.leftAt : "");
-    setPosition(operator?.position ? operator.position : "");
-    setHall(operator?.hall ? operator.hall : "");
+    setName(operator?.operatorDetails?.name ?? "");
+    setEmail(operator?.operatorDetails?.email ?? "");
+    setJoinedAt(operator?.operatorDetails?.joinedAt ?? "");
+    setLeftAt(operator?.operatorDetails?.leftAt ?? "");
+    setPositionsId(operator?.positionsId ?? "");
+    setHallsId(operator?.hallsId ?? "");
   }, [operator]);
+
+  const handleOnSubmit = () => {
+    if (mode === "CREATE") {
+      createOperator({
+        name,
+        email,
+        joinedAt,
+        leftAt,
+        positionsId,
+        hallsId,
+      });
+    } else if (mode === "UPDATE") {
+      updateOperator({
+        id: operator?.id,
+        name,
+        email,
+        joinedAt,
+        leftAt,
+        positionsId,
+        hallsId,
+      });
+    }
+    close();
+  };
 
   return (
     <Modal
@@ -58,34 +129,34 @@ const OperatorModal = ({
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
+          <DatePicker
+            sx={{ width: "100%" }}
             label="Joined At"
             value={joinedAt}
-            onChange={(e) => setJoinedAt(e.target.value)}
-            fullWidth
+            onChange={(value: Date) => setJoinedAt(value)}
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
+          <DatePicker
+            sx={{ width: "100%" }}
             label="Left At"
             value={leftAt}
-            onChange={(e) => setLeftAt(e.target.value)}
-            fullWidth
+            onChange={(value: Date) => setLeftAt(value)}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             label="Position"
-            value={position}
-            onChange={(e) => setPosition(e.target.value)}
+            value={positionsId}
+            onChange={(e) => setPositionsId(e.target.value)}
             fullWidth
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             label="Hall"
-            value={hall}
-            onChange={(e) => setHall(e.target.value)}
+            value={hallsId}
+            onChange={(e) => setHallsId(e.target.value)}
             fullWidth
           />
         </Grid>
@@ -94,10 +165,8 @@ const OperatorModal = ({
           <Button
             variant="contained"
             color="primary"
-            onClick={() => {
-              close();
-            }}
-            disabled={true}
+            onClick={handleOnSubmit}
+            disabled={mode === "CREATE" ? createIsLoading : updateIsLoading}
             fullWidth
           >
             {mode}
