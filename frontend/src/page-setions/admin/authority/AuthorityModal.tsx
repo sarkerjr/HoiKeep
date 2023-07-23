@@ -1,5 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Button, Grid, TextField } from '@mui/material';
+import {
+  Button,
+  Grid,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from '@mui/material';
 
 // project imports
 import DatePicker from '@/components/DatePicker';
@@ -9,6 +17,9 @@ import {
   useCreateAuthorityMutation,
   useUpdateAuthorityMutation,
 } from '@/store/services/authority.services';
+import { useReadDepartmentsQuery } from '@/store/services/department.services';
+import { useReadDesignationsQuery } from '@/store/services/designation.services';
+import { useReadPositionsQuery } from '@/store/services/position.services';
 
 const AuthorityModal = ({
   open,
@@ -33,10 +44,13 @@ const AuthorityModal = ({
     authority?.authorityDetails?.designation ?? ''
   );
   const [positionsId, setPositionsId] = useState(authority?.positionsId ?? '');
-  const [hallsId, setHallsId] = useState(authority?.hall ?? '');
   const [departmentsId, setDepartmentsId] = useState(
     authority?.departmentsId ?? ''
   );
+
+  const { data: departments } = useReadDepartmentsQuery();
+  const { data: designations } = useReadDesignationsQuery();
+  const { data: positions } = useReadPositionsQuery();
 
   // setting alert for CREATE request
   const [
@@ -89,8 +103,6 @@ const AuthorityModal = ({
     setLeftAt(authority?.authorityDetails?.leftAt ?? '');
     setDesignationsId(authority?.authorityDetails?.designationsId ?? '');
     setPositionsId(authority?.positionsId ?? '');
-    setHallsId(authority?.hallsId ?? '');
-    setDepartmentsId(authority?.departmentsId ?? '');
   }, [authority]);
 
   const handleOnSubmit = () => {
@@ -100,7 +112,6 @@ const AuthorityModal = ({
         email,
         joinedAt,
         leftAt,
-        hallsId,
         departmentsId,
         designationsId,
         positionsId,
@@ -112,7 +123,6 @@ const AuthorityModal = ({
         email,
         joinedAt,
         leftAt,
-        hallsId,
         departmentsId,
         designationsId,
         positionsId,
@@ -145,12 +155,22 @@ const AuthorityModal = ({
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            label="Designation"
-            value={designationsId}
-            onChange={(event) => setDesignationsId(event.target.value)}
-            fullWidth
-          />
+          <FormControl fullWidth>
+            <InputLabel id="designation-select-label">Designation</InputLabel>
+            <Select
+              label="Designation"
+              labelId="designation-select-label"
+              value={designationsId}
+              onChange={(event) => setDesignationsId(event.target.value)}
+              fullWidth
+            >
+              {designations?.map((designation: any) => (
+                <MenuItem value={designation.id} key={designation.id}>
+                  {designation.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
         <Grid item xs={12}>
           <DatePicker
@@ -169,28 +189,40 @@ const AuthorityModal = ({
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            label="Position"
-            value={positionsId}
-            onChange={(event) => setPositionsId(event.target.value)}
-            fullWidth
-          />
+          <FormControl fullWidth>
+            <InputLabel id="position-select-label">Position</InputLabel>
+            <Select
+              label="Position"
+              labelId="position-select-label"
+              value={positionsId}
+              onChange={(event) => setPositionsId(event.target.value)}
+              fullWidth
+            >
+              {positions?.map((position: any) => (
+                <MenuItem value={position.id} key={position.id}>
+                  {position.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            label="Hall"
-            value={hallsId}
-            onChange={(event) => setHallsId(event.target.value)}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Department"
-            value={departmentsId}
-            onChange={(event) => setDepartmentsId(event.target.value)}
-            fullWidth
-          />
+          <FormControl fullWidth>
+            <InputLabel id="department-select-label">Department</InputLabel>
+            <Select
+              label="Department"
+              labelId="department-select-label"
+              value={departmentsId}
+              onChange={(event) => setDepartmentsId(event.target.value)}
+              fullWidth
+            >
+              {departments?.map((department: any) => (
+                <MenuItem value={department.id} key={department.id}>
+                  {department.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
 
         <Grid item xs={12}>

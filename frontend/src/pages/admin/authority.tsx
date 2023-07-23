@@ -30,7 +30,6 @@ const tableHeading = [
   { id: 'joinedAt', label: 'Joined At', align: 'center' },
   { id: 'leftAt', label: 'Left At', align: 'center' },
   { id: 'position', label: 'Position', align: 'center' },
-  { id: 'hall', label: 'Hall', align: 'center' },
   { id: 'department', label: 'Department', align: 'center' },
   { id: 'action', label: 'Action', align: 'center' },
 ];
