@@ -1,13 +1,22 @@
-import { useState, useEffect } from "react";
-import { Button, Grid, TextField } from "@mui/material";
+import { useState, useEffect } from 'react';
+import {
+  Button,
+  Grid,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from '@mui/material';
 
-import DatePicker from "@/components/DatePicker";
-import Modal from "@/components/Modal";
-import useAlert from "@/hooks/useAlert";
+import DatePicker from '@/components/DatePicker';
+import Modal from '@/components/Modal';
+import useAlert from '@/hooks/useAlert';
 import {
   useCreateStaffMutation,
   useUpdateStaffMutation,
-} from "@/store/services/staff.services";
+} from '@/store/services/staff.services';
+import { useReadPositionsQuery } from '@/store/services/position.services';
 
 const StaffModal = ({
   open,
@@ -20,12 +29,12 @@ const StaffModal = ({
   staff: any;
   mode: string;
 }) => {
-  const [name, setName] = useState(staff?.staffDetails?.name ?? "");
-  const [email, setEmail] = useState(staff?.staffDetails?.email ?? "");
-  const [joinedAt, setJoinedAt] = useState(staff?.staffDetails?.joinedAt ?? "");
-  const [leftAt, setLeftAt] = useState(staff?.staffDetails?.leftAt ?? "");
-  const [positionsId, setPositionsId] = useState(staff?.positionsId ?? "");
-  const [hallsId, setHallsId] = useState(staff?.hallsId ?? "");
+  const [name, setName] = useState(staff?.staffDetails?.name ?? '');
+  const [email, setEmail] = useState(staff?.staffDetails?.email ?? '');
+  const [joinedAt, setJoinedAt] = useState(staff?.staffDetails?.joinedAt ?? '');
+  const [leftAt, setLeftAt] = useState(staff?.staffDetails?.leftAt ?? '');
+  const [positionsId, setPositionsId] = useState(staff?.positionsId ?? '');
+  const { data: positions } = useReadPositionsQuery();
 
   // setting alert for CREATE request
   const [
@@ -72,25 +81,23 @@ const StaffModal = ({
   );
 
   useEffect(() => {
-    setName(staff?.staffDetails?.name ?? "");
-    setEmail(staff?.staffDetails?.email ?? "");
-    setJoinedAt(staff?.staffDetails?.joinedAt ?? "");
-    setLeftAt(staff?.staffDetails?.leftAt ?? "");
-    setPositionsId(staff?.positionsId ?? "");
-    setHallsId(staff?.hallsId ?? "");
+    setName(staff?.staffDetails?.name ?? '');
+    setEmail(staff?.staffDetails?.email ?? '');
+    setJoinedAt(staff?.staffDetails?.joinedAt ?? '');
+    setLeftAt(staff?.staffDetails?.leftAt ?? '');
+    setPositionsId(staff?.positionsId ?? '');
   }, [staff]);
 
   const handleOnSubmit = () => {
-    if (mode === "CREATE") {
+    if (mode === 'CREATE') {
       createStaff({
         name,
         email,
         joinedAt,
         leftAt,
         positionsId,
-        hallsId,
       });
-    } else if (mode === "UPDATE") {
+    } else if (mode === 'UPDATE') {
       updateStaff({
         id: staff?.id,
         name,
@@ -98,7 +105,6 @@ const StaffModal = ({
         joinedAt,
         leftAt,
         positionsId,
-        hallsId,
       });
     }
     close();
@@ -106,7 +112,7 @@ const StaffModal = ({
 
   return (
     <Modal
-      title={mode === "CREATE" ? "Add New Staff" : "Edit Staff"}
+      title={mode === 'CREATE' ? 'Add New Staff' : 'Edit Staff'}
       open={open}
       close={close}
     >
@@ -129,7 +135,7 @@ const StaffModal = ({
         </Grid>
         <Grid item xs={12}>
           <DatePicker
-            sx={{ width: "100%" }}
+            sx={{ width: '100%' }}
             label="Joined At"
             value={joinedAt}
             onChange={(value: Date) => setJoinedAt(value)}
@@ -137,27 +143,29 @@ const StaffModal = ({
         </Grid>
         <Grid item xs={12}>
           <DatePicker
-            sx={{ width: "100%" }}
+            sx={{ width: '100%' }}
             label="Left At"
             value={leftAt}
             onChange={(value: Date) => setLeftAt(value)}
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            label="Position"
-            value={positionsId}
-            onChange={(e) => setPositionsId(e.target.value)}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Hall"
-            value={hallsId}
-            onChange={(e) => setHallsId(e.target.value)}
-            fullWidth
-          />
+          <FormControl fullWidth>
+            <InputLabel id="position-select-label">Position</InputLabel>
+            <Select
+              label="Position"
+              labelId="position-select-label"
+              value={positionsId}
+              onChange={(event) => setPositionsId(event.target.value)}
+              fullWidth
+            >
+              {positions?.map((position: any) => (
+                <MenuItem value={position.id} key={position.id}>
+                  {position.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
 
         <Grid item xs={12}>
@@ -165,7 +173,7 @@ const StaffModal = ({
             variant="contained"
             color="primary"
             onClick={handleOnSubmit}
-            disabled={mode === "CREATE" ? createIsLoading : updateIsLoading}
+            disabled={mode === 'CREATE' ? createIsLoading : updateIsLoading}
             fullWidth
           >
             {mode}
