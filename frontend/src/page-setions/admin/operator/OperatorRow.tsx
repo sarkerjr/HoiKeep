@@ -25,7 +25,6 @@ const OperatorRow: FC<OperatorRowProps> = ({
   const {
     sl,
     positionsId,
-    hallsId,
     operatorDetails: { name, email, joinedAt, leftAt },
   } = operator;
   const handleOnEdit = () => {
@@ -51,8 +50,6 @@ const OperatorRow: FC<OperatorRowProps> = ({
       </StyledTableCell>
 
       <StyledTableCell align="center">{positionsId}</StyledTableCell>
-
-      <StyledTableCell align="center">{hallsId}</StyledTableCell>
 
       <StyledTableCell align="center">
         <StyledIconButton onClick={handleOnEdit}>
