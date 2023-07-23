@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { Delete, Edit } from '@mui/icons-material';
-import { generalFormat } from '@/utils/dayjs';
 
 // project imports
 import {
@@ -9,26 +8,22 @@ import {
   StyledTableCell,
 } from 'components/data-table/StyledComponents';
 
-type OperatorRowProps = {
-  operator: any;
+type DesignationRowProps = {
+  designation: any;
   setModal: any;
   setMode: any;
   setData: any;
 };
 
-const OperatorRow: FC<OperatorRowProps> = ({
-  operator,
+const DesignationRow: FC<DesignationRowProps> = ({
+  designation,
   setModal,
   setMode,
   setData,
 }) => {
-  const {
-    sl,
-    positionsId,
-    operatorDetails: { name, email, joinedAt, leftAt },
-  } = operator;
+  const { sl, name } = designation;
   const handleOnEdit = () => {
-    setData(operator);
+    setData(designation);
     setMode('UPDATE');
     setModal(true);
   };
@@ -38,18 +33,6 @@ const OperatorRow: FC<OperatorRowProps> = ({
       <StyledTableCell align="center">#{sl}</StyledTableCell>
 
       <StyledTableCell align="center">{name}</StyledTableCell>
-
-      <StyledTableCell align="center">{email}</StyledTableCell>
-
-      <StyledTableCell align="center">
-        {joinedAt ? generalFormat(joinedAt) : 'N/A'}
-      </StyledTableCell>
-
-      <StyledTableCell align="center">
-        {leftAt ? generalFormat(leftAt) : 'N/A'}
-      </StyledTableCell>
-
-      <StyledTableCell align="center">{positionsId}</StyledTableCell>
 
       <StyledTableCell align="center">
         <StyledIconButton onClick={handleOnEdit}>
@@ -64,4 +47,4 @@ const OperatorRow: FC<OperatorRowProps> = ({
   );
 };
 
-export default OperatorRow;
+export default DesignationRow;

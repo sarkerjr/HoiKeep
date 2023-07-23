@@ -25,7 +25,6 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
   const {
     sl,
     positionsId,
-    hallsId,
     departmentsId,
     authorityDetails: { name, email, joinedAt, leftAt, designationsId },
   } = authority;
@@ -54,8 +53,6 @@ const AuthorityRow: FC<AuthorityRowProps> = ({
       </StyledTableCell>
 
       <StyledTableCell align="center">{positionsId}</StyledTableCell>
-
-      <StyledTableCell align="center">{hallsId}</StyledTableCell>
 
       <StyledTableCell align="center">{departmentsId}</StyledTableCell>
 

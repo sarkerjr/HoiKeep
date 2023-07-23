@@ -1,12 +1,21 @@
-import { useState, useEffect } from "react";
-import { Button, Grid, TextField } from "@mui/material";
-import DatePicker from "@/components/DatePicker";
-import Modal from "@/components/Modal";
-import useAlert from "@/hooks/useAlert";
+import { useState, useEffect } from 'react';
+import {
+  Button,
+  Grid,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from '@mui/material';
+import DatePicker from '@/components/DatePicker';
+import Modal from '@/components/Modal';
+import useAlert from '@/hooks/useAlert';
 import {
   useCreateOperatorMutation,
   useUpdateOperatorMutation,
-} from "@/store/services/operator.services";
+} from '@/store/services/operator.services';
+import { useReadPositionsQuery } from '@/store/services/position.services';
 
 const OperatorModal = ({
   open,
@@ -19,14 +28,14 @@ const OperatorModal = ({
   operator: any;
   mode: string;
 }) => {
-  const [name, setName] = useState(operator?.operatorDetails?.name ?? "");
-  const [email, setEmail] = useState(operator?.operatorDetails?.email ?? "");
+  const [name, setName] = useState(operator?.operatorDetails?.name ?? '');
+  const [email, setEmail] = useState(operator?.operatorDetails?.email ?? '');
   const [joinedAt, setJoinedAt] = useState(
-    operator?.operatorDetails?.joinedAt ?? ""
+    operator?.operatorDetails?.joinedAt ?? ''
   );
-  const [leftAt, setLeftAt] = useState(operator?.operatorDetails?.leftAt ?? "");
-  const [positionsId, setPositionsId] = useState(operator?.positionsId ?? "");
-  const [hallsId, setHallsId] = useState(operator?.hallsId ?? "");
+  const [leftAt, setLeftAt] = useState(operator?.operatorDetails?.leftAt ?? '');
+  const [positionsId, setPositionsId] = useState(operator?.positionsId ?? '');
+  const { data: positions } = useReadPositionsQuery();
 
   // setting alert for CREATE request
   const [
@@ -73,25 +82,23 @@ const OperatorModal = ({
   );
 
   useEffect(() => {
-    setName(operator?.operatorDetails?.name ?? "");
-    setEmail(operator?.operatorDetails?.email ?? "");
-    setJoinedAt(operator?.operatorDetails?.joinedAt ?? "");
-    setLeftAt(operator?.operatorDetails?.leftAt ?? "");
-    setPositionsId(operator?.positionsId ?? "");
-    setHallsId(operator?.hallsId ?? "");
+    setName(operator?.operatorDetails?.name ?? '');
+    setEmail(operator?.operatorDetails?.email ?? '');
+    setJoinedAt(operator?.operatorDetails?.joinedAt ?? '');
+    setLeftAt(operator?.operatorDetails?.leftAt ?? '');
+    setPositionsId(operator?.positionsId ?? '');
   }, [operator]);
 
   const handleOnSubmit = () => {
-    if (mode === "CREATE") {
+    if (mode === 'CREATE') {
       createOperator({
         name,
         email,
         joinedAt,
         leftAt,
         positionsId,
-        hallsId,
       });
-    } else if (mode === "UPDATE") {
+    } else if (mode === 'UPDATE') {
       updateOperator({
         id: operator?.id,
         name,
@@ -99,7 +106,6 @@ const OperatorModal = ({
         joinedAt,
         leftAt,
         positionsId,
-        hallsId,
       });
     }
     close();
@@ -107,7 +113,7 @@ const OperatorModal = ({
 
   return (
     <Modal
-      title={mode === "CREATE" ? "Add New Operator" : "Edit Operator"}
+      title={mode === 'CREATE' ? 'Add New Operator' : 'Edit Operator'}
       open={open}
       close={close}
     >
@@ -130,7 +136,7 @@ const OperatorModal = ({
         </Grid>
         <Grid item xs={12}>
           <DatePicker
-            sx={{ width: "100%" }}
+            sx={{ width: '100%' }}
             label="Joined At"
             value={joinedAt}
             onChange={(value: Date) => setJoinedAt(value)}
@@ -138,27 +144,29 @@ const OperatorModal = ({
         </Grid>
         <Grid item xs={12}>
           <DatePicker
-            sx={{ width: "100%" }}
+            sx={{ width: '100%' }}
             label="Left At"
             value={leftAt}
             onChange={(value: Date) => setLeftAt(value)}
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            label="Position"
-            value={positionsId}
-            onChange={(e) => setPositionsId(e.target.value)}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Hall"
-            value={hallsId}
-            onChange={(e) => setHallsId(e.target.value)}
-            fullWidth
-          />
+          <FormControl fullWidth>
+            <InputLabel id="position-select-label">Position</InputLabel>
+            <Select
+              label="Position"
+              labelId="position-select-label"
+              value={positionsId}
+              onChange={(event) => setPositionsId(event.target.value)}
+              fullWidth
+            >
+              {positions?.map((position: any) => (
+                <MenuItem value={position.id} key={position.id}>
+                  {position.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
 
         <Grid item xs={12}>
@@ -166,7 +174,7 @@ const OperatorModal = ({
             variant="contained"
             color="primary"
             onClick={handleOnSubmit}
-            disabled={mode === "CREATE" ? createIsLoading : updateIsLoading}
+            disabled={mode === 'CREATE' ? createIsLoading : updateIsLoading}
             fullWidth
           >
             {mode}

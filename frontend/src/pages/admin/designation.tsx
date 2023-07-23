@@ -17,33 +17,23 @@ import { H3 } from 'components/Typography';
 import useMuiTable from 'hooks/useMuiTable';
 import useMuiTableSearch from 'hooks/useMuiTableSearch';
 import useModal from '@/hooks/useModal';
-import AuthorityRow from '@/page-setions/admin/authority/AuthorityRow';
-import AuthorityModal from '@/page-setions/admin/authority/AuthorityModal';
-import { useReadAuthoritiesQuery } from '@/store/services/authority.services';
+import DesignationRow from '@/page-setions/admin/designation/DesignationRow';
+import DesignationModal from '@/page-setions/admin/designation/DesignationModal';
+import { useReadDesignationsQuery } from '@/store/services/designation.services';
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
   { id: 'id', label: 'ID', align: 'center' },
   { id: 'name', label: 'Name', align: 'center' },
-  { id: 'email', label: 'Email', align: 'center' },
-  { id: 'designation', label: 'Designation', align: 'center' },
-  { id: 'joinedAt', label: 'Joined At', align: 'center' },
-  { id: 'leftAt', label: 'Left At', align: 'center' },
-  { id: 'position', label: 'Position', align: 'center' },
-  { id: 'department', label: 'Department', align: 'center' },
   { id: 'action', label: 'Action', align: 'center' },
 ];
 
-const Authority = () => {
-  const { data: authorities } = useReadAuthoritiesQuery();
+const Designation = () => {
+  const { data: designations } = useReadDesignationsQuery();
 
   const { modal, setModal, mode, setMode, data, setData } = useModal();
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
     'name',
-    'email',
-    'designation',
-    'joinedAt',
-    'leftAt',
   ]);
 
   const {
@@ -58,12 +48,12 @@ const Authority = () => {
   });
 
   useEffect(() => {
-    const newAuthorities = authorities?.map((authority, index) => ({
-      ...authority,
+    const newDesignations = designations?.map((designation, index) => ({
+      ...designation,
       sl: index + 1,
     }));
-    setInitialData(newAuthorities);
-  }, [authorities]);
+    setInitialData(newDesignations);
+  }, [designations]);
 
   const handleOnCreate = () => {
     setMode('CREATE');
@@ -73,12 +63,12 @@ const Authority = () => {
   return (
     <>
       <Box width="100%">
-        <H3 mb={2}>Authorities</H3>
+        <H3 mb={2}>Designations</H3>
 
         <SearchArea
           handleSearch={handleSearchQuery}
-          buttonText="Add Authority"
-          searchPlaceholder="Search Authority..."
+          buttonText="Add Designation"
+          searchPlaceholder="Search Designation..."
           handleBtnClick={handleOnCreate}
         />
 
@@ -91,15 +81,15 @@ const Authority = () => {
                   hideSelectBtn
                   orderBy={orderBy}
                   heading={tableHeading}
-                  rowCount={authorities?.length}
+                  rowCount={designations?.length}
                   onRequestSort={handleRequestSort}
                 />
 
                 <TableBody>
-                  {filteredList.map((authority) => (
-                    <AuthorityRow
-                      authority={authority}
-                      key={authority.id}
+                  {filteredList.map((designation) => (
+                    <DesignationRow
+                      designation={designation}
+                      key={designation.id}
                       setModal={setModal}
                       setMode={setMode}
                       setData={setData}
@@ -113,19 +103,19 @@ const Authority = () => {
           <Stack alignItems="center" my={4}>
             <TablePagination
               onChange={handleChangePage}
-              count={Math.ceil(authorities?.length / rowsPerPage) || 0}
+              count={Math.ceil(designations?.length / rowsPerPage) || 0}
             />
           </Stack>
         </Card>
       </Box>
-      <AuthorityModal
+      <DesignationModal
         mode={mode}
         open={modal}
         close={() => setModal(false)}
-        authority={data}
+        designation={data}
       />
     </>
   );
 };
 
-export default Authority;
+export default Designation;
