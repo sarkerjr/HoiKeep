@@ -1,13 +1,13 @@
-import { FC } from "react";
-import { Delete, Edit } from "@mui/icons-material";
-import { generalFormat } from "@/utils/dayjs";
+import { FC } from 'react';
+import { Delete, Edit } from '@mui/icons-material';
+import { generalFormat } from '@/utils/dayjs';
 
 // project imports
 import {
   StyledTableRow,
   StyledIconButton,
   StyledTableCell,
-} from "components/data-table/StyledComponents";
+} from 'components/data-table/StyledComponents';
 
 type StaffRowProps = {
   staff: any;
@@ -17,10 +17,15 @@ type StaffRowProps = {
 };
 
 const StaffRow: FC<StaffRowProps> = ({ staff, setModal, setMode, setData }) => {
-  const { sl, name, email, joinedAt, leftAt, positionsId, hallsId } = staff;
+  const {
+    sl,
+    positionsId,
+    hallsId,
+    staffDetails: { name, email, joinedAt, leftAt },
+  } = staff;
   const handleOnEdit = () => {
     setData(staff);
-    setMode("UPDATE");
+    setMode('UPDATE');
     setModal(true);
   };
 
@@ -33,11 +38,11 @@ const StaffRow: FC<StaffRowProps> = ({ staff, setModal, setMode, setData }) => {
       <StyledTableCell align="center">{email}</StyledTableCell>
 
       <StyledTableCell align="center">
-        {joinedAt ? generalFormat(joinedAt) : "N/A"}
+        {joinedAt ? generalFormat(joinedAt) : 'N/A'}
       </StyledTableCell>
 
       <StyledTableCell align="center">
-        {leftAt ? generalFormat(leftAt) : "N/A"}
+        {leftAt ? generalFormat(leftAt) : 'N/A'}
       </StyledTableCell>
 
       <StyledTableCell align="center">{positionsId}</StyledTableCell>

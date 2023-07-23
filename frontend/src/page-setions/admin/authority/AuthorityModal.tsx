@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { Button, Grid, TextField } from "@mui/material";
+import { useEffect, useState } from 'react';
+import { Button, Grid, TextField } from '@mui/material';
 
 // project imports
-import DatePicker from "@/components/DatePicker";
-import Modal from "@/components/Modal";
-import useAlert from "@/hooks/useAlert";
+import DatePicker from '@/components/DatePicker';
+import Modal from '@/components/Modal';
+import useAlert from '@/hooks/useAlert';
 import {
   useCreateAuthorityMutation,
   useUpdateAuthorityMutation,
-} from "@/store/services/authority.services";
+} from '@/store/services/authority.services';
 
 const AuthorityModal = ({
   open,
@@ -21,21 +21,21 @@ const AuthorityModal = ({
   authority: any;
   mode: string;
 }) => {
-  const [name, setName] = useState(authority?.authorityDetails?.name ?? "");
-  const [email, setEmail] = useState(authority?.authorityDetails?.email ?? "");
+  const [name, setName] = useState(authority?.authorityDetails?.name ?? '');
+  const [email, setEmail] = useState(authority?.authorityDetails?.email ?? '');
   const [joinedAt, setJoinedAt] = useState(
-    authority?.authorityDetails?.joinedAt ?? ""
+    authority?.authorityDetails?.joinedAt ?? ''
   );
   const [leftAt, setLeftAt] = useState(
-    authority?.authorityDetails?.leftAt ?? ""
+    authority?.authorityDetails?.leftAt ?? ''
   );
   const [designationsId, setDesignationsId] = useState(
-    authority?.authorityDetails?.designation ?? ""
+    authority?.authorityDetails?.designation ?? ''
   );
-  const [positionsId, setPositionsId] = useState(authority?.positionsId ?? "");
-  const [hallsId, setHallsId] = useState(authority?.hall ?? "");
+  const [positionsId, setPositionsId] = useState(authority?.positionsId ?? '');
+  const [hallsId, setHallsId] = useState(authority?.hall ?? '');
   const [departmentsId, setDepartmentsId] = useState(
-    authority?.departmentsId ?? ""
+    authority?.departmentsId ?? ''
   );
 
   // setting alert for CREATE request
@@ -83,18 +83,18 @@ const AuthorityModal = ({
   );
 
   useEffect(() => {
-    setName(authority?.authorityDetails?.name ?? "");
-    setEmail(authority?.authorityDetails?.email ?? "");
-    setJoinedAt(authority?.authorityDetails?.joinedAt ?? "");
-    setLeftAt(authority?.authorityDetails?.leftAt ?? "");
-    setDesignationsId(authority?.authorityDetails?.designationsId ?? "");
-    setPositionsId(authority?.positionsId ?? "");
-    setHallsId(authority?.hallsId ?? "");
-    setDepartmentsId(authority?.departmentsId ?? "");
+    setName(authority?.authorityDetails?.name ?? '');
+    setEmail(authority?.authorityDetails?.email ?? '');
+    setJoinedAt(authority?.authorityDetails?.joinedAt ?? '');
+    setLeftAt(authority?.authorityDetails?.leftAt ?? '');
+    setDesignationsId(authority?.authorityDetails?.designationsId ?? '');
+    setPositionsId(authority?.positionsId ?? '');
+    setHallsId(authority?.hallsId ?? '');
+    setDepartmentsId(authority?.departmentsId ?? '');
   }, [authority]);
 
   const handleOnSubmit = () => {
-    if (mode === "CREATE") {
+    if (mode === 'CREATE') {
       createAuthority({
         name,
         email,
@@ -105,7 +105,7 @@ const AuthorityModal = ({
         designationsId,
         positionsId,
       });
-    } else if (mode === "UPDATE") {
+    } else if (mode === 'UPDATE') {
       updateAuthority({
         id: authority?.id,
         name,
@@ -123,7 +123,7 @@ const AuthorityModal = ({
 
   return (
     <Modal
-      title={mode === "CREATE" ? "Add New Authority" : "Edit Authority"}
+      title={mode === 'CREATE' ? 'Add New Authority' : 'Edit Authority'}
       open={open}
       close={close}
     >
@@ -154,7 +154,7 @@ const AuthorityModal = ({
         </Grid>
         <Grid item xs={12}>
           <DatePicker
-            sx={{ width: "100%" }}
+            sx={{ width: '100%' }}
             label="Joined At"
             value={joinedAt}
             onChange={(value: Date) => setJoinedAt(value)}
@@ -162,7 +162,7 @@ const AuthorityModal = ({
         </Grid>
         <Grid item xs={12}>
           <DatePicker
-            sx={{ width: "100%" }}
+            sx={{ width: '100%' }}
             label="Left At"
             value={leftAt}
             onChange={(value: Date) => setLeftAt(value)}
@@ -198,7 +198,7 @@ const AuthorityModal = ({
             variant="contained"
             color="primary"
             onClick={handleOnSubmit}
-            disabled={mode === "CREATE" ? createIsLoading : updateIsLoading}
+            disabled={mode === 'CREATE' ? createIsLoading : updateIsLoading}
             fullWidth
           >
             {mode}
