@@ -8,7 +8,7 @@ export const studentApi = createApi({
   tagTypes: ['Students'],
   endpoints: (builder) => ({
     readStudents: builder.query<any, void>({
-      query: () => '/admin/studentt',
+      query: () => '/admin/student',
       providesTags: ['Students'],
     }),
 

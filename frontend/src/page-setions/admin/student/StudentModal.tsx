@@ -208,7 +208,7 @@ const StudentModal = ({
             sx={{ width: '100%' }}
             label="Admission Date"
             value={admissionDate}
-            onChange={(value: Date) => admissionDate(value)}
+            onChange={(value: Date) => setAdmissionDate(value)}
           />
         </Grid>
         <Grid item xs={12}>
