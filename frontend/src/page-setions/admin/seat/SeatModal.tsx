@@ -29,7 +29,8 @@ const SeatModal = ({
   mode: string;
 }) => {
   const [no, setNo] = useState(seat?.no ?? '');
-  const [roomsId, setRoomsId] = useState(seat?.roomsId ?? '');
+  const [isAvailable, setIsAvailable] = useState(seat.isAvailable ?? '');
+  const [roomsId, setRoomsId] = useState(seat?.rooms?.no ?? '');
 
   const { data: rooms } = useReadRoomsQuery();
 
@@ -79,7 +80,8 @@ const SeatModal = ({
 
   useEffect(() => {
     setNo(seat?.no ?? '');
-    setRoomsId(seat?.roomsId ?? '');
+    setIsAvailable(seat?.isAvailable ?? '');
+    setRoomsId(seat?.rooms?.no ?? '');
   }, [seat]);
 
   const handleOnSubmit = () => {
@@ -110,6 +112,15 @@ const SeatModal = ({
             label="Seat Number"
             value={no}
             onChange={(e) => setNo(e.target.value)}
+            fullWidth
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <TextField
+            label="Seat Available?"
+            value={isAvailable}
+            onChange={(e) => setIsAvailable(e.target.value)}
             fullWidth
           />
         </Grid>

@@ -17,7 +17,6 @@ export const create = async (
       return room;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      console.log('🚀 ~ file: room.services.ts:20 ~ error:', error);
       return error;
     });
 };
