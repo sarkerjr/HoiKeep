@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import {
   Box,
   Card,
@@ -6,37 +6,36 @@ import {
   Table,
   TableBody,
   TableContainer,
-} from "@mui/material";
+} from '@mui/material';
 
 // project imports
-import SearchArea from "components/SearchArea";
-import TableHeader from "components/data-table/TableHeader";
-import TablePagination from "components/data-table/TablePagination";
-import Scrollbar from "components/Scrollbar";
-import { H3 } from "components/Typography";
-import useMuiTable from "hooks/useMuiTable";
-import useMuiTableSearch from "hooks/useMuiTableSearch";
-import useModal from "@/hooks/useModal";
-import StudentRow from "@/page-setions/admin/student/StudentRow";
-import StudentModal from "@/page-setions/admin/student/StudentModal";
+import SearchArea from 'components/SearchArea';
+import TableHeader from 'components/data-table/TableHeader';
+import TablePagination from 'components/data-table/TablePagination';
+import Scrollbar from 'components/Scrollbar';
+import { H3 } from 'components/Typography';
+import useMuiTable from 'hooks/useMuiTable';
+import useMuiTableSearch from 'hooks/useMuiTableSearch';
+import useModal from '@/hooks/useModal';
+import StudentRow from '@/page-setions/admin/student/StudentRow';
+import StudentModal from '@/page-setions/admin/student/StudentModal';
 
-import { useReadStudentsQuery } from "@/store/services/student.services";
+import { useReadStudentsQuery } from '@/store/services/student.services';
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
-  { id: "id", label: "ID", align: "center" },
-  { id: "name", label: "Name", align: "center" },
-  { id: "email", label: "Email", align: "center" },
-  { id: "studentNo", label: "Student Number", align: "center" },
-  { id: "session", label: "Session", align: "center" },
-  { id: "semester", label: "Semester", align: "center" },
-  { id: "year", label: "Year", align: "center" },
-  { id: "admissionDate", label: "Admission Date", align: "center" },
-  { id: "imageUrl", label: "Image Url", align: "center" },
-  { id: "hallsId", label: "Hall Id", align: "center" },
-  { id: "departmentsId", label: "Department Id", align: "center" },
-  { id: "degreesId", label: "Degree Id", align: "center" },
-  { id: "action", label: "Action", align: "center" },
+  { id: 'id', label: 'ID', align: 'center' },
+  { id: 'name', label: 'Name', align: 'center' },
+  { id: 'email', label: 'Email', align: 'center' },
+  { id: 'studentNo', label: 'Student Number', align: 'center' },
+  { id: 'session', label: 'Session', align: 'center' },
+  { id: 'semester', label: 'Semester', align: 'center' },
+  { id: 'year', label: 'Year', align: 'center' },
+  { id: 'admissionDate', label: 'Admission Date', align: 'center' },
+  { id: 'imageUrl', label: 'Image Url', align: 'center' },
+  { id: 'departmentsId', label: 'Department Id', align: 'center' },
+  { id: 'degreesId', label: 'Degree Id', align: 'center' },
+  { id: 'action', label: 'Action', align: 'center' },
 ];
 
 const Student = () => {
@@ -45,17 +44,17 @@ const Student = () => {
   const { modal, setModal, mode, setMode, data, setData } = useModal();
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
-    "name",
-    "email",
-    "studentNo",
-    "session",
-    "semester",
-    "year",
-    "admissionDate",
-    "imageUrl",
-    "hallsId",
-    "departmentsId",
-    "degreesId",
+    'name',
+    'email',
+    'studentNo',
+    'session',
+    'semester',
+    'year',
+    'admissionDate',
+    'imageUrl',
+    'hallsId',
+    'departmentsId',
+    'degreesId',
   ]);
 
   const {
@@ -78,7 +77,7 @@ const Student = () => {
   }, [students]);
 
   const handleOnCreate = () => {
-    setMode("CREATE");
+    setMode('CREATE');
     setModal(true);
   };
 
