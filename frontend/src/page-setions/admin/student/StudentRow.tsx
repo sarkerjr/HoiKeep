@@ -24,7 +24,7 @@ const StudentRow: FC<StudentRowProps> = ({
 }) => {
   const {
     sl,
-    departmentsId,
+    departments: { name: departmentName },
 
     studentProfiles: {
       name,
@@ -34,7 +34,7 @@ const StudentRow: FC<StudentRowProps> = ({
       semester,
       year,
       admissionDate,
-      degreesId,
+      degrees: { name: degreeName },
     },
     studentImages: { imageUrl },
   } = student;
@@ -67,9 +67,9 @@ const StudentRow: FC<StudentRowProps> = ({
 
       <StyledTableCell align="center">{imageUrl}</StyledTableCell>
 
-      <StyledTableCell align="center">{departmentsId}</StyledTableCell>
+      <StyledTableCell align="center">{departmentName}</StyledTableCell>
 
-      <StyledTableCell align="center">{degreesId}</StyledTableCell>
+      <StyledTableCell align="center">{degreeName}</StyledTableCell>
 
       <StyledTableCell align="center">
         <StyledIconButton onClick={handleOnEdit}>
