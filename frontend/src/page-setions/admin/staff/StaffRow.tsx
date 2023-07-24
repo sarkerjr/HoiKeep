@@ -20,7 +20,6 @@ const StaffRow: FC<StaffRowProps> = ({ staff, setModal, setMode, setData }) => {
   const {
     sl,
     positionsId,
-    hallsId,
     staffDetails: { name, email, joinedAt, leftAt },
   } = staff;
   const handleOnEdit = () => {
@@ -46,8 +45,6 @@ const StaffRow: FC<StaffRowProps> = ({ staff, setModal, setMode, setData }) => {
       </StyledTableCell>
 
       <StyledTableCell align="center">{positionsId}</StyledTableCell>
-
-      <StyledTableCell align="center">{hallsId}</StyledTableCell>
 
       <StyledTableCell align="center">
         <StyledIconButton onClick={handleOnEdit}>

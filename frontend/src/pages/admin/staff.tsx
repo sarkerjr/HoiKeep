@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import {
   Box,
   Card,
@@ -6,31 +6,30 @@ import {
   Table,
   TableBody,
   TableContainer,
-} from "@mui/material";
+} from '@mui/material';
 
 // project imports
-import SearchArea from "components/SearchArea";
-import TableHeader from "components/data-table/TableHeader";
-import TablePagination from "components/data-table/TablePagination";
-import Scrollbar from "components/Scrollbar";
-import { H3 } from "components/Typography";
-import useMuiTable from "hooks/useMuiTable";
-import useMuiTableSearch from "hooks/useMuiTableSearch";
-import useModal from "@/hooks/useModal";
-import StaffRow from "@/page-setions/admin/staff/StaffRow";
-import StaffModal from "@/page-setions/admin/staff/StaffModal";
-import { useReadStaffsQuery } from "@/store/services/staff.services";
+import SearchArea from 'components/SearchArea';
+import TableHeader from 'components/data-table/TableHeader';
+import TablePagination from 'components/data-table/TablePagination';
+import Scrollbar from 'components/Scrollbar';
+import { H3 } from 'components/Typography';
+import useMuiTable from 'hooks/useMuiTable';
+import useMuiTableSearch from 'hooks/useMuiTableSearch';
+import useModal from '@/hooks/useModal';
+import StaffRow from '@/page-setions/admin/staff/StaffRow';
+import StaffModal from '@/page-setions/admin/staff/StaffModal';
+import { useReadStaffsQuery } from '@/store/services/staff.services';
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
-  { id: "id", label: "ID", align: "center" },
-  { id: "name", label: "Name", align: "center" },
-  { id: "email", label: "Email", align: "center" },
-  { id: "joinedAt", label: "Joined At", align: "center" },
-  { id: "leftAt", label: "Left At", align: "center" },
-  { id: "position", label: "Position", align: "center" },
-  { id: "hall", label: "Hall", align: "center" },
-  { id: "action", label: "Action", align: "center" },
+  { id: 'id', label: 'ID', align: 'center' },
+  { id: 'name', label: 'Name', align: 'center' },
+  { id: 'email', label: 'Email', align: 'center' },
+  { id: 'joinedAt', label: 'Joined At', align: 'center' },
+  { id: 'leftAt', label: 'Left At', align: 'center' },
+  { id: 'position', label: 'Position', align: 'center' },
+  { id: 'action', label: 'Action', align: 'center' },
 ];
 
 const Staff = () => {
@@ -39,12 +38,11 @@ const Staff = () => {
   const { modal, setModal, mode, setMode, data, setData } = useModal();
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
-    "name",
-    "email",
-    "joinedAt",
-    "leftAt",
-    "position",
-    "hall",
+    'name',
+    'email',
+    'joinedAt',
+    'leftAt',
+    'position',
   ]);
 
   const {
@@ -66,7 +64,7 @@ const Staff = () => {
     setInitialData(newStaffs);
   }, [staffs]);
   const handleOnCreate = () => {
-    setMode("CREATE");
+    setMode('CREATE');
     setModal(true);
   };
 
