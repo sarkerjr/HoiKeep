@@ -11,14 +11,10 @@ export function hasValue(obj, searchValue) {
         if (hasValue(value, searchValue)) {
           return true;
         }
-      } else {
-        if (
-          String(value)
-            .toLowerCase()
-            .includes(String(searchValue).toLowerCase())
-        ) {
-          return true;
-        }
+      } else if (
+        String(value).toLowerCase().includes(String(searchValue).toLowerCase())
+      ) {
+        return true;
       }
     }
   }
