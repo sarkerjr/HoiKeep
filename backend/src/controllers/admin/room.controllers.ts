@@ -2,7 +2,10 @@ import { Request, Response } from 'express';
 import { create, get, getById, update, remove } from '@/services/room.services';
 
 export const createRoom = async (req: Request, res: Response) => {
-  const { no, seatQuantity, hallsId } = req.body;
+  const { no, hallsId } = req.body;
+  let { seatQuantity } = req.body;
+
+  if (typeof seatQuantity !== 'number') seatQuantity = parseInt(seatQuantity);
 
   const room = await create(no, seatQuantity, hallsId);
 
@@ -43,7 +46,10 @@ export const getRoom = async (req: Request, res: Response) => {
 };
 
 export const updateRoom = async (req: Request, res: Response) => {
-  const { id, no, seatQuantity, hallsId } = req.body;
+  const { id, no, hallsId } = req.body;
+  let { seatQuantity } = req.body;
+
+  if (typeof seatQuantity !== 'number') seatQuantity = parseInt(seatQuantity);
 
   const room = await update(id, no, seatQuantity, hallsId);
 
