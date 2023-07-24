@@ -16,7 +16,12 @@ type SeatRowProps = {
 };
 
 const SeatRow: FC<SeatRowProps> = ({ seat, setModal, setMode, setData }) => {
-  const { sl, no, roomsId } = seat;
+  const {
+    sl,
+    no,
+    isAvailable,
+    rooms: { no: roomsNo },
+  } = seat;
   const handleOnEdit = () => {
     setData(seat);
     setMode('UPDATE');
@@ -29,7 +34,9 @@ const SeatRow: FC<SeatRowProps> = ({ seat, setModal, setMode, setData }) => {
 
       <StyledTableCell align="center">{no}</StyledTableCell>
 
-      <StyledTableCell align="center">{roomsId}</StyledTableCell>
+      <StyledTableCell align="center">{isAvailable.toString()}</StyledTableCell>
+
+      <StyledTableCell align="center">{roomsNo}</StyledTableCell>
 
       <StyledTableCell align="center">
         <StyledIconButton onClick={handleOnEdit}>

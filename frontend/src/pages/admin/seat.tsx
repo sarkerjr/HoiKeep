@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import {
   Box,
   Card,
@@ -6,27 +6,28 @@ import {
   Table,
   TableBody,
   TableContainer,
-} from "@mui/material";
+} from '@mui/material';
 
 // project imports
-import SearchArea from "components/SearchArea";
-import TableHeader from "components/data-table/TableHeader";
-import TablePagination from "components/data-table/TablePagination";
-import Scrollbar from "components/Scrollbar";
-import { H3 } from "components/Typography";
-import useMuiTable from "hooks/useMuiTable";
-import useMuiTableSearch from "hooks/useMuiTableSearch";
-import useModal from "@/hooks/useModal";
-import SeatRow from "@/page-setions/admin/seat/SeatRow";
-import SeatModal from "@/page-setions/admin/seat/SeatModal";
-import { useReadSeatsQuery } from "@/store/services/seat.services";
+import SearchArea from 'components/SearchArea';
+import TableHeader from 'components/data-table/TableHeader';
+import TablePagination from 'components/data-table/TablePagination';
+import Scrollbar from 'components/Scrollbar';
+import { H3 } from 'components/Typography';
+import useMuiTable from 'hooks/useMuiTable';
+import useMuiTableSearch from 'hooks/useMuiTableSearch';
+import useModal from '@/hooks/useModal';
+import SeatRow from '@/page-setions/admin/seat/SeatRow';
+import SeatModal from '@/page-setions/admin/seat/SeatModal';
+import { useReadSeatsQuery } from '@/store/services/seat.services';
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
-  { id: "id", label: "ID", align: "center" },
-  { id: "no", label: "Seat Number", align: "center" },
-  { id: "roomsId", label: "Rooms Id", align: "center" },
-  { id: "action", label: "Action", align: "center" },
+  { id: 'id', label: 'ID', align: 'center' },
+  { id: 'no', label: 'Seat Number', align: 'center' },
+  { id: 'isAvailable', label: 'Seat Available?', align: 'center' },
+  { id: 'roomsId', label: 'Room No', align: 'center' },
+  { id: 'action', label: 'Action', align: 'center' },
 ];
 
 const Seat = () => {
@@ -34,8 +35,8 @@ const Seat = () => {
   const { modal, setModal, mode, setMode, data, setData } = useModal();
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
-    "no",
-    "roomsId",
+    'no',
+    'roomsId',
   ]);
 
   const {
@@ -57,7 +58,7 @@ const Seat = () => {
     setInitialData(newSeats);
   }, [seats]);
   const handleOnCreate = () => {
-    setMode("CREATE");
+    setMode('CREATE');
     setModal(true);
   };
 

@@ -24,10 +24,13 @@ export const create = async (
 export const get = async () => {
   return await prisma.seats
     .findMany({
-      select: {
-        id: true,
-        no: true,
-        roomsId: true,
+      include: {
+        rooms: {
+          select: {
+            id: true,
+            no: true,
+          },
+        },
       },
     })
     .then((seats) => {
@@ -47,6 +50,7 @@ export const getById = async (id: string) => {
       select: {
         id: true,
         no: true,
+        isAvailable: true,
         roomsId: true,
       },
     })

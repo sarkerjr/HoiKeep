@@ -24,7 +24,7 @@ import { useReadRoomsQuery } from '@/store/services/room.services';
 // TABLE HEADING DATA LIST
 const tableHeading = [
   { id: 'id', label: 'ID', align: 'center' },
-  { id: 'no', label: 'Room Number', align: 'center' },
+  { id: 'no', label: 'Room No', align: 'center' },
   { id: 'seatQuantity', label: 'Seat Quantity', align: 'center' },
   { id: 'action', label: 'Action', align: 'center' },
 ];
