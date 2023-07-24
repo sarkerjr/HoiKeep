@@ -25,7 +25,6 @@ const StudentRow: FC<StudentRowProps> = ({
   const {
     sl,
     departments: { name: departmentName },
-
     studentProfiles: {
       name,
       email,
@@ -34,9 +33,9 @@ const StudentRow: FC<StudentRowProps> = ({
       semester,
       year,
       admissionDate,
+      studentImages: { url },
       degrees: { name: degreeName },
     },
-    studentImages: { imageUrl },
   } = student;
 
   const handleOnEdit = () => {
@@ -65,7 +64,7 @@ const StudentRow: FC<StudentRowProps> = ({
         {admissionDate ? generalFormat(admissionDate) : 'N/A'}
       </StyledTableCell>
 
-      <StyledTableCell align="center">{imageUrl}</StyledTableCell>
+      <StyledTableCell align="center">{url || 'N/A'}</StyledTableCell>
 
       <StyledTableCell align="center">{departmentName}</StyledTableCell>
 

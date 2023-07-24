@@ -47,13 +47,13 @@ const StudentModal = ({
     student?.studentProfiles?.admissionDate ?? ''
   );
   const [imageUrl, setImageUrl] = useState(
-    student?.studentImages?.imageUrl ?? ''
+    student?.studentProfiles?.studentImages?.url ?? ''
   );
   const [departmentsId, setDepartmentsId] = useState(
-    student?.departmentsId ?? ''
+    student?.departments?.id ?? ''
   );
   const [degreesId, setDegreesId] = useState(
-    student?.studentProfiles?.degreesId ?? ''
+    student?.studentProfiles?.degrees?.id ?? ''
   );
 
   const { data: departments } = useReadDepartmentsQuery();
@@ -111,9 +111,9 @@ const StudentModal = ({
     setName(student?.studentProfiles?.semester ?? '');
     setName(student?.studentProfiles?.year ?? '');
     setName(student?.studentProfiles?.admissionDate ?? '');
-    setName(student?.studentImages?.imageUrl ?? '');
-    setName(student?.departmentsId ?? '');
-    setName(student?.studentProfiles?.degreesId ?? '');
+    setName(student?.studentProfiles?.studentImages?.url ?? '');
+    setName(student?.departments?.id ?? '');
+    setName(student?.studentProfiles?.degrees?.id ?? '');
   }, [student]);
 
   const handleOnSubmit = () => {

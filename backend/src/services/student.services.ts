@@ -63,21 +63,14 @@ export const create = async ({
 export const get = async () => {
   return await prisma.students
     .findMany({
-      select: {
-        id: true,
-        hallsId: true,
-        departmentsId: true,
+      include: {
         studentProfiles: {
-          select: {
-            name: true,
-            email: true,
-            studentNo: true,
-            session: true,
-            semester: true,
-            year: true,
-            admissionDate: true,
+          include: {
+            studentImages: true,
+            degrees: true,
           },
         },
+        departments: true,
       },
     })
     .then((students) => {
