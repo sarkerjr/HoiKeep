@@ -33,8 +33,8 @@ const tableHeading = [
   { id: 'year', label: 'Year', align: 'center' },
   { id: 'admissionDate', label: 'Admission Date', align: 'center' },
   { id: 'imageUrl', label: 'Image Url', align: 'center' },
-  { id: 'departmentsId', label: 'Department Id', align: 'center' },
-  { id: 'degreesId', label: 'Degree Id', align: 'center' },
+  { id: 'departmentsId', label: 'Department', align: 'center' },
+  { id: 'degreesId', label: 'Degree', align: 'center' },
   { id: 'action', label: 'Action', align: 'center' },
 ];
 
