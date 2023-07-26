@@ -6,24 +6,6 @@ import {
   update,
   remove,
 } from '@/services/authority.services';
-// import { getById as getHallById } from '@/services/hall.services';
-// import { getById as getDepartmentById } from '@/services/department.services';
-// import { getById as getPositionById } from '@/services/position.services';
-
-type Authority = {
-  id: string;
-  isActive: boolean;
-  positionsId: string;
-  hallsId: string;
-  departmentsId: string;
-  authorityDetails: {
-    name: string;
-    email: string;
-    joinedAt: Date;
-    leftAt: Date;
-    designationsId: string;
-  };
-};
 
 export const createAuthority = async (req: Request, res: Response) => {
   const {
