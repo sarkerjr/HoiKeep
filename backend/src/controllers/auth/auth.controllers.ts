@@ -51,25 +51,25 @@ export const checkAuth = async (req: Request, res: Response) => {
     return res.status(400).json({ message: user.message });
   }
 
-  let profile: any = null;
+  let role: any = null;
   if (user?.type === 'AUTHORITY') {
-    profile = await getAuthorityById(user?.authoritiesId);
+    role = await getAuthorityById(user?.authoritiesId);
   } else if (user?.type === 'STAFF') {
-    profile = await getStaffById(user?.staffsId);
+    role = await getStaffById(user?.staffsId);
   } else if (user?.type === 'OPERATOR') {
-    profile = await getOperatorById(user?.operatorsId);
+    role = await getOperatorById(user?.operatorsId);
   } else if (user?.type === 'STUDENT') {
-    profile = await getStudentById(user?.studentsId);
+    role = await getStudentById(user?.studentsId);
   }
 
   const token = sign(
     {
-      userId: user?.id,
-      profileId: profile?.id,
-      hallsId: profile?.hallsId,
+      usersId: user?.id,
+      rolesId: role?.id,
+      hallsId: role?.hallsId,
     },
     process.env.JWT_SECRET_KEY!,
-    { expiresIn: '12h' }
+    { expiresIn: process.env.JWT_EXPIRE_TIME }
   );
 
   return res.status(200).json({ accessToken: token });
