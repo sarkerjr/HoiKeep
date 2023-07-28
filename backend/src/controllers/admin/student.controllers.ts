@@ -89,8 +89,9 @@ export const updateStudent = async (req: Request, res: Response) => {
   } = req.body;
   let { semester, year } = req.body;
 
-  if (typeof semester !== 'number') semester = parseInt(semester);
-  if (typeof year !== 'number') year = parseInt(year);
+  if (semester && typeof semester !== 'number') semester = parseInt(semester);
+  if (year && typeof year !== 'number') year = parseInt(year);
+  const oldData: any = await getById(id);
 
   const student = await update({
     id,
@@ -100,7 +101,7 @@ export const updateStudent = async (req: Request, res: Response) => {
     session,
     semester,
     year,
-    admissionDate,
+    admissionDate: admissionDate || oldData?.studentProfiles?.admissionDate,
     imageUrl,
     hallsId,
     departmentsId,
