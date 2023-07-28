@@ -1,12 +1,13 @@
-import { FC } from "react";
-import { Delete, Edit } from "@mui/icons-material";
+import { FC } from 'react';
+import { Delete, Edit } from '@mui/icons-material';
+import { generalFormat } from '@/utils/dayjs';
 
 // project imports
 import {
   StyledTableRow,
   StyledIconButton,
   StyledTableCell,
-} from "components/data-table/StyledComponents";
+} from 'components/data-table/StyledComponents';
 
 type StudentRowProps = {
   student: any;
@@ -23,22 +24,23 @@ const StudentRow: FC<StudentRowProps> = ({
 }) => {
   const {
     sl,
-    name,
-    email,
-    studentNo,
-    session,
-    semester,
-    year,
-    admissionDate,
-    imageUrl,
-    hallsId,
-    departmentsId,
-    degreesId,
+    departments: { name: departmentName },
+    studentProfiles: {
+      name,
+      email,
+      studentNo,
+      session,
+      semester,
+      year,
+      admissionDate,
+      studentImages: { url },
+      degrees: { name: degreeName },
+    },
   } = student;
 
   const handleOnEdit = () => {
     setData(student);
-    setMode("EDIT");
+    setMode('EDIT');
     setModal(true);
   };
 
@@ -58,15 +60,15 @@ const StudentRow: FC<StudentRowProps> = ({
 
       <StyledTableCell align="center">{year}</StyledTableCell>
 
-      <StyledTableCell align="center">{admissionDate}</StyledTableCell>
+      <StyledTableCell align="center">
+        {admissionDate ? generalFormat(admissionDate) : 'N/A'}
+      </StyledTableCell>
 
-      <StyledTableCell align="center">{imageUrl}</StyledTableCell>
+      <StyledTableCell align="center">{url || 'N/A'}</StyledTableCell>
 
-      <StyledTableCell align="center">{hallsId}</StyledTableCell>
+      <StyledTableCell align="center">{departmentName}</StyledTableCell>
 
-      <StyledTableCell align="center">{departmentsId}</StyledTableCell>
-
-      <StyledTableCell align="center">{degreesId}</StyledTableCell>
+      <StyledTableCell align="center">{degreeName}</StyledTableCell>
 
       <StyledTableCell align="center">
         <StyledIconButton onClick={handleOnEdit}>

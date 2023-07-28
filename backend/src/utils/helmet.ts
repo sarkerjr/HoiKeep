@@ -1,5 +1,5 @@
 import helmet from 'helmet';
 
-module.exports = function () {
+export default function () {
   return helmet();
-};
+}

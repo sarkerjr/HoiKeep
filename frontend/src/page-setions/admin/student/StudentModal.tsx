@@ -1,7 +1,24 @@
-import { useState, useEffect } from "react";
-import { Button, Grid, TextField } from "@mui/material";
+import { useState, useEffect } from 'react';
+import {
+  Button,
+  Grid,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from '@mui/material';
 
-import Modal from "@/components/Modal";
+// project imports
+import DatePicker from '@/components/DatePicker';
+import Modal from '@/components/Modal';
+import useAlert from '@/hooks/useAlert';
+import {
+  useCreateStudentMutation,
+  useUpdateStudentMutation,
+} from '@/store/services/student.services';
+import { useReadDepartmentsQuery } from '@/store/services/department.services';
+import { useReadDegreesQuery } from '@/store/services/degree.services';
 
 const StudentModal = ({
   open,
@@ -14,51 +31,126 @@ const StudentModal = ({
   student: any;
   mode: string;
 }) => {
-  const [name, setName] = useState(student?.name ? student.name : "");
-  const [email, setEmail] = useState(student?.email ? student.email : "");
+  const [name, setName] = useState(student?.studentProfiles?.name ?? '');
+  const [email, setEmail] = useState(student?.studentProfiles?.email ?? '');
   const [studentNo, setStudentNo] = useState(
-    student?.studentNo ? student.studentNo : ""
+    student?.studentProfiles?.studentNo ?? ''
   );
   const [session, setSession] = useState(
-    student?.session ? student.session : ""
+    student?.studentProfiles?.session ?? ''
   );
   const [semester, setSemester] = useState(
-    student?.semester ? student.semester : ""
+    student?.studentProfiles?.semester ?? ''
   );
-  const [year, setYear] = useState(student?.year ? student.year : "");
+  const [year, setYear] = useState(student?.studentProfiles?.year ?? '');
   const [admissionDate, setAdmissionDate] = useState(
-    student?.admissionDate ? student.admissionDate : ""
+    student?.studentProfiles?.admissionDate ?? ''
   );
   const [imageUrl, setImageUrl] = useState(
-    student?.imageUrl ? student.imageUrl : ""
-  );
-  const [hallsId, setHallsId] = useState(
-    student?.hallsId ? student.hallsId : ""
+    student?.studentProfiles?.studentImages?.url ?? ''
   );
   const [departmentsId, setDepartmentsId] = useState(
-    student?.departmentsId ? student.departmentsId : ""
+    student?.departments?.id ?? ''
   );
   const [degreesId, setDegreesId] = useState(
-    student?.degreesId ? student.degreesId : ""
+    student?.studentProfiles?.degrees?.id ?? ''
+  );
+
+  const { data: departments } = useReadDepartmentsQuery();
+  const { data: degrees } = useReadDegreesQuery();
+
+  // setting alert for CREATE request
+  const [
+    createStudent,
+    {
+      data: createData,
+      error: createError,
+      isLoading: createIsLoading,
+      isSuccess: createIsSucess,
+      isError: createIsError,
+      reset: createReset,
+    },
+  ] = useCreateStudentMutation();
+
+  useAlert(
+    createData,
+    createError,
+    createIsLoading,
+    createIsSucess,
+    createIsError,
+    createReset
+  );
+
+  //setting alert for UPDATE request
+  const [
+    updateStudent,
+    {
+      data: updateData,
+      error: updateError,
+      isLoading: updateIsLoading,
+      isSuccess: updateIsSucess,
+      isError: updateIsError,
+      reset: updateReset,
+    },
+  ] = useUpdateStudentMutation();
+
+  useAlert(
+    updateData,
+    updateError,
+    updateIsLoading,
+    updateIsSucess,
+    updateIsError,
+    updateReset
   );
 
   useEffect(() => {
-    setName(student?.name ? student.name : "");
-    setName(student?.email ? student.email : "");
-    setName(student?.studentNo ? student.studentNo : "");
-    setName(student?.session ? student.session : "");
-    setName(student?.semester ? student.semester : "");
-    setName(student?.year ? student.year : "");
-    setName(student?.admissionDate ? student.admissionDate : "");
-    setName(student?.imageUrl ? student.imageUrl : "");
-    setName(student?.hallsId ? student.hallsId : "");
-    setName(student?.departmentsId ? student.departmentsId : "");
-    setName(student?.degreesId ? student.degreesId : "");
+    setName(student?.studentProfiles?.name ?? '');
+    setName(student?.studentProfiles?.email ?? '');
+    setName(student?.studentProfiles?.studentNo ?? '');
+    setName(student?.studentProfiles?.session ?? '');
+    setName(student?.studentProfiles?.semester ?? '');
+    setName(student?.studentProfiles?.year ?? '');
+    setName(student?.studentProfiles?.admissionDate ?? '');
+    setName(student?.studentProfiles?.studentImages?.url ?? '');
+    setName(student?.departments?.id ?? '');
+    setName(student?.studentProfiles?.degrees?.id ?? '');
   }, [student]);
+
+  const handleOnSubmit = () => {
+    if (mode === 'CREATE') {
+      createStudent({
+        name,
+        email,
+        studentNo,
+        session,
+        semester,
+        year,
+        admissionDate,
+        imageUrl,
+        departmentsId,
+        degreesId,
+      });
+    } else if (mode === 'UPDATE') {
+      updateStudent({
+        id: student?.id,
+        name,
+        email,
+        studentNo,
+        session,
+        semester,
+        year,
+        admissionDate,
+        imageUrl,
+        departmentsId,
+        degreesId,
+      });
+    }
+    close();
+  };
 
   return (
     <Modal
-      title={mode === "CREATE" ? "Add New Student" : "Edit Student"}
+      title={mode === 'CREATE' ? 'Add New Student' : 'Edit Student'}
       open={open}
       close={close}
     >
@@ -112,11 +204,11 @@ const StudentModal = ({
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
+          <DatePicker
+            sx={{ width: '100%' }}
             label="Admission Date"
             value={admissionDate}
-            onChange={(e) => setAdmissionDate(e.target.value)}
-            fullWidth
+            onChange={(value: Date) => setAdmissionDate(value)}
           />
         </Grid>
         <Grid item xs={12}>
@@ -128,38 +220,48 @@ const StudentModal = ({
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            label="Hall Id"
-            value={hallsId}
-            onChange={(e) => setHallsId(e.target.value)}
-            fullWidth
-          />
+          <FormControl fullWidth>
+            <InputLabel id="department-select-label">Department</InputLabel>
+            <Select
+              label="Department"
+              labelId="room-select-label"
+              value={departmentsId}
+              onChange={(event) => setDepartmentsId(event.target.value)}
+              fullWidth
+            >
+              {departments?.map((department: any) => (
+                <MenuItem value={department.id} key={department.id}>
+                  {department.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            label="Department Id"
-            value={departmentsId}
-            onChange={(e) => setDepartmentsId(e.target.value)}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Degree Id"
-            value={degreesId}
-            onChange={(e) => setDegreesId(e.target.value)}
-            fullWidth
-          />
+          <FormControl fullWidth>
+            <InputLabel id="degree-select-label">Degree</InputLabel>
+            <Select
+              label="Degree"
+              labelId="degree-select-label"
+              value={degreesId}
+              onChange={(event) => setDegreesId(event.target.value)}
+              fullWidth
+            >
+              {degrees?.map((degree: any) => (
+                <MenuItem value={degree.id} key={degree.id}>
+                  {degree.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
 
         <Grid item xs={12}>
           <Button
             variant="contained"
             color="primary"
-            onClick={() => {
-              close();
-            }}
-            disabled={true}
+            onClick={handleOnSubmit}
+            disabled={mode === 'CREATE' ? createIsLoading : updateIsLoading}
             fullWidth
           >
             {mode}

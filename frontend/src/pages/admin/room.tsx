@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import {
   Box,
   Card,
@@ -6,28 +6,27 @@ import {
   Table,
   TableBody,
   TableContainer,
-} from "@mui/material";
+} from '@mui/material';
 
 // project imports
-import SearchArea from "components/SearchArea";
-import TableHeader from "components/data-table/TableHeader";
-import TablePagination from "components/data-table/TablePagination";
-import Scrollbar from "components/Scrollbar";
-import { H3 } from "components/Typography";
-import useMuiTable from "hooks/useMuiTable";
-import useMuiTableSearch from "hooks/useMuiTableSearch";
-import useModal from "@/hooks/useModal";
-import RoomRow from "@/page-setions/admin/room/RoomRow";
-import RoomModal from "@/page-setions/admin/room/RoomModal";
-import { useReadRoomsQuery } from "@/store/services/room.services";
+import SearchArea from 'components/SearchArea';
+import TableHeader from 'components/data-table/TableHeader';
+import TablePagination from 'components/data-table/TablePagination';
+import Scrollbar from 'components/Scrollbar';
+import { H3 } from 'components/Typography';
+import useMuiTable from 'hooks/useMuiTable';
+import useMuiTableSearch from 'hooks/useMuiTableSearch';
+import useModal from '@/hooks/useModal';
+import RoomRow from '@/page-setions/admin/room/RoomRow';
+import RoomModal from '@/page-setions/admin/room/RoomModal';
+import { useReadRoomsQuery } from '@/store/services/room.services';
 
 // TABLE HEADING DATA LIST
 const tableHeading = [
-  { id: "id", label: "ID", align: "center" },
-  { id: "no", label: "Room Number", align: "center" },
-  { id: "seatQuantity", label: "Seat Quantity", align: "center" },
-  { id: "hallsId", label: "Halls Id", align: "center" },
-  { id: "action", label: "Action", align: "center" },
+  { id: 'id', label: 'ID', align: 'center' },
+  { id: 'no', label: 'Room No', align: 'center' },
+  { id: 'seatQuantity', label: 'Seat Quantity', align: 'center' },
+  { id: 'action', label: 'Action', align: 'center' },
 ];
 
 const Room = () => {
@@ -35,9 +34,8 @@ const Room = () => {
   const { modal, setModal, mode, setMode, data, setData } = useModal();
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
-    "name",
-    "seatQuantity",
-    "hallsId",
+    'name',
+    'seatQuantity',
   ]);
 
   const {
@@ -60,7 +58,7 @@ const Room = () => {
   }, [rooms]);
 
   const handleOnCreate = () => {
-    setMode("CREATE");
+    setMode('CREATE');
     setModal(true);
   };
 

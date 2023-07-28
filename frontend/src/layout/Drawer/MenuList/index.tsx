@@ -5,12 +5,15 @@ import List from './List';
 
 // lists
 import GeneralList from './GeneralList';
+import Room from './RoomList';
 import ModeratorList from './ModeratorList';
 
 const MenuList = () => {
   return (
     <Box sx={{ overflow: 'auto' }}>
       <List itemlist={GeneralList} />
+      <Divider />
+      <List itemlist={Room} />
       <Divider />
       <List itemlist={ModeratorList} />
     </Box>

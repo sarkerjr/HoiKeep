@@ -1,7 +1,12 @@
-import { useState, useEffect } from "react";
-import { Button, Grid, TextField } from "@mui/material";
+import { useState, useEffect } from 'react';
+import { Button, Grid, TextField } from '@mui/material';
 
-import Modal from "@/components/Modal";
+import Modal from '@/components/Modal';
+import useAlert from '@/hooks/useAlert';
+import {
+  useCreateDegreeMutation,
+  useUpdateDegreeMutation,
+} from '@/store/services/degree.services';
 
 const DegreeModal = ({
   open,
@@ -14,14 +19,73 @@ const DegreeModal = ({
   degree: any;
   mode: string;
 }) => {
-  const [name, setName] = useState(degree?.name ? degree.name : "");
+  const [name, setName] = useState(degree?.name ?? '');
+
+  // setting alert for CREATE request
+  const [
+    createDegree,
+    {
+      data: createData,
+      error: createError,
+      isLoading: createIsLoading,
+      isSuccess: createIsSucess,
+      isError: createIsError,
+      reset: createReset,
+    },
+  ] = useCreateDegreeMutation();
+
+  useAlert(
+    createData,
+    createError,
+    createIsLoading,
+    createIsSucess,
+    createIsError,
+    createReset
+  );
+
+  //setting alert for UPDATE request
+  const [
+    updateDegree,
+    {
+      data: updateData,
+      error: updateError,
+      isLoading: updateIsLoading,
+      isSuccess: updateIsSucess,
+      isError: updateIsError,
+      reset: updateReset,
+    },
+  ] = useUpdateDegreeMutation();
+
+  useAlert(
+    updateData,
+    updateError,
+    updateIsLoading,
+    updateIsSucess,
+    updateIsError,
+    updateReset
+  );
+
   useEffect(() => {
-    setName(degree?.name ? degree.name : "");
+    setName(degree?.name ?? '');
   }, [degree]);
+
+  const handleOnSubmit = () => {
+    if (mode === 'CREATE') {
+      createDegree({
+        name,
+      });
+    } else if (mode === 'UPDATE') {
+      updateDegree({
+        id: degree?.id,
+        name,
+      });
+    }
+    close();
+  };
 
   return (
     <Modal
-      title={mode === "CREATE" ? "Add New Degree" : "Edit Degree"}
+      title={mode === 'CREATE' ? 'Add New Degree' : 'Edit Degree'}
       open={open}
       close={close}
     >
@@ -39,10 +103,8 @@ const DegreeModal = ({
           <Button
             variant="contained"
             color="primary"
-            onClick={() => {
-              close();
-            }}
-            disabled={true}
+            onClick={handleOnSubmit}
+            disabled={mode === 'CREATE' ? createIsLoading : updateIsLoading}
             fullWidth
           >
             {mode}

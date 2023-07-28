@@ -8,7 +8,35 @@ import {
 } from '@/services/student.services';
 
 export const createStudent = async (req: Request, res: Response) => {
-  const student = await create(req.body);
+  const {
+    name,
+    email,
+    studentNo,
+    session,
+    admissionDate,
+    imageUrl,
+    hallsId,
+    departmentsId,
+    degreesId,
+  } = req.body;
+  let { semester, year } = req.body;
+
+  if (typeof semester !== 'number') semester = parseInt(semester);
+  if (typeof year !== 'number') year = parseInt(year);
+
+  const student = await create({
+    name,
+    email,
+    studentNo,
+    session,
+    semester,
+    year,
+    admissionDate,
+    imageUrl,
+    hallsId,
+    departmentsId,
+    degreesId,
+  });
 
   if (student instanceof Error) {
     return res.status(400).json({
@@ -47,7 +75,37 @@ export const getStudent = async (req: Request, res: Response) => {
 };
 
 export const updateStudent = async (req: Request, res: Response) => {
-  const student = await update(req.body);
+  const {
+    id,
+    name,
+    email,
+    studentNo,
+    session,
+    admissionDate,
+    imageUrl,
+    hallsId,
+    departmentsId,
+    degreesId,
+  } = req.body;
+  let { semester, year } = req.body;
+
+  if (typeof semester !== 'number') semester = parseInt(semester);
+  if (typeof year !== 'number') year = parseInt(year);
+
+  const student = await update({
+    id,
+    name,
+    email,
+    studentNo,
+    session,
+    semester,
+    year,
+    admissionDate,
+    imageUrl,
+    hallsId,
+    departmentsId,
+    degreesId,
+  });
 
   if (student instanceof Error) {
     return res.status(400).json({ message: 'Something went wrong!' });
