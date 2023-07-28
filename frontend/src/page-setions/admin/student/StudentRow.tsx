@@ -24,23 +24,21 @@ const StudentRow: FC<StudentRowProps> = ({
 }) => {
   const {
     sl,
-    departments: { name: departmentName },
+    departments: { nameTag: departmentNameTag },
     studentProfiles: {
       name,
-      email,
       studentNo,
       session,
       semester,
       year,
       admissionDate,
-      studentImages: { url },
       degrees: { name: degreeName },
     },
   } = student;
 
   const handleOnEdit = () => {
     setData(student);
-    setMode('EDIT');
+    setMode('UPDATE');
     setModal(true);
   };
 
@@ -49,8 +47,6 @@ const StudentRow: FC<StudentRowProps> = ({
       <StyledTableCell align="center">#{sl}</StyledTableCell>
 
       <StyledTableCell align="center">{name}</StyledTableCell>
-
-      <StyledTableCell align="center">{email}</StyledTableCell>
 
       <StyledTableCell align="center">{studentNo}</StyledTableCell>
 
@@ -64,9 +60,7 @@ const StudentRow: FC<StudentRowProps> = ({
         {admissionDate ? generalFormat(admissionDate) : 'N/A'}
       </StyledTableCell>
 
-      <StyledTableCell align="center">{url || 'N/A'}</StyledTableCell>
-
-      <StyledTableCell align="center">{departmentName}</StyledTableCell>
+      <StyledTableCell align="center">{departmentNameTag}</StyledTableCell>
 
       <StyledTableCell align="center">{degreeName}</StyledTableCell>
 

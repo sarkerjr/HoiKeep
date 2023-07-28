@@ -26,13 +26,11 @@ import { useReadStudentsQuery } from '@/store/services/student.services';
 const tableHeading = [
   { id: 'id', label: 'ID', align: 'center' },
   { id: 'name', label: 'Name', align: 'center' },
-  { id: 'email', label: 'Email', align: 'center' },
   { id: 'studentNo', label: 'Student Number', align: 'center' },
   { id: 'session', label: 'Session', align: 'center' },
   { id: 'semester', label: 'Semester', align: 'center' },
   { id: 'year', label: 'Year', align: 'center' },
   { id: 'admissionDate', label: 'Admission Date', align: 'center' },
-  { id: 'imageUrl', label: 'Image Url', align: 'center' },
   { id: 'departmentsId', label: 'Department', align: 'center' },
   { id: 'degreesId', label: 'Degree', align: 'center' },
   { id: 'action', label: 'Action', align: 'center' },
@@ -45,13 +43,11 @@ const Student = () => {
 
   const { rows, setInitialData, handleSearchQuery } = useMuiTableSearch([
     'name',
-    'email',
     'studentNo',
     'session',
     'semester',
     'year',
     'admissionDate',
-    'imageUrl',
     'hallsId',
     'departmentsId',
     'degreesId',

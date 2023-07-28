@@ -46,9 +46,6 @@ const StudentModal = ({
   const [admissionDate, setAdmissionDate] = useState(
     student?.studentProfiles?.admissionDate ?? ''
   );
-  const [imageUrl, setImageUrl] = useState(
-    student?.studentProfiles?.studentImages?.url ?? ''
-  );
   const [departmentsId, setDepartmentsId] = useState(
     student?.departments?.id ?? ''
   );
@@ -105,15 +102,14 @@ const StudentModal = ({
 
   useEffect(() => {
     setName(student?.studentProfiles?.name ?? '');
-    setName(student?.studentProfiles?.email ?? '');
-    setName(student?.studentProfiles?.studentNo ?? '');
-    setName(student?.studentProfiles?.session ?? '');
-    setName(student?.studentProfiles?.semester ?? '');
-    setName(student?.studentProfiles?.year ?? '');
-    setName(student?.studentProfiles?.admissionDate ?? '');
-    setName(student?.studentProfiles?.studentImages?.url ?? '');
-    setName(student?.departments?.id ?? '');
-    setName(student?.studentProfiles?.degrees?.id ?? '');
+    setEmail(student?.studentProfiles?.email ?? '');
+    setStudentNo(student?.studentProfiles?.studentNo ?? '');
+    setSession(student?.studentProfiles?.session ?? '');
+    setSemester(student?.studentProfiles?.semester ?? '');
+    setYear(student?.studentProfiles?.year ?? '');
+    setAdmissionDate(student?.studentProfiles?.admissionDate ?? '');
+    setDepartmentsId(student?.departments?.id ?? '');
+    setDegreesId(student?.studentProfiles?.degrees?.id ?? '');
   }, [student]);
 
   const handleOnSubmit = () => {
@@ -126,7 +122,6 @@ const StudentModal = ({
         semester,
         year,
         admissionDate,
-        imageUrl,
         departmentsId,
         degreesId,
       });
@@ -140,7 +135,6 @@ const StudentModal = ({
         semester,
         year,
         admissionDate,
-        imageUrl,
         departmentsId,
         degreesId,
       });
@@ -173,7 +167,7 @@ const StudentModal = ({
         </Grid>
         <Grid item xs={12}>
           <TextField
-            label="Student Number"
+            label="Student ID"
             value={studentNo}
             onChange={(e) => setStudentNo(e.target.value)}
             fullWidth
@@ -209,14 +203,6 @@ const StudentModal = ({
             label="Admission Date"
             value={admissionDate}
             onChange={(value: Date) => setAdmissionDate(value)}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Image Url"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            fullWidth
           />
         </Grid>
         <Grid item xs={12}>
