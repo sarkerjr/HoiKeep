@@ -19,7 +19,8 @@ type StaffRowProps = {
 const StaffRow: FC<StaffRowProps> = ({ staff, setModal, setMode, setData }) => {
   const {
     sl,
-    positionsId,
+    positions: { name: positionName },
+    hallsId,
     staffDetails: { name, email, joinedAt, leftAt },
   } = staff;
   const handleOnEdit = () => {
@@ -44,7 +45,7 @@ const StaffRow: FC<StaffRowProps> = ({ staff, setModal, setMode, setData }) => {
         {leftAt ? generalFormat(leftAt) : 'N/A'}
       </StyledTableCell>
 
-      <StyledTableCell align="center">{positionsId}</StyledTableCell>
+      <StyledTableCell align="center">{positionName}</StyledTableCell>
 
       <StyledTableCell align="center">
         <StyledIconButton onClick={handleOnEdit}>

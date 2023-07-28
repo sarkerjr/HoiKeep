@@ -34,19 +34,9 @@ export const create = async (
 export const get = async () => {
   return await prisma.operators
     .findMany({
-      select: {
-        id: true,
-        isActive: true,
-        positionsId: true,
-        hallsId: true,
-        operatorDetails: {
-          select: {
-            name: true,
-            email: true,
-            joinedAt: true,
-            leftAt: true,
-          },
-        },
+      include: {
+        positions: true,
+        operatorDetails: true,
       },
     })
     .then((notices) => {
@@ -63,19 +53,9 @@ export const getById = async (id: string) => {
       where: {
         id,
       },
-      select: {
-        id: true,
-        isActive: true,
-        positionsId: true,
-        hallsId: true,
-        operatorDetails: {
-          select: {
-            name: true,
-            email: true,
-            joinedAt: true,
-            leftAt: true,
-          },
-        },
+      include: {
+        positions: true,
+        operatorDetails: true,
       },
     })
     .then((authority) => {
