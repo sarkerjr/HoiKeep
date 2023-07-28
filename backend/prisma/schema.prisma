@@ -1,6 +1,5 @@
 generator client {
   provider                  = "prisma-client-js"
-  previewFeatures           = ["fieldReference"]
   binaryTargets             = ["native"]
   uncheckedRelationalInputs = "true"
   uncheckedScalarInputs     = "true"
@@ -9,6 +8,24 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Users {
+  id            String       @id @default(uuid())
+  email         String       @unique
+  password      String
+  type          UserType
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  authoritiesId String?      @unique
+  staffsId      String?      @unique
+  operatorsId   String?      @unique
+  studentsId    String?      @unique
+  // ------------------------------
+  authorities   Authorities? @relation(fields: [authoritiesId], references: [id])
+  staffs        Staffs?      @relation(fields: [staffsId], references: [id])
+  operators     Operators?   @relation(fields: [operatorsId], references: [id])
+  students      Students?    @relation(fields: [studentsId], references: [id])
 }
 
 model Halls {
@@ -72,6 +89,7 @@ model Authorities {
   departmentsId    String?
   // ------------------------------
   authorityDetails AuthorityDetails?
+  users            Users?
   halls            Halls?            @relation(fields: [hallsId], references: [id])
   departments      Departments?      @relation(fields: [departmentsId], references: [id])
   positions        Positions         @relation(fields: [positionsId], references: [id])
@@ -102,6 +120,7 @@ model Staffs {
   positionsId  String
   // ------------------------------
   staffDetails StaffDetails?
+  users        Users?
   halls        Halls?        @relation(fields: [hallsId], references: [id])
   positions    Positions     @relation(fields: [positionsId], references: [id])
   notices      Notices[]
@@ -129,6 +148,7 @@ model Operators {
   hallsId         String?
   // ------------------------------
   operatorDetails OperatorDetails?
+  users           Users?
   halls           Halls?           @relation(fields: [hallsId], references: [id])
   positions       Positions        @relation(fields: [positionsId], references: [id])
 }
@@ -173,6 +193,7 @@ model Students {
   departmentsId   String
   // ------------------------------
   studentProfiles StudentProfiles?
+  users           Users?
   halls           Halls?           @relation(fields: [hallsId], references: [id])
   departments     Departments      @relation(fields: [departmentsId], references: [id])
   accommodations  Accommodations[]
@@ -272,4 +293,11 @@ enum PositionCategory {
   AUTHORITY
   STAFF
   OPERATOR
+}
+
+enum UserType {
+  AUTHORITY
+  STAFF
+  OPERATOR
+  STUDENT
 }
