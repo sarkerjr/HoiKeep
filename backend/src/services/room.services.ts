@@ -35,6 +35,7 @@ export const get = async () => {
       return rooms;
     })
     .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      console.log(error);
       return error;
     });
 };
