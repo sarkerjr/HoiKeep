@@ -191,6 +191,8 @@ model Students {
   id              String           @id @default(uuid())
   hallsId         String?
   departmentsId   String
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
   // ------------------------------
   studentProfiles StudentProfiles?
   users           Users?
@@ -210,6 +212,8 @@ model StudentProfiles {
   admissionDate DateTime?
   studentId     String         @unique
   degreesId     String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
   // ------------------------------
   students      Students       @relation(fields: [studentId], references: [id])
   studentImages StudentImages?
@@ -222,6 +226,8 @@ model StudentImages {
   id              String          @id @default(uuid())
   url             String?
   studentId       String          @unique
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
   // ------------------------------
   studentProfiles StudentProfiles @relation(fields: [studentId], references: [id])
 }
@@ -236,12 +242,14 @@ model Degrees {
 }
 
 model Rooms {
-  id           String  @id @default(uuid())
-  no           String  @unique
+  id           String   @id @default(uuid())
+  no           String   @unique
   seatQuantity Int
   hallsId      String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
   // ------------------------------
-  halls        Halls?  @relation(fields: [hallsId], references: [id])
+  halls        Halls?   @relation(fields: [hallsId], references: [id])
   Seats        Seats[]
 }
 
@@ -250,6 +258,8 @@ model Seats {
   no             String
   isAvailable    Boolean          @default(true)
   roomsId        String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   // ------------------------------
   rooms          Rooms            @relation(fields: [roomsId], references: [id])
   accommodations Accommodations[]
@@ -258,30 +268,39 @@ model Seats {
 }
 
 model Accommodations {
-  id         String   @id @default(uuid())
-  isActive   Boolean  @default(true)
+  id         String              @id @default(uuid())
+  isActive   Boolean             @default(true)
+  status     AccommodationStatus
+  createdAt  DateTime            @default(now())
+  updatedAt  DateTime            @updatedAt
   studentsId String
   seatsId    String
   // ------------------------------
-  seats      Seats    @relation(fields: [seatsId], references: [id])
-  students   Students @relation(fields: [studentsId], references: [id])
+  seats      Seats               @relation(fields: [seatsId], references: [id])
+  students   Students            @relation(fields: [studentsId], references: [id])
 }
 
 model Fees {
-  id     String @id @default(uuid())
-  amount Int
+  id        String   @id @default(uuid())
+  amount    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Bills {
-  id     String  @id @default(uuid())
-  amount Int
-  paid   Boolean
+  id        String   @id @default(uuid())
+  amount    Int
+  paid      Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Transactions {
-  id     String  @id @default(uuid())
-  amount Int
-  paid   Boolean
+  id        String   @id @default(uuid())
+  amount    Int
+  paid      Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum Gender {
@@ -300,4 +319,10 @@ enum UserType {
   STAFF
   OPERATOR
   STUDENT
+}
+
+enum AccommodationStatus {
+  ALLOCATED
+  UNALLOCATED
+  ILLEGAL
 }
