@@ -8,11 +8,14 @@ import {
 } from '@/services/accommodation.services';
 
 export const createAccommodation = async (req: Request, res: Response) => {
-  const { isActive, status, studentsId, seatsId } = req.body;
+  const { isActive, status, joiningDate, leavingDate, studentsId, seatsId } =
+    req.body;
 
   const accommodation = await createWithSeat({
     isActive,
     status,
+    joiningDate,
+    leavingDate,
     studentsId,
     seatsId,
   });
@@ -52,12 +55,24 @@ export const getAccommodation = async (req: Request, res: Response) => {
 };
 
 export const updateAccommodation = async (req: Request, res: Response) => {
-  const { id, isActive, status, studentsId, seatsId } = req.body;
+  const {
+    id,
+    isActive,
+    status,
+    joiningDate,
+    leavingDate,
+    studentsId,
+    seatsId,
+  } = req.body;
+
+  const oldData: any = await getById(id);
 
   const accommodation = await updateWithSeat({
     id,
     isActive,
     status,
+    joiningDate: joiningDate || oldData?.joiningDate,
+    leavingDate: leavingDate || oldData?.leavingDate,
     studentsId,
     seatsId,
   });

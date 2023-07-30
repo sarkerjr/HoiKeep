@@ -5,6 +5,8 @@ type AccommodationType = {
   id?: string;
   isActive: boolean;
   status: AccommodationStatus;
+  joiningDate: Date;
+  leavingDate: Date;
   studentsId: string;
   seatsId: string;
 };
@@ -12,6 +14,8 @@ type AccommodationType = {
 export const create = async ({
   isActive,
   status,
+  joiningDate,
+  leavingDate,
   studentsId,
   seatsId,
 }: AccommodationType) => {
@@ -20,6 +24,8 @@ export const create = async ({
       data: {
         isActive,
         status,
+        joiningDate: joiningDate ? new Date(joiningDate) : null,
+        leavingDate: leavingDate ? new Date(leavingDate) : null,
         studentsId,
         seatsId,
       },
@@ -73,6 +79,7 @@ export const get = async () => {
         status: true,
         students: {
           select: {
+            id: true,
             studentProfiles: {
               select: {
                 id: true,
@@ -89,6 +96,7 @@ export const get = async () => {
             rooms: {
               select: {
                 id: true,
+                hallsId: true,
                 no: true,
               },
             },
@@ -114,8 +122,31 @@ export const getById = async (id: string) => {
         id: true,
         isActive: true,
         status: true,
-        students: true,
-        seats: true,
+        students: {
+          select: {
+            id: true,
+            studentProfiles: {
+              select: {
+                id: true,
+                name: true,
+                studentNo: true,
+              },
+            },
+          },
+        },
+        seats: {
+          select: {
+            id: true,
+            no: true,
+            rooms: {
+              select: {
+                id: true,
+                hallsId: true,
+                no: true,
+              },
+            },
+          },
+        },
       },
     })
     .then((accommodation) => {
@@ -130,6 +161,8 @@ export const update = async ({
   id,
   isActive,
   status,
+  joiningDate,
+  leavingDate,
   studentsId,
   seatsId,
 }: AccommodationType) => {
@@ -141,6 +174,8 @@ export const update = async ({
       data: {
         isActive,
         status,
+        joiningDate: new Date(joiningDate),
+        leavingDate: new Date(leavingDate),
         studentsId,
         seatsId,
       },
@@ -157,6 +192,8 @@ export const updateWithSeat = async ({
   id,
   isActive,
   status,
+  joiningDate,
+  leavingDate,
   studentsId,
   seatsId,
 }: AccommodationType) => {
@@ -170,6 +207,8 @@ export const updateWithSeat = async ({
           data: {
             isActive,
             status,
+            joiningDate: new Date(joiningDate),
+            leavingDate: new Date(leavingDate),
             studentsId,
             seatsId,
           },

@@ -268,16 +268,18 @@ model Seats {
 }
 
 model Accommodations {
-  id         String              @id @default(uuid())
-  isActive   Boolean             @default(true)
-  status     AccommodationStatus
-  createdAt  DateTime            @default(now())
-  updatedAt  DateTime            @updatedAt
-  studentsId String
-  seatsId    String
+  id          String              @id @default(uuid())
+  isActive    Boolean             @default(true)
+  status      AccommodationStatus
+  joiningDate DateTime?
+  leavingDate DateTime?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  studentsId  String
+  seatsId     String
   // ------------------------------
-  seats      Seats               @relation(fields: [seatsId], references: [id])
-  students   Students            @relation(fields: [studentsId], references: [id])
+  seats       Seats               @relation(fields: [seatsId], references: [id])
+  students    Students            @relation(fields: [studentsId], references: [id])
 }
 
 model Fees {
