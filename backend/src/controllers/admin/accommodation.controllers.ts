@@ -8,8 +8,11 @@ import {
 } from '@/services/accommodation.services';
 
 export const createAccommodation = async (req: Request, res: Response) => {
-  const { isActive, status, joiningDate, leavingDate, studentsId, seatsId } =
-    req.body;
+  const { status, joiningDate, leavingDate, studentsId, seatsId } = req.body;
+  let { isActive } = req.body;
+
+  if (typeof isActive === 'string')
+    isActive = isActive === 'true' ? true : false;
 
   const accommodation = await createWithSeat({
     isActive,
@@ -55,17 +58,12 @@ export const getAccommodation = async (req: Request, res: Response) => {
 };
 
 export const updateAccommodation = async (req: Request, res: Response) => {
-  const {
-    id,
-    isActive,
-    status,
-    joiningDate,
-    leavingDate,
-    studentsId,
-    seatsId,
-  } = req.body;
+  const { id, status, joiningDate, leavingDate, studentsId, seatsId } =
+    req.body;
+  let { isActive } = req.body;
 
-  console.log(req.body);
+  if (typeof isActive === 'string')
+    isActive = isActive === 'true' ? true : false;
 
   const oldData: any = await getById(id);
 

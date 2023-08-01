@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import {
   Button,
   Grid,
-  TextField,
   Select,
   MenuItem,
   InputLabel,
@@ -13,7 +12,8 @@ import {
 import DatePicker from '@/components/DatePicker';
 import Modal from '@/components/Modal';
 import useAlert from '@/hooks/useAlert';
-import { ALLOCATION_STATUS } from '@/utils/constants';
+
+import { ALLOCATION_STATUS, BOOLEAN_OPTIONS } from '@/utils/constants';
 import {
   useCreateAccommodationMutation,
   useUpdateAccommodationMutation,
@@ -198,12 +198,24 @@ const AuthorityModal = ({
         </Grid>
 
         <Grid item xs={12}>
-          <TextField
-            label="Is Active?"
-            value={isActive}
-            onChange={(event) => setIsActive(event.target.value)}
-            fullWidth
-          />
+          <FormControl fullWidth>
+            <InputLabel id="accommodation-status-select-label">
+              Is Active?
+            </InputLabel>
+            <Select
+              label="Is Active?"
+              labelId="accommodation-status-select-label"
+              value={isActive}
+              onChange={(event) => setIsActive(event.target.value)}
+              fullWidth
+            >
+              {BOOLEAN_OPTIONS?.map((item: any) => (
+                <MenuItem value={item?.value} key={item?.value}>
+                  {item?.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
 
         <Grid item xs={12}>
