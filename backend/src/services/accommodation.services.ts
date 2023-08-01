@@ -49,6 +49,8 @@ export const create = async ({
 export const createWithSeat = async ({
   isActive,
   status,
+  joiningDate,
+  leavingDate,
   studentsId,
   seatsId,
 }: AccommodationType) => {
@@ -59,6 +61,8 @@ export const createWithSeat = async ({
           data: {
             isActive,
             status,
+            joiningDate: joiningDate ? new Date(joiningDate) : null,
+            leavingDate: leavingDate ? new Date(leavingDate) : null,
             students: {
               connect: {
                 id: studentsId,
@@ -227,7 +231,7 @@ export const updateWithSeat = async ({
           isActive,
           status,
           joiningDate: joiningDate ? new Date(joiningDate) : null,
-          leavingDate: joiningDate ? new Date(leavingDate) : null,
+          leavingDate: leavingDate ? new Date(leavingDate) : null,
           studentsId,
           seatsId,
         },
