@@ -65,6 +65,8 @@ export const updateAccommodation = async (req: Request, res: Response) => {
     seatsId,
   } = req.body;
 
+  console.log(req.body);
+
   const oldData: any = await getById(id);
 
   const accommodation = await updateWithSeat({

@@ -26,8 +26,16 @@ export const create = async ({
         status,
         joiningDate: joiningDate ? new Date(joiningDate) : null,
         leavingDate: leavingDate ? new Date(leavingDate) : null,
-        studentsId,
-        seatsId,
+        students: {
+          connect: {
+            id: studentsId,
+          },
+        },
+        seats: {
+          connect: {
+            id: seatsId,
+          },
+        },
       },
     })
     .then((accommodation) => {
@@ -51,8 +59,16 @@ export const createWithSeat = async ({
           data: {
             isActive,
             status,
-            studentsId,
-            seatsId,
+            students: {
+              connect: {
+                id: studentsId,
+              },
+            },
+            seats: {
+              connect: {
+                id: seatsId,
+              },
+            },
           },
         }),
         prisma.seats.update({
@@ -77,6 +93,8 @@ export const get = async () => {
         id: true,
         isActive: true,
         status: true,
+        joiningDate: true,
+        leavingDate: true,
         students: {
           select: {
             id: true,
@@ -122,6 +140,8 @@ export const getById = async (id: string) => {
         id: true,
         isActive: true,
         status: true,
+        joiningDate: true,
+        leavingDate: true,
         students: {
           select: {
             id: true,
@@ -174,8 +194,8 @@ export const update = async ({
       data: {
         isActive,
         status,
-        joiningDate: new Date(joiningDate),
-        leavingDate: new Date(leavingDate),
+        joiningDate: joiningDate ? new Date(joiningDate) : null,
+        leavingDate: leavingDate ? new Date(leavingDate) : null,
         studentsId,
         seatsId,
       },
@@ -197,34 +217,32 @@ export const updateWithSeat = async ({
   studentsId,
   seatsId,
 }: AccommodationType) => {
-  {
-    try {
-      return await prisma.$transaction([
-        prisma.accommodations.update({
-          where: {
-            id,
-          },
-          data: {
-            isActive,
-            status,
-            joiningDate: new Date(joiningDate),
-            leavingDate: new Date(leavingDate),
-            studentsId,
-            seatsId,
-          },
-        }),
-        prisma.seats.update({
-          where: {
-            id: seatsId,
-          },
-          data: {
-            isAvailable: false,
-          },
-        }),
-      ]);
-    } catch (error) {
-      return error;
-    }
+  try {
+    return await prisma.$transaction([
+      prisma.accommodations.update({
+        where: {
+          id,
+        },
+        data: {
+          isActive,
+          status,
+          joiningDate: joiningDate ? new Date(joiningDate) : null,
+          leavingDate: joiningDate ? new Date(leavingDate) : null,
+          studentsId,
+          seatsId,
+        },
+      }),
+      prisma.seats.update({
+        where: {
+          id: seatsId,
+        },
+        data: {
+          isAvailable: isActive ? false : true, //set seat available if accommodation is inactive
+        },
+      }),
+    ]);
+  } catch (error) {
+    return error;
   }
 };
 
