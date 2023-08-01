@@ -18,7 +18,7 @@ import useMuiTable from 'hooks/useMuiTable';
 import useMuiTableSearch from 'hooks/useMuiTableSearch';
 import useModal from '@/hooks/useModal';
 import AccommodationRow from '@/page-setions/admin/accommodation/AccommodationRow';
-import DegreeModal from '@/page-setions/admin/degree/DegreeModal';
+import AccommodationModal from '@/page-setions/admin/accommodation/AccommodationModal';
 import { useReadAccommodationsQuery } from '@/store/services/accommodation.services';
 
 // TABLE HEADING DATA LIST
@@ -114,11 +114,11 @@ const Accommodation = () => {
         </Card>
       </Box>
 
-      <DegreeModal
+      <AccommodationModal
         mode={mode}
         open={modal}
         close={() => setModal(false)}
-        degree={data}
+        accommodation={data}
       />
     </>
   );

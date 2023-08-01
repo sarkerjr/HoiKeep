@@ -275,7 +275,7 @@ model Accommodations {
   leavingDate DateTime?
   createdAt   DateTime            @default(now())
   updatedAt   DateTime            @updatedAt
-  studentsId  String
+  studentsId  String              @unique
   seatsId     String
   // ------------------------------
   seats       Seats               @relation(fields: [seatsId], references: [id])

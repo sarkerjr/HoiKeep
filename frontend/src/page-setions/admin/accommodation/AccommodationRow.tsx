@@ -27,7 +27,7 @@ const AccommodationRow: FC<AccommodationRowProps> = ({
     isActive,
     status,
     joiningDate,
-    laevingDate,
+    leavingDate,
     students: {
       studentProfiles: { name, studentNo },
     },
@@ -48,7 +48,7 @@ const AccommodationRow: FC<AccommodationRowProps> = ({
       case 'ALLOCATED':
         return 'green';
       case 'UNALLOCATED':
-        return 'yellow';
+        return 'coral';
       case 'ILLEGAL':
         return 'red';
       default:
@@ -62,7 +62,7 @@ const AccommodationRow: FC<AccommodationRowProps> = ({
 
       <StyledTableCell align="center">{`${roomNo} (${seatNo})`}</StyledTableCell>
 
-      <StyledTableCell align="center">{`${name} - ${studentNo}`}</StyledTableCell>
+      <StyledTableCell align="center">{`${name} (${studentNo})`}</StyledTableCell>
 
       <StyledTableCell align="center">{isActive.toString()}</StyledTableCell>
 
@@ -78,7 +78,7 @@ const AccommodationRow: FC<AccommodationRowProps> = ({
       </StyledTableCell>
 
       <StyledTableCell align="center">
-        {laevingDate ? generalFormat(laevingDate) : 'N/A'}
+        {leavingDate ? generalFormat(leavingDate) : 'N/A'}
       </StyledTableCell>
 
       <StyledTableCell align="center">
