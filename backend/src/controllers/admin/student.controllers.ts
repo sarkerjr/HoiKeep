@@ -3,13 +3,16 @@ import {
   create,
   get,
   getById,
+  getWithAccommodationStatus,
   update,
   remove,
 } from '@/services/student.services';
+import { stringToBoolean } from '@/utils/helper';
 
 export const createStudent = async (req: Request, res: Response) => {
   const {
     name,
+    isActive,
     email,
     studentNo,
     session,
@@ -26,6 +29,7 @@ export const createStudent = async (req: Request, res: Response) => {
 
   const student = await create({
     name,
+    isActive: stringToBoolean(isActive),
     email,
     studentNo,
     session,
@@ -62,6 +66,19 @@ export const getStudents = async (req: Request, res: Response) => {
   return res.status(200).json(students);
 };
 
+export const getStudentsAccommodationStatus = async (
+  req: Request,
+  res: Response
+) => {
+  const students = await getWithAccommodationStatus();
+
+  if (students instanceof Error) {
+    return res.status(400).json({ message: 'Something went wrong!' });
+  }
+
+  return res.status(200).json(students);
+};
+
 export const getStudent = async (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -77,6 +94,7 @@ export const getStudent = async (req: Request, res: Response) => {
 export const updateStudent = async (req: Request, res: Response) => {
   const {
     id,
+    isActive,
     name,
     email,
     studentNo,
@@ -95,6 +113,7 @@ export const updateStudent = async (req: Request, res: Response) => {
 
   const student = await update({
     id,
+    isActive: stringToBoolean(isActive),
     name,
     email,
     studentNo,

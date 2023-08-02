@@ -12,6 +12,7 @@ import studentRoutes from './student.routes';
 import degreeRoutes from './degree.routes';
 import roomRoutes from './room.routes';
 import seatRoutes from './seat.routes';
+import AccommodationRoutes from './accommodation.routes';
 
 const router = Router();
 
@@ -27,5 +28,6 @@ router.use('/student', studentRoutes);
 router.use('/degree', degreeRoutes);
 router.use('/room', roomRoutes);
 router.use('/seat', seatRoutes);
+router.use('/accommodation', AccommodationRoutes);
 
 export default router;
