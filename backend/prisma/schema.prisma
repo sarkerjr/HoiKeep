@@ -42,6 +42,7 @@ model Halls {
   students    Students[]
   notices     Notices[]
   rooms       Rooms[]
+  fees        Fees[]
 }
 
 model Departments {
@@ -281,29 +282,23 @@ model Accommodations {
   // ------------------------------
   seats       Seats               @relation(fields: [seatsId], references: [id])
   students    Students            @relation(fields: [studentsId], references: [id])
+  fees        Fees[]
 }
 
 model Fees {
-  id        String   @id @default(uuid())
-  amount    Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+  id               String         @id @default(uuid())
+  amount           Float
+  year             Int
+  month            Int
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  accommodationsId String
+  hallsId          String?
+  // ------------------------------
+  Halls            Halls?         @relation(fields: [hallsId], references: [id])
+  Accommodations   Accommodations @relation(fields: [accommodationsId], references: [id])
 
-model Bills {
-  id        String   @id @default(uuid())
-  amount    Int
-  paid      Boolean
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Transactions {
-  id        String   @id @default(uuid())
-  amount    Int
-  paid      Boolean
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  @@unique([year, month, accommodationsId])
 }
 
 enum Gender {

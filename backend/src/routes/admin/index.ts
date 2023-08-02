@@ -13,6 +13,7 @@ import degreeRoutes from './degree.routes';
 import roomRoutes from './room.routes';
 import seatRoutes from './seat.routes';
 import AccommodationRoutes from './accommodation.routes';
+import FeeRoutes from './fee.routes';
 
 const router = Router();
 
@@ -29,5 +30,6 @@ router.use('/degree', degreeRoutes);
 router.use('/room', roomRoutes);
 router.use('/seat', seatRoutes);
 router.use('/accommodation', AccommodationRoutes);
+router.use('/fee', FeeRoutes);
 
 export default router;
