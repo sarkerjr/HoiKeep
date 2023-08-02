@@ -14,7 +14,7 @@ export const createAccommodation = async (req: Request, res: Response) => {
   if (typeof isActive === 'string')
     isActive = isActive === 'true' ? true : false;
 
-  const accommodation = await createWithSeat({
+  const accommodation: any = await createWithSeat({
     isActive,
     status,
     joiningDate,
@@ -25,6 +25,11 @@ export const createAccommodation = async (req: Request, res: Response) => {
 
   if (accommodation instanceof Error) {
     // TODO: Handle prisma error code
+    if (accommodation.code === 'P2002') {
+      return res.status(400).json({
+        message: 'Seat already occupied.',
+      });
+    }
     return res.status(400).json({
       message: 'Something went wrong.',
     });

@@ -57,17 +57,6 @@ export const getSeat = async (req: Request, res: Response) => {
 export const updateSeat = async (req: Request, res: Response) => {
   const { id, no, isAvailable, roomsId } = req.body;
 
-  // const data: Prisma.SeatsUpdateInput = {
-  //   id,
-  //   no,
-  //   isAvailable,
-  //   rooms: {
-  //     connect: {
-  //       id: roomsId,
-  //     },
-  //   },
-  // };
-
   const seat = await update({ id, no, isAvailable, roomsId });
 
   if (seat instanceof Error) {
