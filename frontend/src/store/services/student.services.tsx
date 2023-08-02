@@ -12,6 +12,11 @@ export const studentApi = createApi({
       providesTags: ['Students'],
     }),
 
+    readStudentsWithAccommodationStatus: builder.query<any, void>({
+      query: () => '/admin/student/accommodation',
+      providesTags: ['Students'],
+    }),
+
     readStudent: builder.query<any, Partial<any>>({
       query: (body) => ({ url: `admin/student/${body.id}` }),
     }),
@@ -47,6 +52,7 @@ export const studentApi = createApi({
 
 export const {
   useReadStudentsQuery,
+  useReadStudentsWithAccommodationStatusQuery,
   useReadStudentQuery,
   useCreateStudentMutation,
   useUpdateStudentMutation,

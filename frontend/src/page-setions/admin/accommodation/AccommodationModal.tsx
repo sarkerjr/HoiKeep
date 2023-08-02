@@ -4,8 +4,11 @@ import {
   Grid,
   Select,
   MenuItem,
+  Autocomplete,
+  TextField,
   InputLabel,
   FormControl,
+  Typography,
 } from '@mui/material';
 
 // project imports
@@ -18,9 +21,8 @@ import {
   useCreateAccommodationMutation,
   useUpdateAccommodationMutation,
 } from '@/store/services/accommodation.services';
-import { useReadRoomsQuery } from '@/store/services/room.services';
 import { useReadSeatsQuery } from '@/store/services/seat.services';
-import { useReadStudentsQuery } from '@/store/services/student.services';
+import { useReadStudentsWithAccommodationStatusQuery } from '@/store/services/student.services';
 
 const AuthorityModal = ({
   open,
@@ -33,11 +35,8 @@ const AuthorityModal = ({
   accommodation: any;
   mode: string;
 }) => {
-  const [studentsId, setStudentsId] = useState(
-    accommodation?.students?.id ?? ''
-  );
-  const [seatsId, setSeatsId] = useState(accommodation?.seats?.id ?? '');
-  const [roomsId, setRoomsId] = useState(accommodation?.seats?.rooms?.id ?? '');
+  const [student, setStudent] = useState(accommodation?.students ?? '');
+  const [seat, setSeat] = useState(accommodation?.seats ?? '');
   const [isActive, setIsActive] = useState(accommodation?.isActive ?? true);
   const [status, setStatus] = useState(accommodation?.status ?? '');
   const [joiningDate, setJoiningDate] = useState(
@@ -47,9 +46,8 @@ const AuthorityModal = ({
     accommodation?.leavingDate ?? null
   );
 
-  const { data: rooms } = useReadRoomsQuery();
   const { data: seats } = useReadSeatsQuery();
-  const { data: students } = useReadStudentsQuery();
+  const { data: students } = useReadStudentsWithAccommodationStatusQuery();
 
   // setting alert for CREATE request
   const [
@@ -96,21 +94,19 @@ const AuthorityModal = ({
   );
 
   useEffect(() => {
-    setStudentsId(accommodation?.students?.id ?? '');
-    setSeatsId(accommodation?.seats?.id ?? '');
-    setRoomsId(accommodation?.seats?.rooms?.id ?? '');
+    students && setStudent(accommodation?.students ?? students[0]);
+    seats && setSeat(accommodation?.seats?.seats ?? seats[0]);
     setIsActive(accommodation?.isActive ?? true);
     setStatus(accommodation?.status ?? '');
     setJoiningDate(accommodation?.joiningDate ?? null);
     setLeavingDate(accommodation?.leavingDate ?? null);
-  }, [accommodation]);
+  }, [accommodation, seats, students]);
 
   const handleOnSubmit = () => {
     if (mode === 'CREATE') {
       createAccommodation({
-        studentsId,
-        seatsId,
-        roomsId,
+        student,
+        seatsId: seat.id,
         isActive,
         status,
         joiningDate,
@@ -119,9 +115,8 @@ const AuthorityModal = ({
     } else if (mode === 'UPDATE') {
       updateAccommodation({
         id: accommodation?.id,
-        studentsId,
-        seatsId,
-        roomsId,
+        student,
+        seatsId: seat.id,
         isActive,
         status,
         joiningDate,
@@ -139,71 +134,72 @@ const AuthorityModal = ({
     >
       <Grid container rowSpacing={2}>
         <Grid item xs={12}>
-          <FormControl fullWidth>
-            <InputLabel id="-accommodation-student-select-label">
-              Student
-            </InputLabel>
-            <Select
-              label="Student"
-              labelId="accommodation-student-select-label"
-              value={studentsId}
-              onChange={(event) => setStudentsId(event.target.value)}
+          {students && (
+            <Autocomplete
               fullWidth
-            >
-              {students?.map((student: any) => (
-                <MenuItem value={student?.id} key={student?.id}>
-                  {`${student?.studentProfiles?.name} (${student?.studentProfiles?.studentNo})`}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+              disablePortal
+              options={students}
+              value={student}
+              onChange={(_, newValue) => setStudent(newValue)}
+              getOptionLabel={(option) => {
+                return option
+                  ? `${option.studentProfiles.name} (${option.studentProfiles.studentNo})`
+                  : '';
+              }}
+              renderOption={(props, option) => (
+                <Typography
+                  {...props}
+                  color={option?.accommodations?.isActive ? 'coral' : 'black'}
+                >
+                  {`${option.studentProfiles.name} (${option?.studentProfiles.studentNo})`}
+                </Typography>
+              )}
+              isOptionEqualToValue={(option, value) => {
+                return option.id === value.id;
+              }}
+              renderInput={(params) => (
+                <TextField {...params} label="Student" />
+              )}
+            />
+          )}
         </Grid>
 
         <Grid item xs={12}>
-          <FormControl fullWidth>
-            <InputLabel id="accommodation-room-select-label">Room</InputLabel>
-            <Select
-              label="Room"
-              labelId="accommodation-room-select-label"
-              value={roomsId}
-              onChange={(event) => setRoomsId(event.target.value)}
+          {seats && (
+            <Autocomplete
               fullWidth
-            >
-              {rooms?.map((room: any) => (
-                <MenuItem value={room?.id} key={room?.id}>
-                  {room?.no}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={12}>
-          <FormControl fullWidth>
-            <InputLabel id="accommodation-seat-select-label">Seat</InputLabel>
-            <Select
-              label="Seat"
-              labelId="accommodation-seat-select-label"
-              value={seatsId}
-              onChange={(event) => setSeatsId(event.target.value)}
-              fullWidth
-            >
-              {seats?.map((seat: any) => (
-                <MenuItem value={seat?.id} key={seat?.id}>
-                  {seat?.no}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+              disablePortal
+              options={seats}
+              value={seat}
+              onChange={(_, newValue) => setSeat(newValue)}
+              getOptionLabel={(option) => {
+                return option ? `${option.rooms.no} (${option?.no})` : '';
+              }}
+              renderOption={(props, option) => (
+                <Typography {...props}>
+                  {option.rooms.no}{' '}
+                  <span
+                    style={{ color: `${option.isAvailable ? 'green' : 'red'}` }}
+                  >
+                    {`(${option?.no})`}
+                  </span>
+                </Typography>
+              )}
+              isOptionEqualToValue={(option, value) => {
+                return option.id === value.id;
+              }}
+              renderInput={(params) => <TextField {...params} label="Seat" />}
+            />
+          )}
         </Grid>
 
         <Grid item xs={12}>
           <FormControl fullWidth>
             <InputLabel id="accommodation-status-select-label">
-              Is Active?
+              Is Available?
             </InputLabel>
             <Select
-              label="Is Active?"
+              label="Is Available?"
               labelId="accommodation-status-select-label"
               value={isActive}
               onChange={(event) => setIsActive(event.target.value)}
