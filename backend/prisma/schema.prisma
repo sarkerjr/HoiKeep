@@ -189,6 +189,7 @@ model Positions {
 
 model Students {
   id              String           @id @default(uuid())
+  isActive        Boolean          @default(true)
   hallsId         String?
   departmentsId   String
   createdAt       DateTime         @default(now())
@@ -198,7 +199,7 @@ model Students {
   users           Users?
   halls           Halls?           @relation(fields: [hallsId], references: [id])
   departments     Departments      @relation(fields: [departmentsId], references: [id])
-  accommodations  Accommodations[]
+  accommodations  Accommodations?
 }
 
 model StudentProfiles {

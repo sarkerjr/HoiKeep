@@ -3,6 +3,7 @@ import express from 'express';
 import {
   createStudent,
   getStudents,
+  getStudentsAccommodationStatus,
   getStudent,
   updateStudent,
   removeStudent,
@@ -10,6 +11,7 @@ import {
 
 const router = express.Router();
 
+router.get('/accommodation', getStudentsAccommodationStatus);
 router.get('/', getStudents);
 router.get('/:id', getStudent);
 router.post('/', createStudent);

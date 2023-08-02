@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import {
   createWithSeat,
   get,
@@ -6,16 +7,14 @@ import {
   updateWithSeat,
   remove,
 } from '@/services/accommodation.services';
+import { stringToBoolean } from '@/utils/helper';
 
 export const createAccommodation = async (req: Request, res: Response) => {
   const { status, joiningDate, leavingDate, studentsId, seatsId } = req.body;
   let { isActive } = req.body;
 
-  if (typeof isActive === 'string')
-    isActive = isActive === 'true' ? true : false;
-
   const accommodation: any = await createWithSeat({
-    isActive,
+    isActive: stringToBoolean(isActive),
     status,
     joiningDate,
     leavingDate,

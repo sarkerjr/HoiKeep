@@ -102,6 +102,7 @@ export const get = async () => {
         students: {
           select: {
             id: true,
+            isActive: true,
             studentProfiles: {
               select: {
                 id: true,
@@ -149,6 +150,7 @@ export const getById = async (id: string) => {
         students: {
           select: {
             id: true,
+            isActive: true,
             studentProfiles: {
               select: {
                 id: true,
