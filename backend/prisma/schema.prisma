@@ -295,8 +295,8 @@ model Fees {
   accommodationsId String
   hallsId          String?
   // ------------------------------
-  Halls            Halls?         @relation(fields: [hallsId], references: [id])
-  Accommodations   Accommodations @relation(fields: [accommodationsId], references: [id])
+  halls            Halls?         @relation(fields: [hallsId], references: [id])
+  accommodations   Accommodations @relation(fields: [accommodationsId], references: [id])
 
   @@unique([year, month, accommodationsId])
 }

@@ -29,7 +29,7 @@ export const get = async () => {
         year: true,
         month: true,
         amount: true,
-        Accommodations: {
+        accommodations: {
           select: {
             id: true,
             isActive: true,
@@ -77,7 +77,7 @@ export const getById = async (id: string) => {
         year: true,
         month: true,
         amount: true,
-        Accommodations: {
+        accommodations: {
           select: {
             id: true,
             isActive: true,
