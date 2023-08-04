@@ -3,12 +3,18 @@ import { Request, Response } from 'express';
 import { create, get, getDue, update, remove } from '@/services/fee.services';
 
 export const createFees = async (req: Request, res: Response) => {
-  const { accommodationsId, months, amount } = req.body;
+  const { accommodationsId, months } = req.body;
+  let { amount } = req.body;
+
+  amount = typeof amount === 'number' ? amount : parseInt(amount);
 
   try {
     await create(accommodationsId, months, amount);
-    res.status(201).json({ message: 'Fees created successfully' });
   } catch (error: any) {
+    console.log(
+      '🚀 ~ file: fee.controllers.ts:12 ~ createFees ~ error:',
+      error
+    );
     res.status(400).json({ message: 'Something went wrong!' });
   }
 };

@@ -84,7 +84,7 @@ export const createWithSeat = async ({
           },
         }),
       ]);
-    } catch (error) {
+    } catch (error: any) {
       return error;
     }
   }
