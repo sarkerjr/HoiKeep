@@ -162,7 +162,7 @@ export const getDue = async () => {
     // calculate the number of months of fees due
     const monthsDue = calculateFeesDue(fees, accommodation);
 
-    feesDue.push({ ...accommodation, monthsDue: monthsDue });
+    if (monthsDue > 0) feesDue.push({ ...accommodation, monthsDue: monthsDue });
   }
 
   return feesDue;
