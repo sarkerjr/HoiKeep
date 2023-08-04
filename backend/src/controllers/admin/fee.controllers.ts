@@ -11,10 +11,6 @@ export const createFees = async (req: Request, res: Response) => {
   try {
     await create(accommodationsId, months, amount);
   } catch (error: any) {
-    console.log(
-      '🚀 ~ file: fee.controllers.ts:12 ~ createFees ~ error:',
-      error
-    );
     res.status(400).json({ message: 'Something went wrong!' });
   }
 };

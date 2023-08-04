@@ -1,19 +1,23 @@
 import dayjs from 'dayjs';
+import { TextField } from '@mui/material';
 import {
   LocalizationProvider,
   DatePicker as MuiDatePicker,
 } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-const DatePicker = ({ sx, label, value, onChange }) => {
+const DatePicker = (props) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <MuiDatePicker
-        sx={sx}
-        label={label}
-        value={dayjs(value)}
-        onChange={(value) => {
-          onChange(value ? dayjs(value) : dayjs());
+        {...props}
+        sx={props.sx}
+        label={props.label}
+        value={dayjs(props.value)}
+        minDate={props.minDate ? dayjs(props.minDate) : null}
+        openTo={props?.openTo}
+        onChange={(newValue) => {
+          props.onChange(newValue ? dayjs(newValue as Date) : dayjs());
         }}
       />
     </LocalizationProvider>

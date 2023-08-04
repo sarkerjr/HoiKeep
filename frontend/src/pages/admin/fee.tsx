@@ -18,7 +18,7 @@ import useMuiTable from 'hooks/useMuiTable';
 import useMuiTableSearch from 'hooks/useMuiTableSearch';
 import useModal from '@/hooks/useModal';
 import FeeRow from '@/page-setions/admin/fee/FeeRow';
-// import FeeModal from '@/page-setions/admin/fee/FeeModal';
+import FeeModal from '@/page-setions/admin/fee/FeeModal';
 import { useReadFeesQuery } from '@/store/services/fee.services';
 
 // TABLE HEADING DATA LIST
@@ -114,12 +114,12 @@ const Fee = () => {
         </Card>
       </Box>
 
-      {/* <FeeModal
+      <FeeModal
         mode={mode}
         open={modal}
         close={() => setModal(false)}
         fee={data}
-      /> */}
+      />
     </>
   );
 };

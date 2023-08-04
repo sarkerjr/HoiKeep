@@ -105,7 +105,7 @@ const AuthorityModal = ({
   const handleOnSubmit = () => {
     if (mode === 'CREATE') {
       createAccommodation({
-        student,
+        studentsId: student.id,
         seatsId: seat.id,
         isActive,
         status,
@@ -115,7 +115,7 @@ const AuthorityModal = ({
     } else if (mode === 'UPDATE') {
       updateAccommodation({
         id: accommodation?.id,
-        student,
+        studentsId: student.id,
         seatsId: seat.id,
         isActive,
         status,
