@@ -78,96 +78,82 @@ export const createWithSeat = async ({
 };
 
 export const get = async () => {
-  return await prisma.accommodations
-    .findMany({
-      select: {
-        id: true,
-        isActive: true,
-        status: true,
-        joiningDate: true,
-        leavingDate: true,
-        students: {
-          select: {
-            id: true,
-            isActive: true,
-            studentProfiles: {
-              select: {
-                id: true,
-                name: true,
-                studentNo: true,
-              },
-            },
-          },
-        },
-        seats: {
-          select: {
-            id: true,
-            no: true,
-            rooms: {
-              select: {
-                id: true,
-                hallsId: true,
-                no: true,
-              },
+  return await prisma.accommodations.findMany({
+    select: {
+      id: true,
+      isActive: true,
+      status: true,
+      joiningDate: true,
+      leavingDate: true,
+      students: {
+        select: {
+          id: true,
+          isActive: true,
+          studentProfiles: {
+            select: {
+              id: true,
+              name: true,
+              studentNo: true,
             },
           },
         },
       },
-    })
-    .then((accommodations) => {
-      return accommodations;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+      seats: {
+        select: {
+          id: true,
+          no: true,
+          rooms: {
+            select: {
+              id: true,
+              hallsId: true,
+              no: true,
+            },
+          },
+        },
+      },
+    },
+  });
 };
 
 export const getById = async (id: string) => {
-  return await prisma.accommodations
-    .findUnique({
-      where: {
-        id,
-      },
-      select: {
-        id: true,
-        isActive: true,
-        status: true,
-        joiningDate: true,
-        leavingDate: true,
-        students: {
-          select: {
-            id: true,
-            isActive: true,
-            studentProfiles: {
-              select: {
-                id: true,
-                name: true,
-                studentNo: true,
-              },
-            },
-          },
-        },
-        seats: {
-          select: {
-            id: true,
-            no: true,
-            rooms: {
-              select: {
-                id: true,
-                hallsId: true,
-                no: true,
-              },
+  return await prisma.accommodations.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      id: true,
+      isActive: true,
+      status: true,
+      joiningDate: true,
+      leavingDate: true,
+      students: {
+        select: {
+          id: true,
+          isActive: true,
+          studentProfiles: {
+            select: {
+              id: true,
+              name: true,
+              studentNo: true,
             },
           },
         },
       },
-    })
-    .then((accommodation) => {
-      return accommodation;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+      seats: {
+        select: {
+          id: true,
+          no: true,
+          rooms: {
+            select: {
+              id: true,
+              hallsId: true,
+              no: true,
+            },
+          },
+        },
+      },
+    },
+  });
 };
 
 export const update = async ({
@@ -179,26 +165,19 @@ export const update = async ({
   studentsId,
   seatsId,
 }: AccommodationType) => {
-  return await prisma.accommodations
-    .update({
-      where: {
-        id,
-      },
-      data: {
-        isActive,
-        status,
-        joiningDate: joiningDate ? new Date(joiningDate) : null,
-        leavingDate: leavingDate ? new Date(leavingDate) : null,
-        studentsId,
-        seatsId,
-      },
-    })
-    .then((accommodation) => {
-      return accommodation;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+  return await prisma.accommodations.update({
+    where: {
+      id,
+    },
+    data: {
+      isActive,
+      status,
+      joiningDate: joiningDate ? new Date(joiningDate) : null,
+      leavingDate: leavingDate ? new Date(leavingDate) : null,
+      studentsId,
+      seatsId,
+    },
+  });
 };
 
 export const updateWithSeat = async ({
@@ -256,16 +235,9 @@ export const updateWithSeat = async ({
 };
 
 export const remove = async (id: string) => {
-  return await prisma.accommodations
-    .delete({
-      where: {
-        id,
-      },
-    })
-    .then((accommodation) => {
-      return accommodation;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+  return await prisma.accommodations.delete({
+    where: {
+      id,
+    },
+  });
 };

@@ -39,25 +39,23 @@ export const createAccommodation = async (req: Request, res: Response) => {
 };
 
 export const getAccommodations = async (req: Request, res: Response) => {
-  const accommodations = await get();
-
-  if (accommodations instanceof Error) {
+  try {
+    const accommodations = await get();
+    return res.status(200).json(accommodations);
+  } catch (error: any) {
     return res.status(400).json({ message: 'Something went wrong!' });
   }
-
-  return res.status(200).json(accommodations);
 };
 
 export const getAccommodation = async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const accommodation = await getById(id);
-
-  if (accommodation instanceof Error) {
+  try {
+    const accommodation = await getById(id);
+    return res.status(200).json(accommodation);
+  } catch (error: any) {
     return res.status(400).json({ message: 'Something went wrong!' });
   }
-
-  return res.status(200).json(accommodation);
 };
 
 export const updateAccommodation = async (req: Request, res: Response) => {
@@ -94,13 +92,10 @@ export const updateAccommodation = async (req: Request, res: Response) => {
 export const removeAccommodation = async (req: Request, res: Response) => {
   const { id } = req.body;
 
-  const accommodation = await remove(id);
-
-  if (accommodation instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
+  try {
+    await remove(id);
+    res.status(200).json({ message: 'Accommodation deleted successfully.' });
+  } catch (error: any) {
+    return res.status(400).json({ message: 'Something went wrong.' });
   }
-
-  return res
-    .status(200)
-    .json({ message: 'Accommodation deleted successfully.' });
 };
