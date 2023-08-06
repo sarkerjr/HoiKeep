@@ -14,6 +14,7 @@ export const seatApi = createApi({
 
     readSeat: builder.query<any, Partial<any>>({
       query: (body) => ({ url: `admin/seat/${body.id}` }),
+      providesTags: ['Seats'],
     }),
 
     createSeat: builder.mutation<any, Partial<any>>({
