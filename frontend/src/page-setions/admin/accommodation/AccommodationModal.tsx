@@ -9,6 +9,7 @@ import {
   InputLabel,
   FormControl,
   Typography,
+  AutocompleteRenderInputParams,
 } from '@mui/material';
 
 // project imports
@@ -95,7 +96,7 @@ const AuthorityModal = ({
 
   useEffect(() => {
     students && setStudent(accommodation?.students ?? students[0]);
-    seats && setSeat(accommodation?.seats?.seats ?? seats[0]);
+    seats && setSeat(accommodation?.seats ?? seats[0]);
     setIsActive(accommodation?.isActive ?? true);
     setStatus(accommodation?.status ?? '');
     setJoiningDate(accommodation?.joiningDate ?? null);
@@ -157,7 +158,7 @@ const AuthorityModal = ({
               isOptionEqualToValue={(option, value) => {
                 return option.id === value.id;
               }}
-              renderInput={(params) => (
+              renderInput={(params: AutocompleteRenderInputParams) => (
                 <TextField {...params} label="Student" />
               )}
             />
@@ -185,10 +186,10 @@ const AuthorityModal = ({
                   </span>
                 </Typography>
               )}
-              isOptionEqualToValue={(option, value) => {
-                return option.id === value.id;
-              }}
-              renderInput={(params) => <TextField {...params} label="Seat" />}
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              renderInput={(params: AutocompleteRenderInputParams) => (
+                <TextField {...params} label="Seat" />
+              )}
             />
           )}
         </Grid>
@@ -196,10 +197,10 @@ const AuthorityModal = ({
         <Grid item xs={12}>
           <FormControl fullWidth>
             <InputLabel id="accommodation-status-select-label">
-              Is Available?
+              Is Active?
             </InputLabel>
             <Select
-              label="Is Available?"
+              label="Is Active?"
               labelId="accommodation-status-select-label"
               value={isActive}
               onChange={(event) => setIsActive(event.target.value)}
