@@ -42,6 +42,7 @@ model Halls {
   students    Students[]
   notices     Notices[]
   rooms       Rooms[]
+  fees        Fees[]
 }
 
 model Departments {
@@ -189,14 +190,17 @@ model Positions {
 
 model Students {
   id              String           @id @default(uuid())
+  isActive        Boolean          @default(true)
   hallsId         String?
   departmentsId   String
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
   // ------------------------------
   studentProfiles StudentProfiles?
   users           Users?
   halls           Halls?           @relation(fields: [hallsId], references: [id])
   departments     Departments      @relation(fields: [departmentsId], references: [id])
-  accommodations  Accommodations[]
+  accommodations  Accommodations?
 }
 
 model StudentProfiles {
@@ -210,6 +214,8 @@ model StudentProfiles {
   admissionDate DateTime?
   studentId     String         @unique
   degreesId     String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
   // ------------------------------
   students      Students       @relation(fields: [studentId], references: [id])
   studentImages StudentImages?
@@ -222,6 +228,8 @@ model StudentImages {
   id              String          @id @default(uuid())
   url             String?
   studentId       String          @unique
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
   // ------------------------------
   studentProfiles StudentProfiles @relation(fields: [studentId], references: [id])
 }
@@ -236,12 +244,14 @@ model Degrees {
 }
 
 model Rooms {
-  id           String  @id @default(uuid())
-  no           String  @unique
+  id           String   @id @default(uuid())
+  no           String   @unique
   seatQuantity Int
   hallsId      String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
   // ------------------------------
-  halls        Halls?  @relation(fields: [hallsId], references: [id])
+  halls        Halls?   @relation(fields: [hallsId], references: [id])
   Seats        Seats[]
 }
 
@@ -250,6 +260,8 @@ model Seats {
   no             String
   isAvailable    Boolean          @default(true)
   roomsId        String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   // ------------------------------
   rooms          Rooms            @relation(fields: [roomsId], references: [id])
   accommodations Accommodations[]
@@ -258,30 +270,35 @@ model Seats {
 }
 
 model Accommodations {
-  id         String   @id @default(uuid())
-  isActive   Boolean  @default(true)
-  studentsId String
-  seatsId    String
+  id          String              @id @default(uuid())
+  isActive    Boolean             @default(true)
+  status      AccommodationStatus
+  joiningDate DateTime?
+  leavingDate DateTime?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  studentsId  String              @unique
+  seatsId     String              @unique
   // ------------------------------
-  seats      Seats    @relation(fields: [seatsId], references: [id])
-  students   Students @relation(fields: [studentsId], references: [id])
+  seats       Seats               @relation(fields: [seatsId], references: [id])
+  students    Students            @relation(fields: [studentsId], references: [id])
+  fees        Fees[]
 }
 
 model Fees {
-  id     String @id @default(uuid())
-  amount Int
-}
+  id               String         @id @default(uuid())
+  amount           Float
+  year             Int
+  month            Int
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  accommodationsId String
+  hallsId          String?
+  // ------------------------------
+  halls            Halls?         @relation(fields: [hallsId], references: [id])
+  accommodations   Accommodations @relation(fields: [accommodationsId], references: [id])
 
-model Bills {
-  id     String  @id @default(uuid())
-  amount Int
-  paid   Boolean
-}
-
-model Transactions {
-  id     String  @id @default(uuid())
-  amount Int
-  paid   Boolean
+  @@unique([year, month, accommodationsId])
 }
 
 enum Gender {
@@ -300,4 +317,10 @@ enum UserType {
   STAFF
   OPERATOR
   STUDENT
+}
+
+enum AccommodationStatus {
+  ALLOCATED
+  UNALLOCATED
+  ILLEGAL
 }

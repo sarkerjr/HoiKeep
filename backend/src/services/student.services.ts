@@ -2,6 +2,7 @@ import { Prisma, prisma } from '@/utils/prisma';
 
 type StudentType = {
   id?: string;
+  isActive: boolean;
   name: string;
   email: string;
   studentNo: string;
@@ -112,8 +113,53 @@ export const getById = async (id: string) => {
     });
 };
 
+export const getWithAccommodationStatus = async () => {
+  return await prisma.students
+    .findMany({
+      where: {
+        isActive: true,
+      },
+      select: {
+        id: true,
+        isActive: true,
+        hallsId: true,
+        departments: {
+          select: {
+            id: true,
+            name: true,
+            nameTag: true,
+          },
+        },
+        studentProfiles: {
+          select: {
+            name: true,
+            email: true,
+            studentNo: true,
+            session: true,
+            semester: true,
+            year: true,
+            admissionDate: true,
+          },
+        },
+        accommodations: {
+          select: {
+            id: true,
+            isActive: true,
+          },
+        },
+      },
+    })
+    .then((students) => {
+      return students;
+    })
+    .catch((error: Prisma.PrismaClientKnownRequestError) => {
+      return error;
+    });
+};
+
 export const update = async ({
   id,
+  isActive,
   name,
   email,
   studentNo,
@@ -130,6 +176,7 @@ export const update = async ({
         id,
       },
       data: {
+        isActive,
         hallsId,
         departmentsId,
         studentProfiles: {

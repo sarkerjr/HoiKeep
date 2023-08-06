@@ -1,17 +1,16 @@
 import { Prisma, prisma } from '@/utils/prisma';
 
-export const create = async (
-  no: string,
-  isAvailable: boolean,
-  roomsId: string
-) => {
+type UpdateSeatType = {
+  id: string;
+  no?: string;
+  isAvailable?: boolean;
+  roomsId?: string;
+};
+
+export const create = async (seat: Prisma.SeatsCreateInput) => {
   return await prisma.seats
     .create({
-      data: {
-        no,
-        isAvailable,
-        roomsId,
-      },
+      data: seat,
     })
     .then((seat) => {
       return seat;
@@ -62,12 +61,12 @@ export const getById = async (id: string) => {
     });
 };
 
-export const update = async (
-  id: string,
-  no: string,
-  isAvailable: boolean,
-  roomsId: string
-) => {
+export const update = async ({
+  id,
+  no,
+  isAvailable,
+  roomsId,
+}: UpdateSeatType) => {
   return await prisma.seats
     .update({
       where: {
