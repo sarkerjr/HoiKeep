@@ -13,30 +13,29 @@ export const createAccommodation = async (req: Request, res: Response) => {
   const { status, joiningDate, leavingDate, studentsId, seatsId } = req.body;
   let { isActive } = req.body;
 
-  const accommodation: any = await createWithSeat({
-    isActive: stringToBoolean(isActive),
-    status,
-    joiningDate,
-    leavingDate,
-    studentsId,
-    seatsId,
-  });
+  isActive = stringToBoolean(isActive);
 
-  if (accommodation instanceof Error) {
-    // TODO: Handle prisma error code
-    if (accommodation.code === 'P2002') {
-      return res.status(400).json({
-        message: 'Seat already occupied.',
-      });
-    }
-    return res.status(400).json({
-      message: 'Something went wrong.',
+  try {
+    await createWithSeat({
+      isActive: isActive,
+      status,
+      joiningDate,
+      leavingDate,
+      studentsId,
+      seatsId,
+    });
+
+    res.status(201).json({
+      message: 'Accommodation created successfully.',
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      message:
+        error.code === 'P2002' || error.code === 'P2014'
+          ? 'Student already assigns to an accommodation!'
+          : 'Something went wrong.',
     });
   }
-
-  return res.status(201).json({
-    message: 'Accommodation created successfully.',
-  });
 };
 
 export const getAccommodations = async (req: Request, res: Response) => {
@@ -66,28 +65,30 @@ export const updateAccommodation = async (req: Request, res: Response) => {
     req.body;
   let { isActive } = req.body;
 
-  if (typeof isActive === 'string')
-    isActive = isActive === 'true' ? true : false;
-
-  const oldData: any = await getById(id);
-
-  const accommodation = await updateWithSeat({
-    id,
-    isActive,
-    status,
-    joiningDate: joiningDate || oldData?.joiningDate,
-    leavingDate: leavingDate || oldData?.leavingDate,
-    studentsId,
-    seatsId,
-  });
-
-  if (accommodation instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
+  if (typeof isActive === 'string') {
+    isActive = isActive === 'true';
   }
 
-  return res
-    .status(200)
-    .json({ message: 'Accommodation updated successfully.' });
+  try {
+    await updateWithSeat({
+      id,
+      isActive,
+      status,
+      joiningDate,
+      leavingDate,
+      studentsId,
+      seatsId,
+    });
+
+    res.status(200).json({ message: 'Accommodation updated successfully.' });
+  } catch (error: any) {
+    return res.status(400).json({
+      message:
+        error.code === 'P2002'
+          ? 'Accommodation already exists.'
+          : 'Something went wrong.',
+    });
+  }
 };
 
 export const removeAccommodation = async (req: Request, res: Response) => {

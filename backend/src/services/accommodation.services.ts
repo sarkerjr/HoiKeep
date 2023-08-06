@@ -19,8 +19,36 @@ export const create = async ({
   studentsId,
   seatsId,
 }: AccommodationType) => {
-  return await prisma.accommodations
-    .create({
+  return await prisma.accommodations.create({
+    data: {
+      isActive,
+      status,
+      joiningDate: joiningDate ? new Date(joiningDate) : null,
+      leavingDate: leavingDate ? new Date(leavingDate) : null,
+      students: {
+        connect: {
+          id: studentsId,
+        },
+      },
+      seats: {
+        connect: {
+          id: seatsId,
+        },
+      },
+    },
+  });
+};
+
+export const createWithSeat = async ({
+  isActive,
+  status,
+  joiningDate,
+  leavingDate,
+  studentsId,
+  seatsId,
+}: AccommodationType) => {
+  return await prisma.$transaction([
+    prisma.accommodations.create({
       data: {
         isActive,
         status,
@@ -37,57 +65,16 @@ export const create = async ({
           },
         },
       },
-    })
-    .then((accommodation) => {
-      return accommodation;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
-};
-
-export const createWithSeat = async ({
-  isActive,
-  status,
-  joiningDate,
-  leavingDate,
-  studentsId,
-  seatsId,
-}: AccommodationType) => {
-  {
-    try {
-      return await prisma.$transaction([
-        prisma.accommodations.create({
-          data: {
-            isActive,
-            status,
-            joiningDate: joiningDate ? new Date(joiningDate) : null,
-            leavingDate: leavingDate ? new Date(leavingDate) : null,
-            students: {
-              connect: {
-                id: studentsId,
-              },
-            },
-            seats: {
-              connect: {
-                id: seatsId,
-              },
-            },
-          },
-        }),
-        prisma.seats.update({
-          where: {
-            id: seatsId,
-          },
-          data: {
-            isAvailable: false,
-          },
-        }),
-      ]);
-    } catch (error: any) {
-      return error;
-    }
-  }
+    }),
+    prisma.seats.update({
+      where: {
+        id: seatsId,
+      },
+      data: {
+        isAvailable: false,
+      },
+    }),
+  ]);
 };
 
 export const get = async () => {
@@ -223,33 +210,49 @@ export const updateWithSeat = async ({
   studentsId,
   seatsId,
 }: AccommodationType) => {
-  try {
-    return await prisma.$transaction([
-      prisma.accommodations.update({
+  const accommodation: any = await getById(id!);
+
+  // if no value is passed, use the previous value
+  if (!joiningDate) joiningDate = accommodation.joiningDate;
+  if (!leavingDate) leavingDate = accommodation.leavingDate;
+
+  return await prisma.$transaction(async (tx) => {
+    // make previous seat available if seat changed
+    if (accommodation.seats.id !== seatsId) {
+      await tx.seats.update({
         where: {
-          id,
+          id: accommodation.seats.id,
         },
         data: {
-          isActive,
-          status,
-          joiningDate: joiningDate ? new Date(joiningDate) : null,
-          leavingDate: leavingDate ? new Date(leavingDate) : null,
-          studentsId,
-          seatsId,
+          isAvailable: true,
         },
-      }),
-      prisma.seats.update({
-        where: {
-          id: seatsId,
-        },
-        data: {
-          isAvailable: isActive ? false : true, //set seat available if accommodation is inactive
-        },
-      }),
-    ]);
-  } catch (error) {
-    return error;
-  }
+      });
+    }
+
+    await tx.accommodations.update({
+      where: {
+        id,
+      },
+      data: {
+        isActive,
+        status,
+        joiningDate: joiningDate ? new Date(joiningDate) : null,
+        leavingDate: leavingDate ? new Date(leavingDate) : null,
+        studentsId,
+        seatsId,
+      },
+    });
+
+    // set the new seat unavailable
+    await tx.seats.update({
+      where: {
+        id: seatsId,
+      },
+      data: {
+        isAvailable: !isActive,
+      },
+    });
+  });
 };
 
 export const remove = async (id: string) => {
