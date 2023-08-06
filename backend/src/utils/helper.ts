@@ -1,7 +1,6 @@
 export function stringToBoolean(value: string | boolean) {
-  if (value ?? typeof value === 'string')
-    return value === 'true' ? true : false;
-  return value ?? true;
+  if (value && typeof value === 'string') return value === 'true';
+  return value;
 }
 
 // calculate the number of months between two dates
