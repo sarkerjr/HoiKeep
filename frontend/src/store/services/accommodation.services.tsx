@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { seatApi } from './seat.services';
 
 export const accommodationApi = createApi({
   reducerPath: 'accommodation',
@@ -23,6 +24,9 @@ export const accommodationApi = createApi({
         body: body,
       }),
       invalidatesTags: ['Accommodations'],
+      onCacheEntryAdded: (_, { dispatch }) => {
+        dispatch(seatApi.util.invalidateTags(['Seats']));
+      },
     }),
 
     updateAccommodation: builder.mutation<any, Partial<any>>({
@@ -32,6 +36,9 @@ export const accommodationApi = createApi({
         body: body,
       }),
       invalidatesTags: ['Accommodations'],
+      onCacheEntryAdded: (_, { dispatch }) => {
+        dispatch(seatApi.util.invalidateTags(['Seats']));
+      },
     }),
 
     deleteAccommodation: builder.mutation<any, Partial<any>>({
@@ -41,6 +48,9 @@ export const accommodationApi = createApi({
         body: body,
       }),
       invalidatesTags: ['Accommodations'],
+      onCacheEntryAdded: (_, { dispatch }) => {
+        dispatch(seatApi.util.invalidateTags(['Seats']));
+      },
     }),
   }),
 });
