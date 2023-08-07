@@ -12,26 +12,29 @@ const useAlert = (
   isLoading: boolean,
   isSuccess: boolean,
   isError: boolean,
-  reset: () => void
+  reset: () => void,
+  onFinished?: () => void
 ) => {
-  isLoading ?? startLoadingAlert();
+  // isLoading && startLoadingAlert();
 
   if (isSuccess) {
-    stopLoadingAlert();
+    // stopLoadingAlert();
     showConfirmAlert({
       title: 'Success',
       text: data.message,
       icon: 'success',
     });
     reset();
+    onFinished?.();
   } else if (isError) {
-    stopLoadingAlert();
+    // stopLoadingAlert();
     showConfirmAlert({
       title: 'error',
       text: error.data.message,
       icon: 'error',
     });
     reset();
+    onFinished?.();
   }
 };
 
