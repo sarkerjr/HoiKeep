@@ -5,7 +5,9 @@ import List from './List';
 
 // lists
 import GeneralList from './GeneralList';
-import Room from './RoomList';
+import RoomList from './RoomList';
+import StudentList from './StudentList';
+import FeeList from './FeeList';
 import ModeratorList from './ModeratorList';
 
 const MenuList = () => {
@@ -13,7 +15,11 @@ const MenuList = () => {
     <Box sx={{ overflow: 'auto' }}>
       <List itemlist={GeneralList} />
       <Divider />
-      <List itemlist={Room} />
+      <List itemlist={StudentList} />
+      <Divider />
+      <List itemlist={FeeList} />
+      <Divider />
+      <List itemlist={RoomList} />
       <Divider />
       <List itemlist={ModeratorList} />
     </Box>
