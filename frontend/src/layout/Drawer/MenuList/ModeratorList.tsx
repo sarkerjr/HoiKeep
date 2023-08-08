@@ -1,4 +1,7 @@
-import { Person as PersonIcon } from '@mui/icons-material';
+import PersonIcon from '@mui/icons-material/Person';
+import GroupsIcon from '@mui/icons-material/Groups';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 const ModeratorList = [
   {
@@ -9,12 +12,17 @@ const ModeratorList = [
   {
     text: 'Staff',
     path: '/staff',
-    icon: <PersonIcon />,
+    icon: <GroupsIcon />,
   },
   {
     text: 'Operator',
     path: '/operator',
-    icon: <PersonIcon />,
+    icon: <PersonAddAlt1Icon />,
+  },
+  {
+    text: 'Position',
+    path: '/position',
+    icon: <ManageAccountsIcon />,
   },
 ];
 
