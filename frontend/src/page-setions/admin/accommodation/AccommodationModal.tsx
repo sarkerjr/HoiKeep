@@ -25,7 +25,7 @@ import {
 import { useReadSeatsQuery } from '@/store/services/seat.services';
 import { useReadStudentsWithAccommodationStatusQuery } from '@/store/services/student.services';
 
-const AuthorityModal = ({
+const AccommodationModal = ({
   open,
   close,
   mode,
@@ -47,8 +47,9 @@ const AuthorityModal = ({
     accommodation?.leavingDate ?? null
   );
 
-  const { data: seats } = useReadSeatsQuery();
-  const { data: students } = useReadStudentsWithAccommodationStatusQuery();
+  const { data: seats, refetch: refetchSeats } = useReadSeatsQuery();
+  const { data: students, refetch: refetchStudents } =
+    useReadStudentsWithAccommodationStatusQuery();
 
   // setting alert for CREATE request
   const [
@@ -69,7 +70,8 @@ const AuthorityModal = ({
     createIsLoading,
     createIsSucess,
     createIsError,
-    createReset
+    createReset,
+    () => close()
   );
 
   //setting alert for UPDATE request
@@ -91,7 +93,8 @@ const AuthorityModal = ({
     updateIsLoading,
     updateIsSucess,
     updateIsError,
-    updateReset
+    updateReset,
+    () => close()
   );
 
   useEffect(() => {
@@ -101,6 +104,8 @@ const AuthorityModal = ({
     setStatus(accommodation?.status ?? '');
     setJoiningDate(accommodation?.joiningDate ?? null);
     setLeavingDate(accommodation?.leavingDate ?? null);
+    refetchSeats();
+    refetchStudents();
   }, [accommodation, seats, students]);
 
   const handleOnSubmit = () => {
@@ -124,7 +129,6 @@ const AuthorityModal = ({
         leavingDate,
       });
     }
-    close();
   };
 
   return (
@@ -270,4 +274,4 @@ const AuthorityModal = ({
   );
 };
 
-export default AuthorityModal;
+export default AccommodationModal;
