@@ -68,26 +68,26 @@ const Due = () => {
       />
 
       <Card>
-        <Scrollbar>
-          <TableContainer sx={{ minWidth: 700 }}>
-            <Table>
-              <TableHeader
-                order={order}
-                hideSelectBtn
-                orderBy={orderBy}
-                heading={tableHeading}
-                rowCount={dues?.length}
-                onRequestSort={handleRequestSort}
-              />
+        {/* <Scrollbar> */}
+        <TableContainer sx={{ minWidth: 700 }}>
+          <Table>
+            <TableHeader
+              order={order}
+              hideSelectBtn
+              orderBy={orderBy}
+              heading={tableHeading}
+              rowCount={dues?.length}
+              onRequestSort={handleRequestSort}
+            />
 
-              <TableBody>
-                {filteredList.map((due) => (
-                  <DueRow due={due} key={due.id} />
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Scrollbar>
+            <TableBody>
+              {filteredList.map((due) => (
+                <DueRow due={due} key={due.id} />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        {/* </Scrollbar> */}
 
         <Stack alignItems="center" my={4}>
           <TablePagination

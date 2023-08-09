@@ -78,32 +78,32 @@ const Accommodation = () => {
         />
 
         <Card>
-          <Scrollbar>
-            <TableContainer sx={{ minWidth: 700 }}>
-              <Table>
-                <TableHeader
-                  order={order}
-                  hideSelectBtn
-                  orderBy={orderBy}
-                  heading={tableHeading}
-                  rowCount={accommodations?.length}
-                  onRequestSort={handleRequestSort}
-                />
+          {/* <Scrollbar> */}
+          <TableContainer sx={{ minWidth: 700 }}>
+            <Table>
+              <TableHeader
+                order={order}
+                hideSelectBtn
+                orderBy={orderBy}
+                heading={tableHeading}
+                rowCount={accommodations?.length}
+                onRequestSort={handleRequestSort}
+              />
 
-                <TableBody>
-                  {filteredList.map((accommodation) => (
-                    <AccommodationRow
-                      accommodation={accommodation}
-                      key={accommodation.id}
-                      setModal={setModal}
-                      setMode={setMode}
-                      setData={setData}
-                    />
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Scrollbar>
+              <TableBody>
+                {filteredList.map((accommodation) => (
+                  <AccommodationRow
+                    accommodation={accommodation}
+                    key={accommodation.id}
+                    setModal={setModal}
+                    setMode={setMode}
+                    setData={setData}
+                  />
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {/* </Scrollbar> */}
 
           <Stack alignItems="center" my={4}>
             <TablePagination
