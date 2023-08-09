@@ -57,7 +57,8 @@ const FeeModal = ({
     createIsLoading,
     createIsSucess,
     createIsError,
-    createReset
+    createReset,
+    () => close()
   );
 
   //setting alert for UPDATE request
@@ -79,7 +80,8 @@ const FeeModal = ({
     updateIsLoading,
     updateIsSucess,
     updateIsError,
-    updateReset
+    updateReset,
+    () => close()
   );
 
   useEffect(() => {
@@ -105,7 +107,6 @@ const FeeModal = ({
         month: date.getMonth(),
       });
     }
-    close();
   };
 
   return (
