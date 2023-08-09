@@ -169,6 +169,7 @@ export const update = async ({
   admissionDate,
   hallsId,
   departmentsId,
+  degreesId,
 }: StudentType) => {
   return await prisma.students
     .update({
@@ -188,6 +189,7 @@ export const update = async ({
             semester,
             year,
             admissionDate: new Date(admissionDate),
+            degreesId,
           },
         },
       },
