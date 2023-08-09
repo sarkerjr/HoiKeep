@@ -78,32 +78,32 @@ const Fee = () => {
         />
 
         <Card>
-          <Scrollbar>
-            <TableContainer sx={{ minWidth: 700 }}>
-              <Table>
-                <TableHeader
-                  order={order}
-                  hideSelectBtn
-                  orderBy={orderBy}
-                  heading={tableHeading}
-                  rowCount={fees?.length}
-                  onRequestSort={handleRequestSort}
-                />
+          {/* <Scrollbar> */}
+          <TableContainer sx={{ minWidth: 700 }}>
+            <Table>
+              <TableHeader
+                order={order}
+                hideSelectBtn
+                orderBy={orderBy}
+                heading={tableHeading}
+                rowCount={fees?.length}
+                onRequestSort={handleRequestSort}
+              />
 
-                <TableBody>
-                  {filteredList.map((fee) => (
-                    <FeeRow
-                      fee={fee}
-                      key={fee.id}
-                      setModal={setModal}
-                      setMode={setMode}
-                      setData={setData}
-                    />
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Scrollbar>
+              <TableBody>
+                {filteredList.map((fee) => (
+                  <FeeRow
+                    fee={fee}
+                    key={fee.id}
+                    setModal={setModal}
+                    setMode={setMode}
+                    setData={setData}
+                  />
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {/* </Scrollbar> */}
 
           <Stack alignItems="center" my={4}>
             <TablePagination
