@@ -16,6 +16,22 @@ import {
   useCreatePositionMutation,
   useUpdatePositionMutation,
 } from '@/store/services/position.services';
+
+const POSITION_CATEGORY = [
+  {
+    value: 'AUTHORITY',
+    label: 'Authority',
+  },
+  {
+    value: 'STAFF',
+    label: 'Staff',
+  },
+  {
+    value: 'OPERATOR',
+    label: 'Operator',
+  },
+];
+
 const PositionModal = ({
   open,
   close,
@@ -110,13 +126,26 @@ const PositionModal = ({
             fullWidth
           />
         </Grid>
+
         <Grid item xs={12}>
-          <TextField
-            label="Category"
-            value={category}
-            onChange={(event) => setCategory(event.target.value)}
-            fullWidth
-          />
+          <FormControl fullWidth>
+            <InputLabel id="position-category-select-label">
+              Category
+            </InputLabel>
+            <Select
+              label="Category"
+              labelId="position-category-select-label"
+              value={category}
+              onChange={(event) => setCategory(event.target.value)}
+              fullWidth
+            >
+              {POSITION_CATEGORY?.map((category: any) => (
+                <MenuItem value={category?.value} key={category?.value}>
+                  {category?.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
 
         <Grid item xs={12}>
