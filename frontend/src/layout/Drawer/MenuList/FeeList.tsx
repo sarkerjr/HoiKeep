@@ -4,12 +4,12 @@ import MoneyOffIcon from '@mui/icons-material/MoneyOff';
 const FeeList = [
   {
     text: 'All Fees',
-    path: '/student',
+    path: '/fee',
     icon: <PriceCheckIcon />,
   },
   {
     text: 'Due Fees',
-    path: '/accommodation',
+    path: '/due',
     icon: <MoneyOffIcon />,
   },
 ];
