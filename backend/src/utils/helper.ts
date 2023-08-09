@@ -32,7 +32,7 @@ export const calculateFeesDue = (fees: any, accommodation: any) => {
     fees.forEach((fee: any) => {
       const feeDate = new Date(fee.year, fee.month - 1);
       const diff = monthDiff(feeDate, currentDate);
-      if (diff > monthsDue) {
+      if (diff < monthsDue) {
         monthsDue = diff;
       }
     });

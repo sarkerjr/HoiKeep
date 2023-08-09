@@ -10,8 +10,14 @@ export const createFees = async (req: Request, res: Response) => {
 
   try {
     await create(accommodationsId, months, amount);
+    res.status(201).json({ message: 'Fees created successfully' });
   } catch (error: any) {
-    res.status(400).json({ message: 'Something went wrong!' });
+    res.status(400).json({
+      message:
+        error.code === 'P2002'
+          ? 'Fees already exist for some months!'
+          : 'Something went wrong.',
+    });
   }
 };
 
