@@ -11,13 +11,13 @@ const Position = Loadable(lazy(() => import('@/pages/admin/position')));
 const Seat = Loadable(lazy(() => import('@/pages/admin/seat')));
 const Room = Loadable(lazy(() => import('@/pages/admin/room')));
 const Degree = Loadable(lazy(() => import('@/pages/admin/degree')));
+const Designation = Loadable(lazy(() => import('@/pages/admin/designation')));
 const Student = Loadable(lazy(() => import('@/pages/admin/student')));
 const Accommodation = Loadable(
   lazy(() => import('@/pages/admin/accommodation'))
 );
 const Fee = Loadable(lazy(() => import('@/pages/admin/fee')));
 const Due = Loadable(lazy(() => import('@/pages/admin/due')));
-
 
 const AdminRoutes = {
   path: '/',
@@ -56,6 +56,10 @@ const AdminRoutes = {
       element: <Degree />,
     },
     {
+      path: '/designation',
+      element: <Designation />,
+    },
+    {
       path: '/student',
       element: <Student />,
     },
@@ -70,7 +74,6 @@ const AdminRoutes = {
     {
       path: '/due',
       element: <Due />,
-
     },
   ],
 };
