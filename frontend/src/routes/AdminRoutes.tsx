@@ -18,6 +18,7 @@ const Accommodation = Loadable(
 );
 const Fee = Loadable(lazy(() => import('@/pages/admin/fee')));
 const Due = Loadable(lazy(() => import('@/pages/admin/due')));
+const Dashboard = Loadable(lazy(() => import('@/pages/admin/dashboard')));
 
 const AdminRoutes = {
   path: '/',
@@ -74,6 +75,10 @@ const AdminRoutes = {
     {
       path: '/due',
       element: <Due />,
+    },
+    {
+      path: '/dashboard',
+      element: <Dashboard />,
     },
   ],
 };
