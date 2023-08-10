@@ -29,7 +29,7 @@ const dashboard = () => {
                 icon={<PeopleAltIcon />}
                 path="/student"
                 btnText="View More"
-              ></InfoCard>
+              />
             </Grid>
 
             <Grid item xs={12} md={6} lg={4} xl={3}>
@@ -39,7 +39,7 @@ const dashboard = () => {
                 icon={<SchoolIcon />}
                 path="/department"
                 btnText="View More"
-              ></InfoCard>
+              />
             </Grid>
 
             <Grid item xs={12} md={6} lg={4} xl={3}>
@@ -49,7 +49,7 @@ const dashboard = () => {
                 icon={<MeetingRoomIcon />}
                 path="/room"
                 btnText="View More"
-              ></InfoCard>
+              />
             </Grid>
 
             <Grid item xs={12} md={6} lg={4} xl={3}>
@@ -59,7 +59,7 @@ const dashboard = () => {
                 icon={<BedroomParentIcon />}
                 path="/seat"
                 btnText="View More"
-              ></InfoCard>
+              />
             </Grid>
 
             <Grid item xs={12} md={6} lg={4}>
@@ -69,7 +69,7 @@ const dashboard = () => {
                 icon={<PersonAddAlt1Icon />}
                 path="/operator"
                 btnText="View More"
-              ></InfoCard>
+              />
             </Grid>
 
             <Grid item xs={12} md={6} lg={4}>
@@ -79,17 +79,17 @@ const dashboard = () => {
                 icon={<GroupsIcon />}
                 path="/staff"
                 btnText="View More"
-              ></InfoCard>
+              />
             </Grid>
 
             <Grid item xs={12} md={6} lg={4}>
               <InfoCard
-                title="Total Authorites"
+                title="Total Authorities"
                 description="2"
                 icon={<PersonIcon />}
                 path="/authority"
                 btnText="View More"
-              ></InfoCard>
+              />
             </Grid>
           </Grid>
         </Container>
