@@ -47,7 +47,9 @@ export const checkAuth = async (req: Request, res: Response) => {
 
   const user: any = await login(email, password);
 
-  if (user instanceof Error) {
+  if (!user) {
+    return res.status(400).json({ message: 'Invalid username or password.' });
+  } else if (user instanceof Error) {
     return res.status(400).json({ message: user.message });
   }
 
@@ -64,9 +66,12 @@ export const checkAuth = async (req: Request, res: Response) => {
 
   const token = sign(
     {
-      usersId: user?.id,
-      rolesId: role?.id,
-      hallsId: role?.hallsId,
+      userId: user?.id,
+      role: {
+        id: role?.id,
+        type: user?.type,
+      },
+      hallId: role?.hallsId,
     },
     process.env.JWT_SECRET_KEY!,
     { expiresIn: process.env.JWT_EXPIRE_TIME }

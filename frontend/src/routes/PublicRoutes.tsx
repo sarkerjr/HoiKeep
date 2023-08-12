@@ -2,7 +2,7 @@ import { lazy } from 'react';
 
 // project imports
 import Layout from '@/layout';
-const Login = lazy(() => import('@/pages/auth/Login'));
+const Login = lazy(() => import('@/pages/auth/login'));
 const Register = lazy(() => import('@/pages/auth/Register'));
 
 const PublicRoutes = {
