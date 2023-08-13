@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
@@ -21,12 +21,11 @@ import useAuth from '@/hooks/useAuth';
 import useScriptRef from '@/hooks/useScriptRef';
 
 const Login = () => {
-  const theme = useTheme();
+  const [showPassword, setShowPassword] = useState(false);
 
   const { login } = useAuth();
   const scriptedRef = useScriptRef();
 
-  const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -82,6 +81,7 @@ const Login = () => {
             </InputLabel>
             <OutlinedInput
               id="outlined-adornment-email-login"
+              label="username"
               type="email"
               value={values.email}
               name="email"
@@ -109,6 +109,7 @@ const Login = () => {
             </InputLabel>
             <OutlinedInput
               id="outlined-adornment-password-login"
+              label="password"
               type={showPassword ? 'text' : 'password'}
               value={values.password}
               name="password"
@@ -128,7 +129,6 @@ const Login = () => {
                 </InputAdornment>
               }
               inputProps={{}}
-              label="Password"
             />
             {touched.password && errors.password && (
               <FormHelperText

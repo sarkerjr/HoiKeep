@@ -40,16 +40,12 @@ export const getUserRole = (serviceToken: string | null) => {
 };
 
 const authSlice = createSlice({
-  name: 'account',
+  name: 'auth',
   initialState,
   reducers: {
     login(state, action: PayloadAction<{ role: string | null }>) {
       state.isLoggedIn = true;
       state.role = action.payload.role;
-      console.log(
-        '🚀 ~ file: auth.slice.tsx:49 ~ login ~ action.payload.role:',
-        action.payload.role
-      );
     },
     logout(state) {
       state.isLoggedIn = false;

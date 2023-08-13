@@ -1,21 +1,21 @@
 import { lazy } from 'react';
 
 // project imports
-import Layout from '@/layout';
+import PublicGuard from './guards/PublicGuard';
+import Logout from '@/pages/auth/logout';
 const Login = lazy(() => import('@/pages/auth/login'));
-const Register = lazy(() => import('@/pages/auth/Register'));
 
 const PublicRoutes = {
   path: '/',
-  element: <Layout />,
+  element: <PublicGuard />,
   children: [
     {
       path: '/login',
       element: <Login />,
     },
     {
-      path: '/register',
-      element: <Register />,
+      path: '/logout',
+      element: <Logout />,
     },
   ],
 };

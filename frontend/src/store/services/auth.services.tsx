@@ -24,17 +24,21 @@ export const authApi = createApi({
       query: ({ email, password }) => ({
         url: 'auth/login',
         method: 'POST',
-        data: { email, password },
+        body: { email, password },
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        const { data } = await queryFulfilled;
-        if (data.accessToken) {
-          setSession(data.accessToken);
-          dispatch(
-            login({
-              role: getUserRole(data.accessToken),
-            })
-          );
+        try {
+          const { data } = await queryFulfilled;
+          if (data.accessToken) {
+            setSession(data.accessToken);
+            dispatch(
+              login({
+                role: getUserRole(data.accessToken),
+              })
+            );
+          }
+        } catch (error) {
+          console.log(error);
         }
       },
     }),
