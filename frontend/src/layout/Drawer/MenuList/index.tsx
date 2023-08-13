@@ -9,6 +9,7 @@ import RoomList from './RoomList';
 import StudentList from './StudentList';
 import FeeList from './FeeList';
 import ModeratorList from './ModeratorList';
+import SettingList from './SettingList';
 
 const MenuList = () => {
   return (
@@ -22,6 +23,8 @@ const MenuList = () => {
       <List itemlist={RoomList} />
       <Divider />
       <List itemlist={ModeratorList} />
+      <Divider />
+      <List itemlist={SettingList} />
     </Box>
   );
 };

@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
 // slices import
-import layoutSlice from './slices/layoutSlice';
+import layoutSlice from './slices/layout.slice';
+import authSlice from './slices/auth.slice';
 
 // services import
+import { authApi } from './services/auth.services';
 import { departmentApi } from './services/department.services';
 import { authorityApi } from './services/authority.services';
 import { operatorApi } from './services/operator.services';
@@ -19,8 +21,10 @@ import { feeApi } from './services/fee.services';
 
 const reducer = combineReducers({
   layout: layoutSlice,
+  auth: authSlice,
 
   // services
+  [authApi.reducerPath]: authApi.reducer,
   [departmentApi.reducerPath]: departmentApi.reducer,
   [authorityApi.reducerPath]: authorityApi.reducer,
   [operatorApi.reducerPath]: operatorApi.reducer,
@@ -34,5 +38,7 @@ const reducer = combineReducers({
   [accommodationApi.reducerPath]: accommodationApi.reducer,
   [feeApi.reducerPath]: feeApi.reducer,
 });
+
+export type RootState = ReturnType<typeof reducer>;
 
 export default reducer;

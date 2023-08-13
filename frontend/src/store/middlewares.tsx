@@ -1,3 +1,4 @@
+import { authApi } from './services/auth.services';
 import { departmentApi } from './services/department.services';
 import { authorityApi } from './services/authority.services';
 import { operatorApi } from './services/operator.services';
@@ -12,6 +13,7 @@ import { accommodationApi } from './services/accommodation.services';
 import { feeApi } from './services/fee.services';
 
 const middlewares = [
+  authApi.middleware,
   departmentApi.middleware,
   authorityApi.middleware,
   operatorApi.middleware,

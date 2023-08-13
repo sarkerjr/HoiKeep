@@ -11,7 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 // project imports
 import { DRAWER_WIDTH } from '@/utils/constants';
 import { useSelector, useDispatch } from '@/store';
-import { setDrawerState } from '@/store/slices/layoutSlice';
+import { setDrawerState } from '@/store/slices/layout.slice';
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
