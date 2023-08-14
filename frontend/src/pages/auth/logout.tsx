@@ -1,10 +1,13 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Logout = () => {
   const navigate = useNavigate();
 
-  localStorage.removeItem('accessToken');
-  navigate('/login', { replace: true });
+  useEffect(() => {
+    localStorage.removeItem('accessToken');
+    navigate('/login', { replace: true });
+  }, []);
 
   return <></>;
 };

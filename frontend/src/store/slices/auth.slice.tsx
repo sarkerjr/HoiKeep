@@ -14,19 +14,19 @@ const initialState: State = {
   role: null,
 };
 
-export const verifyToken = (serviceToken: string | null) => {
-  if (!serviceToken) {
+export const verifyToken = (accessToken: string | null) => {
+  if (!accessToken) {
     return false;
   }
 
-  const decoded = jwtDecode<{ exp: number }>(serviceToken);
+  const decoded = jwtDecode<{ exp: number }>(accessToken);
 
   return decoded.exp > Date.now() / 1000;
 };
 
-export const setSession = (serviceToken: string | null) => {
-  if (serviceToken) {
-    localStorage.setItem('serviceToken', serviceToken);
+export const setSession = (accessToken: string | null) => {
+  if (accessToken) {
+    localStorage.setItem('accessToken', accessToken);
   } else {
     // clearing entire localStorage upon logout
     localStorage.clear();
@@ -34,9 +34,9 @@ export const setSession = (serviceToken: string | null) => {
 };
 
 // extract user role from token
-export const getUserRole = (serviceToken: string | null) => {
-  if (!serviceToken) return null;
-  return jwtDecode<{ role: { type: string } }>(serviceToken).role.type;
+export const getUserRole = (accessToken: string | null) => {
+  if (!accessToken) return null;
+  return jwtDecode<{ role: { type: string } }>(accessToken).role.type;
 };
 
 const authSlice = createSlice({
@@ -68,13 +68,13 @@ export default authSlice.reducer;
 
 export const initStore = () => {
   try {
-    const serviceToken = window.localStorage.getItem('serviceToken');
-    if (serviceToken && verifyToken(serviceToken)) {
-      setSession(serviceToken);
+    const accessToken = window.localStorage.getItem('accessToken');
+    if (accessToken && verifyToken(accessToken)) {
+      setSession(accessToken);
       store.dispatch(
         initialize({
           isLoggedIn: true,
-          role: getUserRole(serviceToken),
+          role: getUserRole(accessToken),
         })
       );
     } else {

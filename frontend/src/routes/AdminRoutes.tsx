@@ -3,6 +3,7 @@ import Loadable from '@/components/Loadable';
 
 // project imports
 import Layout from '@/layout';
+import AdminGuard from './guards/AdminGuard';
 const Department = Loadable(lazy(() => import('@/pages/admin/department')));
 const Authority = Loadable(lazy(() => import('@/pages/admin/authority')));
 const Staff = Loadable(lazy(() => import('@/pages/admin/staff')));
@@ -22,7 +23,11 @@ const Dashboard = Loadable(lazy(() => import('@/pages/admin/dashboard')));
 
 const AdminRoutes = {
   path: '/',
-  element: <Layout />,
+  element: (
+    <AdminGuard>
+      <Layout />
+    </AdminGuard>
+  ),
   children: [
     {
       path: '/department',
