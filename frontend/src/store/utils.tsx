@@ -48,7 +48,7 @@ export const baseQueryWithToken: BaseQueryFn<
   }
 
   // If the access token is expired, log the user out
-  if (result.error.status === 401) {
+  if (result?.error?.status === 401) {
     dispatch(logout());
   }
 
