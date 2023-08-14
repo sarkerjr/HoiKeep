@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // project imports
 import useAuth from '@/hooks/useAuth';
 
-const PublicGuard = () => {
+const AdminGuard = ({ children }) => {
   const { isLoggedIn, role } = useAuth();
   const navigate = useNavigate();
 
@@ -12,16 +12,12 @@ const PublicGuard = () => {
     if (isLoggedIn) {
       switch (role) {
         case 'AUTHORITY':
-          navigate('/dashboard', { replace: true });
-          break;
         case 'STAFF':
-          navigate('/dashboard', { replace: true });
-          break;
         case 'OPERATOR':
-          navigate('/dashboard', { replace: true });
-          break;
         case 'STUDENT':
-          navigate('/dashboard', { replace: true });
+          break;
+        default:
+          navigate('/login', { replace: true });
           break;
       }
     } else {
@@ -29,7 +25,7 @@ const PublicGuard = () => {
     }
   }, [isLoggedIn, navigate]);
 
-  return <Outlet />;
+  return children;
 };
 
-export default PublicGuard;
+export default AdminGuard;

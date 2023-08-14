@@ -1,10 +1,10 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
+
+import { baseQueryWithToken } from '../utils';
 
 export const authorityApi = createApi({
   reducerPath: 'authority',
-  baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_BASE_URL,
-  }),
+  baseQuery: baseQueryWithToken,
   tagTypes: ['Authorities'],
   endpoints: (builder) => ({
     readAuthorities: builder.query<any, void>({

@@ -5,6 +5,9 @@ import type {
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query';
 
+import { dispatch } from '.';
+import { logout } from './slices/auth.slice';
+
 export const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BASE_URL,
 });
@@ -18,10 +21,20 @@ export const baseQueryWithToken: BaseQueryFn<
   const accessToken = localStorage.getItem('accessToken');
 
   // Add the access token to the request headers
+  let result: any;
   if (typeof args === 'string') {
-    return await baseQuery(args, api, extraOptions);
+    result = await baseQuery(
+      {
+        url: args,
+        headers: {
+          Authorization: accessToken ?? undefined,
+        },
+      },
+      api,
+      extraOptions
+    );
   } else {
-    return await baseQuery(
+    result = await baseQuery(
       {
         ...args,
         headers: {
@@ -33,4 +46,11 @@ export const baseQueryWithToken: BaseQueryFn<
       extraOptions
     );
   }
+
+  // If the access token is expired, log the user out
+  if (result.error.status === 401) {
+    dispatch(logout());
+  }
+
+  return result;
 };

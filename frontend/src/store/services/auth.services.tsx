@@ -1,9 +1,5 @@
-import {
-  createApi,
-  BaseQueryFn,
-  fetchBaseQuery,
-} from '@reduxjs/toolkit/query/react';
-import axios from '@/utils/axios';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
 import { setSession, login, getUserRole } from '@/store/slices/auth.slice';
 
 interface LoginResponse {
