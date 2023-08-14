@@ -19,7 +19,16 @@ export const baseQueryWithToken: BaseQueryFn<
 
   // Add the access token to the request headers
   if (typeof args === 'string') {
-    return await baseQuery(args, api, extraOptions);
+    return await baseQuery(
+      {
+        url: args,
+        headers: {
+          Authorization: accessToken ?? undefined,
+        },
+      },
+      api,
+      extraOptions
+    );
   } else {
     return await baseQuery(
       {
