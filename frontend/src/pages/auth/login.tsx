@@ -5,6 +5,8 @@ import { Formik } from 'formik';
 import { useTheme } from '@mui/material/styles';
 import {
   Box,
+  Paper,
+  Card,
   Button,
   FormControl,
   FormHelperText,
@@ -32,6 +34,29 @@ const Login = () => {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+
+  //style
+  const boxStyle = {
+    backgroundColor: '#026576',
+    height: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  };
+  const cardStyle = {
+    backgroundColor: '#026576',
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
+  const paperStyle = {
+    width: '350px',
+    height: '350px',
+    margin: '5%',
+    padding: '25px',
   };
 
   return (
@@ -70,93 +95,102 @@ const Login = () => {
         touched,
         values,
       }) => (
-        <form noValidate onSubmit={handleSubmit}>
-          <FormControl
-            fullWidth
-            error={Boolean(touched.email && errors.email)}
-            // sx={{ ...theme.typography.customInput }}
-          >
-            <InputLabel htmlFor="outlined-adornment-email-login">
-              username
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-email-login"
-              label="username"
-              type="email"
-              value={values.email}
-              name="email"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              inputProps={{}}
-            />
-            {touched.email && errors.email && (
-              <FormHelperText
-                error
-                id="standard-weight-helper-text-email-login"
-              >
-                {errors.email}
-              </FormHelperText>
-            )}
-          </FormControl>
+        <Box sx={boxStyle}>
+          <Card sx={cardStyle}>
+            <Paper elevation={3} sx={paperStyle}>
+              <h2 style={{ textAlign: 'center' }}>Login Form</h2>
+              <form noValidate onSubmit={handleSubmit}>
+                <FormControl
+                  fullWidth
+                  error={Boolean(touched.email && errors.email)}
+                  // sx={{ ...theme.typography.customInput }}
+                >
+                  <InputLabel htmlFor="outlined-adornment-email-login">
+                    username
+                  </InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-email-login"
+                    label="username"
+                    type="email"
+                    value={values.email}
+                    name="email"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    inputProps={{}}
+                  />
+                  {touched.email && errors.email && (
+                    <FormHelperText
+                      error
+                      id="standard-weight-helper-text-email-login"
+                    >
+                      {errors.email}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+                <br />
+                <br />
 
-          <FormControl
-            fullWidth
-            error={Boolean(touched.password && errors.password)}
-            // sx={{ ...theme.typography.customInput }}
-          >
-            <InputLabel htmlFor="outlined-adornment-password-login">
-              password
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password-login"
-              label="password"
-              type={showPassword ? 'text' : 'password'}
-              value={values.password}
-              name="password"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
+                <FormControl
+                  fullWidth
+                  error={Boolean(touched.password && errors.password)}
+                  // sx={{ ...theme.typography.customInput }}
+                >
+                  <InputLabel htmlFor="outlined-adornment-password-login">
+                    password
+                  </InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-password-login"
+                    label="password"
+                    type={showPassword ? 'text' : 'password'}
+                    value={values.password}
+                    name="password"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                          size="large"
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    inputProps={{}}
+                  />
+                  {touched.password && errors.password && (
+                    <FormHelperText
+                      error
+                      id="standard-weight-helper-text-password-login"
+                    >
+                      {errors.password}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+
+                {errors.submit && (
+                  <Box sx={{ mt: 3 }}>
+                    <FormHelperText error>{errors.submit}</FormHelperText>
+                  </Box>
+                )}
+                <Box sx={{ mt: 2 }}>
+                  <Button
+                    disabled={isSubmitting}
+                    fullWidth
                     size="large"
+                    type="submit"
+                    variant="contained"
                   >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              inputProps={{}}
-            />
-            {touched.password && errors.password && (
-              <FormHelperText
-                error
-                id="standard-weight-helper-text-password-login"
-              >
-                {errors.password}
-              </FormHelperText>
-            )}
-          </FormControl>
-
-          {errors.submit && (
-            <Box sx={{ mt: 3 }}>
-              <FormHelperText error>{errors.submit}</FormHelperText>
-            </Box>
-          )}
-          <Box sx={{ mt: 2 }}>
-            <Button
-              disabled={isSubmitting}
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-            >
-              login
-            </Button>
-          </Box>
-        </form>
+                    login
+                  </Button>
+                </Box>
+              </form>
+            </Paper>
+          </Card>
+        </Box>
       )}
     </Formik>
   );
