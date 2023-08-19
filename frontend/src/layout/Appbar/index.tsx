@@ -56,7 +56,7 @@ const AppBar = () => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div">
-          Department Portal
+          Online Hall Manegement Portal
         </Typography>
       </Toolbar>
     </StyledAppBar>
