@@ -50,6 +50,7 @@ const authSlice = createSlice({
     logout(state) {
       state.isLoggedIn = false;
       state.role = null;
+      setSession(null);
     },
     initialize(
       state,
