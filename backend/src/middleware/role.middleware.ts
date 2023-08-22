@@ -5,9 +5,9 @@ export const isAuthority = async (
   res: Response,
   next: NextFunction
 ) => {
-  const roleType = req.body.tokenInfo.role.type;
+  const userRole = req.body.tokenInfo.role.type;
 
-  if (roleType !== 'AUTHORITY') {
+  if (userRole !== 'AUTHORITY') {
     return res
       .status(401)
       .json({ message: 'You are unauthorized to access this content!' });
@@ -21,9 +21,9 @@ export const isStaff = async (
   res: Response,
   next: NextFunction
 ) => {
-  const roleType = req.body.tokenInfo.role.type;
+  const userRole = req.body.tokenInfo.role.type;
 
-  if (roleType !== 'STAFF') {
+  if (userRole !== 'STAFF') {
     return res
       .status(401)
       .json({ message: 'You are unauthorized to access this content!' });
@@ -37,9 +37,9 @@ export const isOperator = async (
   res: Response,
   next: NextFunction
 ) => {
-  const roleType = req.body.tokenInfo.role.type;
+  const userRole = req.body.tokenInfo.role.type;
 
-  if (roleType !== 'OPERATOR') {
+  if (userRole !== 'OPERATOR') {
     return res
       .status(401)
       .json({ message: 'You are unauthorized to access this content!' });
@@ -53,13 +53,28 @@ export const isStudent = async (
   res: Response,
   next: NextFunction
 ) => {
-  const roleType = req.body.tokenInfo.role.type;
+  const userRole = req.body.tokenInfo.role.type;
 
-  if (roleType !== 'STUDENT') {
+  if (userRole !== 'STUDENT') {
     return res
       .status(401)
       .json({ message: 'You are unauthorized to access this content!' });
   }
 
   next();
+};
+
+export const checkRoles = (roles: Array<string>) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const userRole = req.body.tokenInfo.role.type;
+
+    // check if the user's role is included in the roles array
+    if (roles.includes(userRole)) {
+      next();
+    } else {
+      return res
+        .status(401)
+        .json({ message: 'You are unauthorized to access this content!' });
+    }
+  };
 };
