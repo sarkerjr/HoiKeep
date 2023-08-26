@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import Loadable from '@/components/Loadable';
 
 // project imports
-import Layout from '@/layout';
+import MainLayout from '@/layout/MainLayout';
 import AdminGuard from './guards/AdminGuard';
 const Department = Loadable(lazy(() => import('@/pages/admin/department')));
 const Authority = Loadable(lazy(() => import('@/pages/admin/authority')));
@@ -25,7 +25,7 @@ const AdminRoutes = {
   path: '/',
   element: (
     <AdminGuard>
-      <Layout />
+      <MainLayout />
     </AdminGuard>
   ),
   children: [
