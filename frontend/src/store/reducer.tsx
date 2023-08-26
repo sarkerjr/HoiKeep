@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 // slices import
 import layoutSlice from './slices/layout.slice';
+import menuSlice from './slices/menu.slice';
 import authSlice from './slices/auth.slice';
 
 // services import
@@ -21,6 +22,7 @@ import { feeApi } from './services/fee.services';
 
 const reducer = combineReducers({
   layout: layoutSlice,
+  menu: menuSlice,
   auth: authSlice,
 
   // services
