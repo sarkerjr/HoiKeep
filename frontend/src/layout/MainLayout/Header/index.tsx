@@ -35,7 +35,7 @@ const Header = ({ open, handleDrawerToggle }: HeaderProps) => {
           ml: { xs: 0, lg: -2 },
         }}
       >
-        {!open ? <MenuOpenIcon /> : <MenuIcon />}
+        {!open ? <MenuIcon /> : <MenuOpenIcon />}
       </IconButton>
       {/* <HeaderContent /> */}
     </Toolbar>
