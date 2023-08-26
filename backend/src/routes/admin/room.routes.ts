@@ -1,5 +1,8 @@
 import express from 'express';
 
+import { RoleType } from '@/utils/enums';
+import { checkRoles } from '@/middleware/role.middleware';
+
 import {
   createRoom,
   getRooms,
@@ -10,10 +13,26 @@ import {
 
 const router = express.Router();
 
-router.get('/', getRooms);
-router.get('/:id', getRoom);
-router.post('/', createRoom);
-router.put('/', updateRoom);
-router.delete('/', removeRoom);
+router.get('/', checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]), getRooms);
+router.get(
+  '/:id',
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  getRoom
+);
+router.post(
+  '/',
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  createRoom
+);
+router.put(
+  '/',
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  updateRoom
+);
+router.delete(
+  '/',
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  removeRoom
+);
 
 export default router;

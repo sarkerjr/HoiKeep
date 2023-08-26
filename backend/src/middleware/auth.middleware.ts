@@ -27,9 +27,9 @@ export default function (req: Request, res: Response, next: NextFunction) {
 
     //Passsing user information to request body
     req.body.tokenInfo = {
-      usersId: decoded?.usersId,
-      rolesId: decoded?.rolesId,
-      hallsId: decoded?.hallsId,
+      userId: decoded?.userId,
+      hallId: decoded?.hallId,
+      role: decoded?.role,
     };
 
     //Forwading to next middleware

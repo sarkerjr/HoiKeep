@@ -9,9 +9,9 @@ import {
 
 const router = express.Router();
 
-router.get('/', getHalls);
-router.get('/:id', getHall);
-router.post('/', createHall);
-router.put('/', updateHall);
+// router.get('/', getHalls);
+// router.get('/:id', getHall);
+// router.post('/', createHall);
+// router.put('/', updateHall);
 
 export default router;

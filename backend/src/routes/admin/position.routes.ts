@@ -1,5 +1,8 @@
 import express from 'express';
 
+import { RoleType } from '@/utils/enums';
+import { checkRoles } from '@/middleware/role.middleware';
+
 import {
   createPosition,
   getPositions,
@@ -10,10 +13,30 @@ import {
 
 const router = express.Router();
 
-router.get('/', getPositions);
-router.get('/:id', getPosition);
-router.post('/', createPosition);
-router.put('/', updatePosition);
-router.delete('/', removePosition);
+router.get(
+  '/',
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  getPositions
+);
+router.get(
+  '/:id',
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  getPosition
+);
+router.post(
+  '/',
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  createPosition
+);
+router.put(
+  '/',
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  updatePosition
+);
+router.delete(
+  '/',
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  removePosition
+);
 
 export default router;

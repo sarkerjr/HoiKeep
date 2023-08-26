@@ -1,24 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { getById as getAuthorityById } from '@/services/authority.services';
-import { getById as getStaffById } from '@/services/staff.services';
-import { getById as getOperatorById } from '@/services/opearator.services';
-import { getById as getStudentById } from '@/services/student.services';
-
 export const isAuthority = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const { rolesId } = req.body.tokenInfo;
+  const userRole = req.body.tokenInfo.role.type;
 
-  const authority = await getAuthorityById(rolesId);
-
-  if (authority instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
-  }
-
-  if (!authority) {
+  if (userRole !== 'AUTHORITY') {
     return res
       .status(401)
       .json({ message: 'You are unauthorized to access this content!' });
@@ -32,15 +21,9 @@ export const isStaff = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { rolesId } = req.body.tokenInfo;
+  const userRole = req.body.tokenInfo.role.type;
 
-  const staff = await getStaffById(rolesId);
-
-  if (staff instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
-  }
-
-  if (!staff) {
+  if (userRole !== 'STAFF') {
     return res
       .status(401)
       .json({ message: 'You are unauthorized to access this content!' });
@@ -54,15 +37,9 @@ export const isOperator = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { rolesId } = req.body.tokenInfo;
+  const userRole = req.body.tokenInfo.role.type;
 
-  const operator = await getOperatorById(rolesId);
-
-  if (operator instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
-  }
-
-  if (!operator) {
+  if (userRole !== 'OPERATOR') {
     return res
       .status(401)
       .json({ message: 'You are unauthorized to access this content!' });
@@ -76,19 +53,28 @@ export const isStudent = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { rolesId } = req.body.tokenInfo;
+  const userRole = req.body.tokenInfo.role.type;
 
-  const student = await getStudentById(rolesId);
-
-  if (student instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
-  }
-
-  if (!student) {
+  if (userRole !== 'STUDENT') {
     return res
       .status(401)
       .json({ message: 'You are unauthorized to access this content!' });
   }
 
   next();
+};
+
+export const checkRoles = (roles: Array<string>) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const userRole = req.body.tokenInfo.role.type;
+
+    // check if the user's role is included in the roles array
+    if (roles.includes(userRole)) {
+      next();
+    } else {
+      return res
+        .status(401)
+        .json({ message: 'You are unauthorized to access this content!' });
+    }
+  };
 };
