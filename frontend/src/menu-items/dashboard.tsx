@@ -1,10 +1,4 @@
-// assets
-import { DashboardOutlined } from '@mui/icons-material';
-
-// icons
-const icons = {
-  DashboardOutlined,
-};
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 
 const dashboard = {
   id: 'group-dashboard',
@@ -16,7 +10,7 @@ const dashboard = {
       title: 'Dashboard',
       type: 'item',
       url: '/dashboard',
-      icon: icons.DashboardOutlined,
+      icon: DashboardOutlinedIcon,
     },
   ],
 };

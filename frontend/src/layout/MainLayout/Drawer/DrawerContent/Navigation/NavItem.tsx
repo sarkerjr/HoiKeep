@@ -131,8 +131,11 @@ const NavItem = ({ item, level }) => {
         <ListItemText
           primary={
             <Typography
-              variant="h6"
-              sx={{ color: isSelected ? iconSelectedColor : textColor }}
+              sx={{
+                color: isSelected ? iconSelectedColor : textColor,
+                fontSize: '1rem',
+                fontWeight: 'medium',
+              }}
             >
               {item.title}
             </Typography>
