@@ -8,6 +8,8 @@ import {
   StyledTableCell,
 } from 'components/data-table/StyledComponents';
 
+import useRoles from '@/hooks/useRoles';
+
 type PositionRowProps = {
   position: any;
   setModal: any;
@@ -28,6 +30,8 @@ const PositionRow: FC<PositionRowProps> = ({
     setModal(true);
   };
 
+  const isValid: boolean = useRoles();
+
   return (
     <StyledTableRow tabIndex={-1} role="checkbox">
       <StyledTableCell align="center">#{sl}</StyledTableCell>
@@ -37,11 +41,11 @@ const PositionRow: FC<PositionRowProps> = ({
       <StyledTableCell align="center">{category}</StyledTableCell>
 
       <StyledTableCell align="center">
-        <StyledIconButton onClick={handleOnEdit}>
+        <StyledIconButton disabled={!isValid} onClick={handleOnEdit}>
           <Edit />
         </StyledIconButton>
 
-        <StyledIconButton>
+        <StyledIconButton disabled={!isValid}>
           <Delete />
         </StyledIconButton>
       </StyledTableCell>

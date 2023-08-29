@@ -8,6 +8,8 @@ import {
   StyledTableCell,
 } from 'components/data-table/StyledComponents';
 
+import useRoles from '@/hooks/useRoles';
+
 type RoomRowProps = {
   room: any;
   setModal: any;
@@ -23,6 +25,8 @@ const RoomRow: FC<RoomRowProps> = ({ room, setModal, setMode, setData }) => {
     setModal(true);
   };
 
+  const isValid: boolean = useRoles();
+
   return (
     <StyledTableRow tabIndex={-1} role="checkbox">
       <StyledTableCell align="center">#{sl}</StyledTableCell>
@@ -32,11 +36,11 @@ const RoomRow: FC<RoomRowProps> = ({ room, setModal, setMode, setData }) => {
       <StyledTableCell align="center">{seatQuantity}</StyledTableCell>
 
       <StyledTableCell align="center">
-        <StyledIconButton onClick={handleOnEdit}>
+        <StyledIconButton disabled={!isValid} onClick={handleOnEdit}>
           <Edit />
         </StyledIconButton>
 
-        <StyledIconButton>
+        <StyledIconButton disabled={!isValid}>
           <Delete />
         </StyledIconButton>
       </StyledTableCell>
