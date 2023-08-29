@@ -19,6 +19,7 @@ import { degreeApi } from './services/degree.services';
 import { studentApi } from './services/student.services';
 import { accommodationApi } from './services/accommodation.services';
 import { feeApi } from './services/fee.services';
+import { dashboardApi } from './services/dashboard.services';
 
 const reducer = combineReducers({
   layout: layoutSlice,
@@ -39,6 +40,7 @@ const reducer = combineReducers({
   [studentApi.reducerPath]: studentApi.reducer,
   [accommodationApi.reducerPath]: accommodationApi.reducer,
   [feeApi.reducerPath]: feeApi.reducer,
+  [dashboardApi.reducerPath]: dashboardApi.reducer,
 });
 
 export type RootState = ReturnType<typeof reducer>;
