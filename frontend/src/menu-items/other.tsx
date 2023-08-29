@@ -1,6 +1,7 @@
 import SchoolIcon from '@mui/icons-material/School';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const other = {
   id: 'other_panel',
@@ -34,6 +35,13 @@ const other = {
       type: 'item',
       url: '/designation',
       icon: WorkspacePremiumIcon,
+    },
+    {
+      id: 'logout',
+      title: 'Logout',
+      type: 'item',
+      url: '/logout',
+      icon: LogoutIcon,
     },
   ],
 };

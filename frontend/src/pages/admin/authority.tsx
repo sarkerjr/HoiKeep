@@ -20,6 +20,7 @@ import useModal from '@/hooks/useModal';
 import AuthorityRow from '@/page-setions/admin/authority/AuthorityRow';
 import AuthorityModal from '@/page-setions/admin/authority/AuthorityModal';
 import { useReadAuthoritiesQuery } from '@/store/services/authority.services';
+import useRoles from '@/hooks/useRoles';
 
 // TABLE HEADING DATA LIST
 const tableHeading = [

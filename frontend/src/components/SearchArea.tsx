@@ -3,6 +3,8 @@ import { Add } from '@mui/icons-material';
 import { Box, Button, Theme, useMediaQuery } from '@mui/material';
 import SearchInput from '@/components/SearchInput';
 
+import useRoles from '@/hooks/useRoles';
+
 type SearchAreaProps = {
   buttonText: string;
   handleSearch: (event: ChangeEvent) => void;
@@ -13,6 +15,8 @@ type SearchAreaProps = {
 const SearchArea: FC<SearchAreaProps> = (props) => {
   const { searchPlaceholder, buttonText, handleBtnClick } = props;
   const downSM = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+
+  const isValid: boolean = useRoles();
 
   return (
     <Box
@@ -34,6 +38,7 @@ const SearchArea: FC<SearchAreaProps> = (props) => {
         startIcon={<Add />}
         onClick={handleBtnClick}
         sx={{ minHeight: 44 }}
+        disabled={!isValid}
       >
         {buttonText}
       </Button>
