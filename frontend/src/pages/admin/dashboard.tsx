@@ -20,11 +20,11 @@ const dashboard = () => {
     isError,
   } = useReadDashboardDataQuery();
 
-  if (isLoading) {
-    startLoadingAlert();
-  } else if (!isLoading && isError) {
-    stopLoadingAlert();
-  }
+  // if (isLoading) {
+  //   startLoadingAlert();
+  // } else if (!isLoading && isError) {
+  //   stopLoadingAlert();
+  // }
 
   return (
     <Box>
