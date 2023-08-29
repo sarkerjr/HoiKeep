@@ -56,7 +56,14 @@ export const getOperator = async (req: Request, res: Response) => {
 };
 
 export const updateOperator = async (req: Request, res: Response) => {
-  const { id, name, email, joinedAt, leftAt, positionsId, hallsId } = req.body;
+  const { id, name, email, positionsId, hallsId } = req.body;
+
+  let { joinedAt, leftAt } = req.body;
+
+  const oldData: any = await getById(id);
+
+  joinedAt = joinedAt || oldData?.operatorDetails?.joinedAt;
+  leftAt = leftAt || oldData?.operatorDetails?.leftAt;
 
   const operator = await update(
     id,
