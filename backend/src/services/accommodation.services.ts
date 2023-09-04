@@ -1,4 +1,4 @@
-import { Prisma, prisma } from '@/utils/prisma';
+import { prisma } from '@/utils/prisma';
 import { AccommodationStatus } from '@prisma/client';
 
 type AccommodationType = {
