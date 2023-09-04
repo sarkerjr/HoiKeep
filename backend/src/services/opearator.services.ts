@@ -1,4 +1,4 @@
-import { Prisma, prisma } from '@/utils/prisma';
+import { prisma } from '@/utils/prisma';
 
 export const create = async (
   name: string,
@@ -8,62 +8,41 @@ export const create = async (
   positionsId: string,
   hallsId: string
 ) => {
-  return await prisma.operators
-    .create({
-      data: {
-        positionsId,
-        hallsId,
-        operatorDetails: {
-          create: {
-            name,
-            email,
-            joinedAt: joinedAt ? new Date(joinedAt) : null,
-            leftAt: leftAt ? new Date(leftAt) : null,
-          },
+  return await prisma.operators.create({
+    data: {
+      positionsId,
+      hallsId,
+      operatorDetails: {
+        create: {
+          name,
+          email,
+          joinedAt: joinedAt ? new Date(joinedAt) : null,
+          leftAt: leftAt ? new Date(leftAt) : null,
         },
       },
-    })
-    .then((authority) => {
-      return authority;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+    },
+  });
 };
 
 export const get = async () => {
-  return await prisma.operators
-    .findMany({
-      include: {
-        positions: true,
-        operatorDetails: true,
-      },
-    })
-    .then((notices) => {
-      return notices;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+  return await prisma.operators.findMany({
+    include: {
+      positions: true,
+      operatorDetails: true,
+    },
+  });
 };
 
 export const getById = async (id: string) => {
-  return await prisma.operators
-    .findUnique({
-      where: {
-        id,
-      },
-      include: {
-        positions: true,
-        operatorDetails: true,
-      },
-    })
-    .then((authority) => {
-      return authority;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+  return await prisma.operators.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      positions: true,
+      operatorDetails: true,
+    },
+  });
 };
 
 export const update = async (
@@ -75,43 +54,29 @@ export const update = async (
   positionsId: string,
   hallsId: string
 ) => {
-  return await prisma.operators
-    .update({
-      where: {
-        id,
-      },
-      data: {
-        positionsId,
-        hallsId,
-        operatorDetails: {
-          update: {
-            name,
-            email,
-            joinedAt: new Date(joinedAt),
-            leftAt: new Date(leftAt),
-          },
+  return await prisma.operators.update({
+    where: {
+      id,
+    },
+    data: {
+      positionsId,
+      hallsId,
+      operatorDetails: {
+        update: {
+          name,
+          email,
+          joinedAt: new Date(joinedAt),
+          leftAt: new Date(leftAt),
         },
       },
-    })
-    .then((authority) => {
-      return authority;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+    },
+  });
 };
 
 export const remove = async (id: string) => {
-  return await prisma.operators
-    .delete({
-      where: {
-        id,
-      },
-    })
-    .then((notice) => {
-      return notice;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+  return await prisma.operators.delete({
+    where: {
+      id,
+    },
+  });
 };

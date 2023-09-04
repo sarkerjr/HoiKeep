@@ -22,96 +22,82 @@ export const create = async (
 };
 
 export const get = async () => {
-  return await prisma.fees
-    .findMany({
-      select: {
-        id: true,
-        year: true,
-        month: true,
-        amount: true,
-        accommodations: {
-          select: {
-            id: true,
-            isActive: true,
-            status: true,
-            students: {
-              select: {
-                studentProfiles: {
-                  select: {
-                    name: true,
-                    studentNo: true,
-                  },
+  return await prisma.fees.findMany({
+    select: {
+      id: true,
+      year: true,
+      month: true,
+      amount: true,
+      accommodations: {
+        select: {
+          id: true,
+          isActive: true,
+          status: true,
+          students: {
+            select: {
+              studentProfiles: {
+                select: {
+                  name: true,
+                  studentNo: true,
                 },
               },
             },
-            seats: {
-              select: {
-                no: true,
-                rooms: {
-                  select: {
-                    no: true,
-                  },
+          },
+          seats: {
+            select: {
+              no: true,
+              rooms: {
+                select: {
+                  no: true,
                 },
               },
             },
           },
         },
       },
-    })
-    .then((fees) => {
-      return fees;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      throw error;
-    });
+    },
+  });
 };
 
 export const getById = async (id: string) => {
-  return await prisma.fees
-    .findUnique({
-      where: {
-        id,
-      },
-      select: {
-        id: true,
-        year: true,
-        month: true,
-        amount: true,
-        accommodations: {
-          select: {
-            id: true,
-            isActive: true,
-            status: true,
-            students: {
-              select: {
-                studentProfiles: {
-                  select: {
-                    name: true,
-                    studentNo: true,
-                  },
+  return await prisma.fees.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      id: true,
+      year: true,
+      month: true,
+      amount: true,
+      accommodations: {
+        select: {
+          id: true,
+          isActive: true,
+          status: true,
+          students: {
+            select: {
+              studentProfiles: {
+                select: {
+                  name: true,
+                  studentNo: true,
                 },
               },
             },
-            seats: {
-              select: {
-                no: true,
-                rooms: {
-                  select: {
-                    no: true,
-                  },
+          },
+          seats: {
+            select: {
+              no: true,
+              rooms: {
+                select: {
+                  no: true,
                 },
               },
             },
           },
         },
       },
-    })
-    .then((fee) => {
-      return fee;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      throw error;
-    });
+    },
+  });
 };
 
 export const getDue = async () => {
@@ -169,34 +155,20 @@ export const getDue = async () => {
 };
 
 export const update = async (id: string, amount: number) => {
-  return await prisma.fees
-    .update({
-      where: {
-        id,
-      },
-      data: {
-        amount,
-      },
-    })
-    .then((fee) => {
-      return fee;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      throw error;
-    });
+  return await prisma.fees.update({
+    where: {
+      id,
+    },
+    data: {
+      amount,
+    },
+  });
 };
 
 export const remove = async (id: string) => {
-  return await prisma.fees
-    .delete({
-      where: {
-        id,
-      },
-    })
-    .then((fee) => {
-      return fee;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      throw error;
-    });
+  return await prisma.fees.delete({
+    where: {
+      id,
+    },
+  });
 };

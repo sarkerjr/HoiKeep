@@ -27,68 +27,68 @@ export const createStudent = async (req: Request, res: Response) => {
   if (typeof semester !== 'number') semester = parseInt(semester);
   if (typeof year !== 'number') year = parseInt(year);
 
-  const student = await create({
-    name,
-    isActive: stringToBoolean(isActive),
-    email,
-    studentNo,
-    session,
-    semester,
-    year,
-    admissionDate,
-    imageUrl,
-    hallsId,
-    departmentsId,
-    degreesId,
-  });
+  try {
+    await create({
+      name,
+      isActive: stringToBoolean(isActive),
+      email,
+      studentNo,
+      session,
+      semester,
+      year,
+      admissionDate,
+      imageUrl,
+      hallsId,
+      departmentsId,
+      degreesId,
+    });
 
-  if (student instanceof Error) {
-    return res.status(400).json({
+    res.status(201).json({
+      message: 'Student created successfully.',
+    });
+  } catch (error: any) {
+    res.status(400).json({
       message:
-        student.code === 'P2002'
+        error.code === 'P2002'
           ? 'Student already exists.'
           : 'Something went wrong.',
     });
   }
-
-  return res.status(201).json({
-    message: 'Student created successfully.',
-  });
 };
 
 export const getStudents = async (req: Request, res: Response) => {
-  const students = await get();
+  try {
+    const students = await get();
 
-  if (students instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
+    res.status(200).json(students);
+  } catch (error: any) {
+    res.status(400).json({ message: 'Something went wrong!' });
   }
-
-  return res.status(200).json(students);
 };
 
 export const getStudentsAccommodationStatus = async (
   req: Request,
   res: Response
 ) => {
-  const students = await getWithAccommodationStatus();
+  try {
+    const students = await getWithAccommodationStatus();
 
-  if (students instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
+    res.status(200).json(students);
+  } catch (error: any) {
+    res.status(400).json({ message: 'Something went wrong!' });
   }
-
-  return res.status(200).json(students);
 };
 
 export const getStudent = async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const student = await getById(id);
+  try {
+    const student = await getById(id);
 
-  if (student instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
+    res.status(200).json(student);
+  } catch (error: any) {
+    res.status(400).json({ message: 'Something went wrong!' });
   }
-
-  return res.status(200).json(student);
 };
 
 export const updateStudent = async (req: Request, res: Response) => {
@@ -109,39 +109,40 @@ export const updateStudent = async (req: Request, res: Response) => {
 
   if (semester && typeof semester !== 'number') semester = parseInt(semester);
   if (year && typeof year !== 'number') year = parseInt(year);
-  const oldData: any = await getById(id);
 
-  const student = await update({
-    id,
-    isActive: stringToBoolean(isActive),
-    name,
-    email,
-    studentNo,
-    session,
-    semester,
-    year,
-    admissionDate: admissionDate || oldData?.studentProfiles?.admissionDate,
-    imageUrl,
-    hallsId,
-    departmentsId,
-    degreesId,
-  });
+  try {
+    const oldData: any = await getById(id);
 
-  if (student instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
+    await update({
+      id,
+      isActive: stringToBoolean(isActive),
+      name,
+      email,
+      studentNo,
+      session,
+      semester,
+      year,
+      admissionDate: admissionDate || oldData?.studentProfiles?.admissionDate,
+      imageUrl,
+      hallsId,
+      departmentsId,
+      degreesId,
+    });
+
+    res.status(200).json({ message: 'Student updated successfully.' });
+  } catch (error: any) {
+    res.status(400).json({ message: 'Something went wrong!' });
   }
-
-  return res.status(200).json({ message: 'Student updated successfully.' });
 };
 
 export const removeStudent = async (req: Request, res: Response) => {
   const { id } = req.body;
 
-  const student = await remove(id);
+  try {
+    await remove(id);
 
-  if (student instanceof Error) {
-    return res.status(400).json({ message: 'Something went wrong!' });
+    res.status(200).json({ message: 'Student deleted successfully.' });
+  } catch (error: any) {
+    res.status(400).json({ message: 'Something went wrong!' });
   }
-
-  return res.status(200).json({ message: 'Student deleted successfully.' });
 };
