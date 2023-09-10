@@ -75,32 +75,32 @@ const Seat = () => {
         />
 
         <Card>
-          <Scrollbar>
-            <TableContainer sx={{ minWidth: 700 }}>
-              <Table>
-                <TableHeader
-                  order={order}
-                  hideSelectBtn
-                  orderBy={orderBy}
-                  heading={tableHeading}
-                  rowCount={seats?.length}
-                  onRequestSort={handleRequestSort}
-                />
+          {/* <Scrollbar> */}
+          <TableContainer sx={{ minWidth: 700 }}>
+            <Table>
+              <TableHeader
+                order={order}
+                hideSelectBtn
+                orderBy={orderBy}
+                heading={tableHeading}
+                rowCount={seats?.length}
+                onRequestSort={handleRequestSort}
+              />
 
-                <TableBody>
-                  {filteredList.map((seat) => (
-                    <SeatRow
-                      seat={seat}
-                      key={seat.id}
-                      setModal={setModal}
-                      setMode={setMode}
-                      setData={setData}
-                    />
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Scrollbar>
+              <TableBody>
+                {filteredList.map((seat) => (
+                  <SeatRow
+                    seat={seat}
+                    key={seat.id}
+                    setModal={setModal}
+                    setMode={setMode}
+                    setData={setData}
+                  />
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {/* </Scrollbar> */}
 
           <Stack alignItems="center" my={4}>
             <TablePagination

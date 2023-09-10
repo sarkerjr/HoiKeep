@@ -1,10 +1,10 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
+
+import { baseQueryWithToken } from '../utils';
 
 export const seatApi = createApi({
   reducerPath: 'seat',
-  baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_BASE_URL,
-  }),
+  baseQuery: baseQueryWithToken,
   tagTypes: ['Seats'],
   endpoints: (builder) => ({
     readSeats: builder.query<any, void>({

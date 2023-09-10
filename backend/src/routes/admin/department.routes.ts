@@ -1,5 +1,8 @@
 import express from 'express';
 
+import { RoleType } from '@/utils/enums';
+import { checkRoles } from '@/middleware/role.middleware';
+
 import {
   createDepartment,
   getDepartments,
@@ -9,9 +12,25 @@ import {
 
 const router = express.Router();
 
-router.get('/', getDepartments);
-router.get('/:id', getDepartment);
-router.post('/', createDepartment);
-router.put('/', updateDepartment);
+router.get(
+  '/',
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  getDepartments
+);
+router.get(
+  '/:id',
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  getDepartment
+);
+router.post(
+  '/',
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  createDepartment
+);
+router.put(
+  '/',
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  updateDepartment
+);
 
 export default router;

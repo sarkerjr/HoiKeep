@@ -90,32 +90,32 @@ const Student = () => {
         />
 
         <Card>
-          <Scrollbar>
-            <TableContainer sx={{ minWidth: 700 }}>
-              <Table>
-                <TableHeader
-                  order={order}
-                  hideSelectBtn
-                  orderBy={orderBy}
-                  heading={tableHeading}
-                  rowCount={students?.length}
-                  onRequestSort={handleRequestSort}
-                />
+          {/* <Scrollbar> */}
+          <TableContainer sx={{ minWidth: 700 }}>
+            <Table>
+              <TableHeader
+                order={order}
+                hideSelectBtn
+                orderBy={orderBy}
+                heading={tableHeading}
+                rowCount={students?.length}
+                onRequestSort={handleRequestSort}
+              />
 
-                <TableBody>
-                  {filteredList.map((student) => (
-                    <StudentRow
-                      student={student}
-                      key={student.id}
-                      setModal={setModal}
-                      setMode={setMode}
-                      setData={setData}
-                    />
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Scrollbar>
+              <TableBody>
+                {filteredList.map((student) => (
+                  <StudentRow
+                    student={student}
+                    key={student.id}
+                    setModal={setModal}
+                    setMode={setMode}
+                    setData={setData}
+                  />
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {/* </Scrollbar> */}
 
           <Stack alignItems="center" my={4}>
             <TablePagination

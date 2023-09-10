@@ -29,132 +29,104 @@ export const create = async ({
   departmentsId,
   degreesId,
 }: StudentType) => {
-  return await prisma.students
-    .create({
-      data: {
-        hallsId,
-        departmentsId,
-        studentProfiles: {
-          create: {
-            name,
-            email,
-            studentNo,
-            session,
-            semester,
-            year,
-            admissionDate: admissionDate ? new Date(admissionDate) : null,
-            degreesId,
-            studentImages: {
-              create: {
-                url: imageUrl,
-              },
+  return await prisma.students.create({
+    data: {
+      hallsId,
+      departmentsId,
+      studentProfiles: {
+        create: {
+          name,
+          email,
+          studentNo,
+          session,
+          semester,
+          year,
+          admissionDate: admissionDate ? new Date(admissionDate) : null,
+          degreesId,
+          studentImages: {
+            create: {
+              url: imageUrl,
             },
           },
         },
       },
-    })
-    .then((student) => {
-      return student;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+    },
+  });
 };
 
 export const get = async () => {
-  return await prisma.students
-    .findMany({
-      include: {
-        studentProfiles: {
-          include: {
-            studentImages: true,
-            degrees: true,
-          },
+  return await prisma.students.findMany({
+    include: {
+      studentProfiles: {
+        include: {
+          studentImages: true,
+          degrees: true,
         },
-        departments: true,
       },
-    })
-    .then((students) => {
-      return students;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+      departments: true,
+    },
+  });
 };
 
 export const getById = async (id: string) => {
-  return await prisma.students
-    .findUnique({
-      where: {
-        id,
-      },
-      select: {
-        id: true,
-        hallsId: true,
-        departmentsId: true,
-        studentProfiles: {
-          select: {
-            name: true,
-            email: true,
-            studentNo: true,
-            session: true,
-            semester: true,
-            year: true,
-            admissionDate: true,
-          },
+  return await prisma.students.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      id: true,
+      hallsId: true,
+      departmentsId: true,
+      studentProfiles: {
+        select: {
+          name: true,
+          email: true,
+          studentNo: true,
+          session: true,
+          semester: true,
+          year: true,
+          admissionDate: true,
         },
       },
-    })
-    .then((student) => {
-      return student;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+    },
+  });
 };
 
 export const getWithAccommodationStatus = async () => {
-  return await prisma.students
-    .findMany({
-      where: {
-        isActive: true,
-      },
-      select: {
-        id: true,
-        isActive: true,
-        hallsId: true,
-        departments: {
-          select: {
-            id: true,
-            name: true,
-            nameTag: true,
-          },
-        },
-        studentProfiles: {
-          select: {
-            name: true,
-            email: true,
-            studentNo: true,
-            session: true,
-            semester: true,
-            year: true,
-            admissionDate: true,
-          },
-        },
-        accommodations: {
-          select: {
-            id: true,
-            isActive: true,
-          },
+  return await prisma.students.findMany({
+    where: {
+      isActive: true,
+    },
+    select: {
+      id: true,
+      isActive: true,
+      hallsId: true,
+      departments: {
+        select: {
+          id: true,
+          name: true,
+          nameTag: true,
         },
       },
-    })
-    .then((students) => {
-      return students;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+      studentProfiles: {
+        select: {
+          name: true,
+          email: true,
+          studentNo: true,
+          session: true,
+          semester: true,
+          year: true,
+          admissionDate: true,
+        },
+      },
+      accommodations: {
+        select: {
+          id: true,
+          isActive: true,
+        },
+      },
+    },
+  });
 };
 
 export const update = async ({
@@ -169,48 +141,36 @@ export const update = async ({
   admissionDate,
   hallsId,
   departmentsId,
+  degreesId,
 }: StudentType) => {
-  return await prisma.students
-    .update({
-      where: {
-        id,
-      },
-      data: {
-        isActive,
-        hallsId,
-        departmentsId,
-        studentProfiles: {
-          update: {
-            name,
-            email,
-            studentNo,
-            session,
-            semester,
-            year,
-            admissionDate: new Date(admissionDate),
-          },
+  return await prisma.students.update({
+    where: {
+      id,
+    },
+    data: {
+      isActive,
+      hallsId,
+      departmentsId,
+      studentProfiles: {
+        update: {
+          name,
+          email,
+          studentNo,
+          session,
+          semester,
+          year,
+          admissionDate: new Date(admissionDate),
+          degreesId,
         },
       },
-    })
-    .then((student) => {
-      return student;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+    },
+  });
 };
 
 export const remove = async (id: string) => {
-  return await prisma.students
-    .delete({
-      where: {
-        id,
-      },
-    })
-    .then((student) => {
-      return student;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+  return await prisma.students.delete({
+    where: {
+      id,
+    },
+  });
 };

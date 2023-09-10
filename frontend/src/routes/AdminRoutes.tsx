@@ -2,7 +2,8 @@ import { lazy } from 'react';
 import Loadable from '@/components/Loadable';
 
 // project imports
-import Layout from '@/layout';
+import MainLayout from '@/layout/MainLayout';
+import AdminGuard from './guards/AdminGuard';
 const Department = Loadable(lazy(() => import('@/pages/admin/department')));
 const Authority = Loadable(lazy(() => import('@/pages/admin/authority')));
 const Staff = Loadable(lazy(() => import('@/pages/admin/staff')));
@@ -11,17 +12,22 @@ const Position = Loadable(lazy(() => import('@/pages/admin/position')));
 const Seat = Loadable(lazy(() => import('@/pages/admin/seat')));
 const Room = Loadable(lazy(() => import('@/pages/admin/room')));
 const Degree = Loadable(lazy(() => import('@/pages/admin/degree')));
+const Designation = Loadable(lazy(() => import('@/pages/admin/designation')));
 const Student = Loadable(lazy(() => import('@/pages/admin/student')));
 const Accommodation = Loadable(
   lazy(() => import('@/pages/admin/accommodation'))
 );
 const Fee = Loadable(lazy(() => import('@/pages/admin/fee')));
 const Due = Loadable(lazy(() => import('@/pages/admin/due')));
-
+const Dashboard = Loadable(lazy(() => import('@/pages/admin/dashboard')));
 
 const AdminRoutes = {
   path: '/',
-  element: <Layout />,
+  element: (
+    <AdminGuard>
+      <MainLayout />
+    </AdminGuard>
+  ),
   children: [
     {
       path: '/department',
@@ -56,6 +62,10 @@ const AdminRoutes = {
       element: <Degree />,
     },
     {
+      path: '/designation',
+      element: <Designation />,
+    },
+    {
       path: '/student',
       element: <Student />,
     },
@@ -70,7 +80,10 @@ const AdminRoutes = {
     {
       path: '/due',
       element: <Due />,
-
+    },
+    {
+      path: '/dashboard',
+      element: <Dashboard />,
     },
   ],
 };

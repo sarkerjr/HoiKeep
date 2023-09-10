@@ -75,32 +75,32 @@ const Room = () => {
         />
 
         <Card>
-          <Scrollbar>
-            <TableContainer sx={{ minWidth: 700 }}>
-              <Table>
-                <TableHeader
-                  order={order}
-                  hideSelectBtn
-                  orderBy={orderBy}
-                  heading={tableHeading}
-                  rowCount={rooms?.length}
-                  onRequestSort={handleRequestSort}
-                />
+          {/* <Scrollbar> */}
+          <TableContainer sx={{ minWidth: 700 }}>
+            <Table>
+              <TableHeader
+                order={order}
+                hideSelectBtn
+                orderBy={orderBy}
+                heading={tableHeading}
+                rowCount={rooms?.length}
+                onRequestSort={handleRequestSort}
+              />
 
-                <TableBody>
-                  {filteredList.map((room) => (
-                    <RoomRow
-                      room={room}
-                      key={room.id}
-                      setModal={setModal}
-                      setMode={setMode}
-                      setData={setData}
-                    />
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Scrollbar>
+              <TableBody>
+                {filteredList.map((room) => (
+                  <RoomRow
+                    room={room}
+                    key={room.id}
+                    setModal={setModal}
+                    setMode={setMode}
+                    setData={setData}
+                  />
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {/* </Scrollbar> */}
 
           <Stack alignItems="center" my={4}>
             <TablePagination

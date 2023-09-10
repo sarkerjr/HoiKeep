@@ -5,41 +5,27 @@ export const create = async (
   description: string,
   hallId: string
 ) => {
-  return await prisma.notices
-    .create({
-      data: {
-        title,
-        description,
-        hallsId: hallId,
-      },
-    })
-    .then((notice) => {
-      return notice;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+  return await prisma.notices.create({
+    data: {
+      title,
+      description,
+      hallsId: hallId,
+    },
+  });
 };
 
 export const get = async () => {
-  return await prisma.notices
-    .findMany({
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        isActive: true,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    })
-    .then((notices) => {
-      return notices;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+  return await prisma.notices.findMany({
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      isActive: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
 };
 
 export const update = async (
@@ -48,36 +34,22 @@ export const update = async (
   description: string,
   isActive: boolean
 ) => {
-  return await prisma.notices
-    .update({
-      where: {
-        id,
-      },
-      data: {
-        title,
-        description,
-        isActive,
-      },
-    })
-    .then((notice) => {
-      return notice;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+  return await prisma.notices.update({
+    where: {
+      id,
+    },
+    data: {
+      title,
+      description,
+      isActive,
+    },
+  });
 };
 
 export const remove = async (id: string) => {
-  return await prisma.notices
-    .delete({
-      where: {
-        id,
-      },
-    })
-    .then((notice) => {
-      return notice;
-    })
-    .catch((error: Prisma.PrismaClientKnownRequestError) => {
-      return error;
-    });
+  return await prisma.notices.delete({
+    where: {
+      id,
+    },
+  });
 };
