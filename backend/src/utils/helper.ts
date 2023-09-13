@@ -44,7 +44,7 @@ export const calculateFeesDue = (fees: any, accommodation: any) => {
   return monthsDue;
 };
 
-function handleValidationErrors(
+export function handleValidationErrors(
   req: Request,
   res: Response,
   next: NextFunction
