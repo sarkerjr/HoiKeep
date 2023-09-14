@@ -15,12 +15,12 @@ const router = express.Router();
 
 router.get(
   '/',
-  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
   getDesignations
 );
 router.get(
   '/:id',
-  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
   getDesignation
 );
 router.post(

@@ -15,10 +15,10 @@ const useAlert = (
   reset: () => void,
   onFinished?: () => void
 ) => {
-  // isLoading && startLoadingAlert();
+  isLoading && startLoadingAlert();
 
   if (isSuccess) {
-    // stopLoadingAlert();
+    stopLoadingAlert();
     showConfirmAlert({
       title: 'Success',
       text: data.message,
@@ -27,7 +27,7 @@ const useAlert = (
     reset();
     onFinished?.();
   } else if (isError) {
-    // stopLoadingAlert();
+    stopLoadingAlert();
     showConfirmAlert({
       title: 'error',
       text: error.data.message,

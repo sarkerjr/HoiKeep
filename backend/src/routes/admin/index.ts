@@ -14,10 +14,12 @@ import roomRoutes from './room.routes';
 import seatRoutes from './seat.routes';
 import AccommodationRoutes from './accommodation.routes';
 import FeeRoutes from './fee.routes';
+import dashboardRoutes from './dashboard.routes';
 
 const router = Router();
 
 router.use('/hall', hallRoutes);
+router.use('/dashboard', dashboardRoutes);
 router.use('/department', departmentRoutes);
 router.use('/notice', noticeRoutes);
 router.use('/authority', authorityRoutes);
