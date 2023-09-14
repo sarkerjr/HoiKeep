@@ -11,6 +11,13 @@ import {
   removeOperator,
 } from '@/controllers/admin/operator.controllers';
 
+import {
+  validateCreateOperator,
+  validateGetOperator,
+  validateUpdateOperator,
+  validateRemoveOperator,
+} from '@/validators/operator.validators';
+
 const router = express.Router();
 
 router.get(
@@ -21,21 +28,25 @@ router.get(
 router.get(
   '/:id',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  validateGetOperator,
   getOperator
 );
 router.post(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateCreateOperator,
   createOperator
 );
 router.put(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateUpdateOperator,
   updateOperator
 );
 router.delete(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateRemoveOperator,
   removeOperator
 );
 
