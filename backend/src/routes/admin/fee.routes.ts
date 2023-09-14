@@ -11,11 +11,18 @@ import {
   removeFees,
 } from '@/controllers/admin/fee.controllers';
 
+import {
+  validateCreateFee,
+  validateUpdateFee,
+  validateRemoveFee,
+} from '@/validators/fee.validators';
+
 const router = express.Router();
 
 router.post(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  validateCreateFee,
   createFees
 );
 router.get(
@@ -31,11 +38,13 @@ router.get(
 router.put(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  validateUpdateFee,
   updateFees
 );
 router.delete(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  validateRemoveFee,
   removeFees
 );
 

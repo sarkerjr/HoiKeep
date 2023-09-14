@@ -11,6 +11,13 @@ import {
   removeDesignation,
 } from '@/controllers/admin/designation.controllers';
 
+import {
+  validateCreateDesignation,
+  validateGetDesignation,
+  validateUpdateDesignation,
+  validateRemoveDesignation,
+} from '@/validators/designation.validators';
+
 const router = express.Router();
 
 router.get(
@@ -21,21 +28,25 @@ router.get(
 router.get(
   '/:id',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  validateGetDesignation,
   getDesignation
 );
 router.post(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateCreateDesignation,
   createDesignation
 );
 router.put(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateUpdateDesignation,
   updateDesignation
 );
 router.delete(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateRemoveDesignation,
   removeDesignation
 );
 
