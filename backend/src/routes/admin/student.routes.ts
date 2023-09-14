@@ -16,12 +16,12 @@ const router = express.Router();
 
 router.get(
   '/accommodation',
-  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
   getStudentsAccommodationStatus
 );
 router.get(
   '/',
-  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
   getStudents
 );
 router.get(

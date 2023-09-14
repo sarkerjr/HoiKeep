@@ -13,10 +13,14 @@ import {
 
 const router = express.Router();
 
-router.get('/', checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]), getStaffs);
+router.get(
+  '/',
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  getStaffs
+);
 router.get(
   '/:id',
-  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
   getStaff
 );
 router.post(

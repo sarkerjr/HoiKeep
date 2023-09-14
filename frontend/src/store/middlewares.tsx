@@ -11,6 +11,7 @@ import { degreeApi } from './services/degree.services';
 import { studentApi } from './services/student.services';
 import { accommodationApi } from './services/accommodation.services';
 import { feeApi } from './services/fee.services';
+import { dashboardApi } from './services/dashboard.services';
 
 const middlewares = [
   authApi.middleware,
@@ -26,6 +27,7 @@ const middlewares = [
   studentApi.middleware,
   accommodationApi.middleware,
   feeApi.middleware,
+  dashboardApi.middleware,
 ];
 
 export default middlewares;

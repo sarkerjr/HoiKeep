@@ -116,14 +116,14 @@ const SeatModal = ({
           />
         </Grid>
 
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <TextField
             label="Seat Available?"
             value={isAvailable}
             onChange={(e) => setIsAvailable(e.target.value)}
             fullWidth
           />
-        </Grid>
+        </Grid> */}
 
         <Grid item xs={12}>
           <FormControl fullWidth>
