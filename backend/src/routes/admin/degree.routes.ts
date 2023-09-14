@@ -11,6 +11,13 @@ import {
   removeDegree,
 } from '@/controllers/admin/degree.controllers';
 
+import {
+  validateCreateDegree,
+  validateGetDegree,
+  validateUpdateDegree,
+  validateRemoveDegree,
+} from '@/validators/degree.validators';
+
 const router = express.Router();
 
 router.get(
@@ -21,21 +28,25 @@ router.get(
 router.get(
   '/:id',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  validateGetDegree,
   getDegree
 );
 router.post(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateCreateDegree,
   createDegree
 );
 router.put(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateUpdateDegree,
   updateDegree
 );
 router.delete(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateRemoveDegree,
   removeDegree
 );
 
