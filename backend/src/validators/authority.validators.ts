@@ -68,33 +68,30 @@ export const validateUpdateAuthority = [
     .isUUID()
     .withMessage('ID must be a valid UUID'),
   body('name')
-    .notEmpty()
-    .withMessage('Name is required')
     .trim()
+    .optional()
     .isString()
     .withMessage('Name must be a string')
     .matches(/^[A-Za-z.]+$/)
     .withMessage('Name can only contain alphabets and dots!'),
   body('email')
-    .notEmpty()
-    .withMessage('Email is required')
     .trim()
+    .optional()
     .isEmail()
     .withMessage('Email must be a valid email address'),
   body('joinedAt')
-    .optional()
     .trim()
+    .optional()
     .isISO8601()
     .withMessage('JoinedAt must be a valid date in ISO8601 format'),
   body('leftAt')
-    .optional()
     .trim()
+    .optional()
     .isISO8601()
     .withMessage('LeftAt must be a valid date in ISO8601 format'),
   body('positionsId')
-    .notEmpty()
-    .withMessage('Positions ID is required')
     .trim()
+    .optional()
     .isUUID()
     .withMessage('Positions ID must be a valid UUID'),
   body('hallsId')

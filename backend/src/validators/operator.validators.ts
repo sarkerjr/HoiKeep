@@ -58,16 +58,14 @@ export const validateUpdateOperator = [
     .isUUID()
     .withMessage('ID must be a valid UUID'),
   body('name')
-    .notEmpty()
-    .withMessage('Name is required')
+    .optional()
     .trim()
     .isString()
     .withMessage('Name must be a string')
     .matches(/^[A-Za-z.]+$/)
     .withMessage('Name can only contain alphabets and dots!'),
   body('email')
-    .notEmpty()
-    .withMessage('Email is required')
+    .optional()
     .trim()
     .isEmail()
     .withMessage('Email must be a valid email address'),
@@ -82,8 +80,7 @@ export const validateUpdateOperator = [
     .isISO8601()
     .withMessage('LeftAt must be a valid date in ISO8601 format'),
   body('positionsId')
-    .notEmpty()
-    .withMessage('Positions ID is required')
+    .optional()
     .trim()
     .isUUID()
     .withMessage('Positions ID must be a valid UUID'),
