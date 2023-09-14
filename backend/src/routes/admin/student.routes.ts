@@ -12,6 +12,13 @@ import {
   removeStudent,
 } from '@/controllers/admin/student.controllers';
 
+import {
+  validateCreateStudent,
+  validateGetStudent,
+  validateUpdateStudent,
+  validateRemoveStudent,
+} from '@/validators/student.validators';
+
 const router = express.Router();
 
 router.get(
@@ -27,21 +34,25 @@ router.get(
 router.get(
   '/:id',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateGetStudent,
   getStudent
 );
 router.post(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateCreateStudent,
   createStudent
 );
 router.put(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateUpdateStudent,
   updateStudent
 );
 router.delete(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateRemoveStudent,
   removeStudent
 );
 

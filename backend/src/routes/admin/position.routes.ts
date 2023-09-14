@@ -11,6 +11,13 @@ import {
   removePosition,
 } from '@/controllers/admin/position.controllers';
 
+import {
+  validateCreatePosition,
+  validateGetPosition,
+  validateUpdatePosition,
+  validateRemovePosition,
+} from '@/validators/position.validators';
+
 const router = express.Router();
 
 router.get(
@@ -21,21 +28,25 @@ router.get(
 router.get(
   '/:id',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  validateGetPosition,
   getPosition
 );
 router.post(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateCreatePosition,
   createPosition
 );
 router.put(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateUpdatePosition,
   updatePosition
 );
 router.delete(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateRemovePosition,
   removePosition
 );
 

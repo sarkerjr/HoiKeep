@@ -11,6 +11,13 @@ import {
   removeRoom,
 } from '@/controllers/admin/room.controllers';
 
+import {
+  validateCreateRoom,
+  validateGetRoom,
+  validateUpdateRoom,
+  validateRemoveRoom,
+} from '@/validators/room.validators';
+
 const router = express.Router();
 
 router.get(
@@ -21,21 +28,25 @@ router.get(
 router.get(
   '/:id',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  validateGetRoom,
   getRoom
 );
 router.post(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateCreateRoom,
   createRoom
 );
 router.put(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateUpdateRoom,
   updateRoom
 );
 router.delete(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateRemoveRoom,
   removeRoom
 );
 
