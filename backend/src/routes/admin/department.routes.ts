@@ -10,6 +10,12 @@ import {
   updateDepartment,
 } from '@/controllers/admin/department.controllers';
 
+import {
+  validateCreateDepartment,
+  validateGetDepartment,
+  validateUpdateDepartment,
+} from '@/validators/department.validators';
+
 const router = express.Router();
 
 router.get(
@@ -20,16 +26,19 @@ router.get(
 router.get(
   '/:id',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  validateGetDepartment,
   getDepartment
 );
 router.post(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateCreateDepartment,
   createDepartment
 );
 router.put(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateUpdateDepartment,
   updateDepartment
 );
 

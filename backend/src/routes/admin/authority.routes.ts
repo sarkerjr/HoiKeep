@@ -11,6 +11,13 @@ import {
   removeAuthority,
 } from '@/controllers/admin/authority.controllers';
 
+import {
+  validateCreateAuthority,
+  validateGetAuthority,
+  validateUpdateAuthority,
+  validateRemoveAuthority,
+} from '@/validators/authority.validators';
+
 const router = express.Router();
 
 router.get(
@@ -22,13 +29,29 @@ router.get(
 router.get(
   '/:id',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  validateGetAuthority,
   getAuthority
 );
 
-router.post('/', checkRoles([RoleType.AUTHORITY]), createAuthority);
+router.post(
+  '/',
+  checkRoles([RoleType.AUTHORITY]),
+  validateCreateAuthority,
+  createAuthority
+);
 
-router.put('/', checkRoles([RoleType.AUTHORITY]), updateAuthority);
+router.put(
+  '/',
+  checkRoles([RoleType.AUTHORITY]),
+  validateUpdateAuthority,
+  updateAuthority
+);
 
-router.delete('/', checkRoles([RoleType.AUTHORITY]), removeAuthority);
+router.delete(
+  '/',
+  checkRoles([RoleType.AUTHORITY]),
+  validateRemoveAuthority,
+  removeAuthority
+);
 
 export default router;

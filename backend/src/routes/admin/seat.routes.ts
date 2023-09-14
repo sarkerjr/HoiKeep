@@ -11,6 +11,13 @@ import {
   removeSeat,
 } from '@/controllers/admin/seat.controllers';
 
+import {
+  validateCreateSeat,
+  validateGetSeat,
+  validateUpdateSeat,
+  validateRemoveSeat,
+} from '@/validators/seat.validators';
+
 const router = express.Router();
 
 router.get(
@@ -21,21 +28,25 @@ router.get(
 router.get(
   '/:id',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  validateGetSeat,
   getSeat
 );
 router.post(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateCreateSeat,
   createSeat
 );
 router.put(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateUpdateSeat,
   updateSeat
 );
 router.delete(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateRemoveSeat,
   removeSeat
 );
 

@@ -11,6 +11,13 @@ import {
   removeStaff,
 } from '@/controllers/admin/staff.controllers';
 
+import {
+  validateCreateStaff,
+  validateGetStaff,
+  validateUpdateStaff,
+  validateRemoveStaff,
+} from '@/validators/staff.validators';
+
 const router = express.Router();
 
 router.get(
@@ -21,21 +28,25 @@ router.get(
 router.get(
   '/:id',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  validateGetStaff,
   getStaff
 );
 router.post(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateCreateStaff,
   createStaff
 );
 router.put(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateUpdateStaff,
   updateStaff
 );
 router.delete(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR]),
+  validateRemoveStaff,
   removeStaff
 );
 

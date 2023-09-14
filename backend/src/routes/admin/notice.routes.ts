@@ -10,6 +10,12 @@ import {
   removeNotice,
 } from '@/controllers/admin/notice.controllers';
 
+import {
+  validateCreateNotice,
+  validateUpdateNotice,
+  validateRemoveNotice,
+} from '@/validators/notice.validators';
+
 const router = express.Router();
 
 router.get(
@@ -20,16 +26,19 @@ router.get(
 router.post(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  validateCreateNotice,
   createNotice
 );
 router.put(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  validateUpdateNotice,
   updateNotice
 );
 router.delete(
   '/',
   checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  validateRemoveNotice,
   removeNotice
 );
 
