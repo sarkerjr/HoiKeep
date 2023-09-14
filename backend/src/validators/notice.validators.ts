@@ -15,8 +15,7 @@ export const validateCreateNotice = [
     .isString()
     .withMessage('Description must be a string'),
   body('hallId')
-    .notEmpty()
-    .withMessage('Hall ID is required')
+    .optional()
     .trim()
     .isUUID()
     .withMessage('Hall ID must be a valid UUID'),
