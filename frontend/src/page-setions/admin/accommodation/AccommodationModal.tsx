@@ -255,6 +255,10 @@ const AccommodationModal = ({
             label="Leaving Date"
             value={leavingDate}
             onChange={(value: Date) => setLeavingDate(value)}
+            minDate={joiningDate}
+            errorMessage={{
+              minDate: 'Leaving date must be after joining date',
+            }}
           />
         </Grid>
 
