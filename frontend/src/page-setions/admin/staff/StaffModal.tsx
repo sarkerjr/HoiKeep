@@ -147,6 +147,10 @@ const StaffModal = ({
             label="Left At"
             value={leftAt}
             onChange={(value: Date) => setLeftAt(value)}
+            minDate={joinedAt}
+            errorMessage={{
+              minDate: 'Leaving date must be after joining date',
+            }}
           />
         </Grid>
         <Grid item xs={12}>
