@@ -62,6 +62,8 @@ export const checkAuth = async (req: Request, res: Response) => {
     role = await getOperatorById(user?.operatorsId);
   } else if (user?.type === 'STUDENT') {
     role = await getStudentById(user?.studentsId);
+  } else if (user?.type === 'VISITOR') {
+    role = await getOperatorById(user?.operatorsId);
   }
 
   const token = sign(
