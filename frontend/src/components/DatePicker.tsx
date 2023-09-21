@@ -31,7 +31,7 @@ const DatePicker = (props) => {
         {...props}
         sx={props.sx}
         label={props.label}
-        value={dayjs(props.value)}
+        value={props.value ? dayjs(props.value) : null}
         openTo={props?.openTo}
         onChange={(newValue) => {
           props.onChange(newValue ? dayjs(newValue as Date) : dayjs());
