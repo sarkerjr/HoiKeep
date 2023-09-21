@@ -6,34 +6,29 @@ import defaultColor from '@/assets/scss/_themes-default.module.scss';
 
 // ==============================|| DEFAULT THEME - PALETTE  ||============================== //
 
-const Palette = (navType = 'light') => {
+const Palette = (mode = 'light') => {
   let colors = defaultColor;
 
   return createTheme({
     palette: {
-      mode: navType,
+      mode: mode,
       common: {
         black: colors.darkPaper,
       },
       primary: {
-        light:
-          navType === 'dark' ? colors.darkPrimaryLight : colors.primaryLight,
-        main: navType === 'dark' ? colors.darkPrimaryMain : colors.primaryMain,
-        dark: navType === 'dark' ? colors.darkPrimaryDark : colors.primaryDark,
-        200: navType === 'dark' ? colors.darkPrimary200 : colors.primary200,
-        800: navType === 'dark' ? colors.darkPrimary800 : colors.primary800,
+        light: mode === 'dark' ? colors.darkPrimaryLight : colors.primaryLight,
+        main: mode === 'dark' ? colors.darkPrimaryMain : colors.primaryMain,
+        dark: mode === 'dark' ? colors.darkPrimaryDark : colors.primaryDark,
+        200: mode === 'dark' ? colors.darkPrimary200 : colors.primary200,
+        800: mode === 'dark' ? colors.darkPrimary800 : colors.primary800,
       },
       secondary: {
         light:
-          navType === 'dark'
-            ? colors.darkSecondaryLight
-            : colors.secondaryLight,
-        main:
-          navType === 'dark' ? colors.darkSecondaryMain : colors.secondaryMain,
-        dark:
-          navType === 'dark' ? colors.darkSecondaryDark : colors.secondaryDark,
-        200: navType === 'dark' ? colors.darkSecondary200 : colors.secondary200,
-        800: navType === 'dark' ? colors.darkSecondary800 : colors.secondary800,
+          mode === 'dark' ? colors.darkSecondaryLight : colors.secondaryLight,
+        main: mode === 'dark' ? colors.darkSecondaryMain : colors.secondaryMain,
+        dark: mode === 'dark' ? colors.darkSecondaryDark : colors.secondaryDark,
+        200: mode === 'dark' ? colors.darkSecondary200 : colors.secondary200,
+        800: mode === 'dark' ? colors.darkSecondary800 : colors.secondary800,
       },
       error: {
         light: colors.errorLight,
@@ -59,10 +54,10 @@ const Palette = (navType = 'light') => {
       grey: {
         50: colors.grey50,
         100: colors.grey100,
-        500: navType === 'dark' ? colors.darkTextSecondary : colors.grey500,
-        600: navType === 'dark' ? colors.darkTextTitle : colors.grey900,
-        700: navType === 'dark' ? colors.darkTextPrimary : colors.grey700,
-        900: navType === 'dark' ? colors.darkTextPrimary : colors.grey900,
+        500: mode === 'dark' ? colors.darkTextSecondary : colors.grey500,
+        600: mode === 'dark' ? colors.darkTextTitle : colors.grey900,
+        700: mode === 'dark' ? colors.darkTextPrimary : colors.grey700,
+        900: mode === 'dark' ? colors.darkTextPrimary : colors.grey900,
       },
       dark: {
         light: colors.darkTextPrimary,
@@ -72,16 +67,23 @@ const Palette = (navType = 'light') => {
         900: colors.darkPaper,
       },
       text: {
-        primary: navType === 'dark' ? colors.darkTextPrimary : colors.grey700,
-        secondary:
-          navType === 'dark' ? colors.darkTextSecondary : colors.grey500,
-        dark: navType === 'dark' ? colors.darkTextPrimary : colors.grey900,
+        primary: mode === 'dark' ? colors.darkTextPrimary : colors.grey700,
+        secondary: mode === 'dark' ? colors.darkTextSecondary : colors.grey500,
+        dark: mode === 'dark' ? colors.darkTextPrimary : colors.grey900,
         hint: colors.grey100,
       },
-      divider: navType === 'dark' ? colors.darkTextPrimary : colors.grey200,
+      button: {
+        primary: {
+          primary:
+            mode === 'dark' ? colors.darkPrimaryMain : colors.primaryMain,
+          secondary:
+            mode === 'dark' ? colors.darkPrimaryMain : colors.secondaryMain,
+        },
+      },
+      divider: mode === 'dark' ? colors.darkTextPrimary : colors.grey200,
       background: {
-        paper: navType === 'dark' ? colors.darkLevel2 : colors.paper,
-        default: navType === 'dark' ? colors.darkPaper : colors.paper,
+        paper: mode === 'dark' ? colors.darkLevel2 : colors.paper,
+        default: mode === 'dark' ? colors.darkPaper : colors.paper,
       },
     },
   });
