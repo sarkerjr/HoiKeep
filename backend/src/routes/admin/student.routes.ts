@@ -23,12 +23,22 @@ const router = express.Router();
 
 router.get(
   '/accommodation',
-  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  checkRoles([
+    RoleType.AUTHORITY,
+    RoleType.OPERATOR,
+    RoleType.STAFF,
+    RoleType.VISITOR,
+  ]),
   getStudentsAccommodationStatus
 );
 router.get(
   '/',
-  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  checkRoles([
+    RoleType.AUTHORITY,
+    RoleType.OPERATOR,
+    RoleType.STAFF,
+    RoleType.VISITOR,
+  ]),
   getStudents
 );
 router.get(

@@ -21,13 +21,23 @@ const router = express.Router();
 
 router.post(
   '/',
-  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  checkRoles([
+    RoleType.AUTHORITY,
+    RoleType.OPERATOR,
+    RoleType.STAFF,
+    RoleType.VISITOR,
+  ]),
   validateCreateFee,
   createFees
 );
 router.get(
   '/',
-  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  checkRoles([
+    RoleType.AUTHORITY,
+    RoleType.OPERATOR,
+    RoleType.STAFF,
+    RoleType.VISITOR,
+  ]),
   getFees
 );
 router.get(
