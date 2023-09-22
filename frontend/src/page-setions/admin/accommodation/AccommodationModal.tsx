@@ -45,12 +45,6 @@ const AccommodationModal = ({
   const [joiningDate, setJoiningDate] = useState(
     accommodation?.joiningDate ?? null
   );
-  console.log(
-    '🚀 ~ file: AccommodationModal.tsx:47 ~ joiningDate:',
-    joiningDate,
-    'Type of',
-    typeof joiningDate
-  );
   const [leavingDate, setLeavingDate] = useState(
     accommodation?.leavingDate ?? null
   );
