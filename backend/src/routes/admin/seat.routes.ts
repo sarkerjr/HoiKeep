@@ -22,12 +22,22 @@ const router = express.Router();
 
 router.get(
   '/',
-  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  checkRoles([
+    RoleType.AUTHORITY,
+    RoleType.OPERATOR,
+    RoleType.STAFF,
+    RoleType.VISITOR,
+  ]),
   getSeats
 );
 router.get(
   '/:id',
-  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  checkRoles([
+    RoleType.AUTHORITY,
+    RoleType.OPERATOR,
+    RoleType.STAFF,
+    RoleType.VISITOR,
+  ]),
   validateGetSeat,
   getSeat
 );

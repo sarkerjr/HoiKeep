@@ -15,6 +15,7 @@ const AdminGuard = ({ children }) => {
         case 'STAFF':
         case 'OPERATOR':
         case 'STUDENT':
+        case 'VISITOR':
           break;
         default:
           navigate('/login', { replace: true });

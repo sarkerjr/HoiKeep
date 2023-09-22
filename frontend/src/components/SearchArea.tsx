@@ -16,7 +16,7 @@ const SearchArea: FC<SearchAreaProps> = (props) => {
   const { searchPlaceholder, buttonText, handleBtnClick } = props;
   const downSM = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
-  const isValid: boolean = useRoles();
+  const { isValid } = useRoles();
 
   return (
     <Box

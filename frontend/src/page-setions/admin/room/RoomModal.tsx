@@ -3,6 +3,8 @@ import { Button, Grid, TextField } from '@mui/material';
 
 import Modal from '@/components/Modal';
 import useAlert from '@/hooks/useAlert';
+import useRoles from '@/hooks/useRoles';
+
 import {
   useCreateRoomMutation,
   useUpdateRoomMutation,
@@ -63,8 +65,11 @@ const RoomModal = ({
     updateIsLoading,
     updateIsSucess,
     updateIsError,
-    updateReset
+    updateReset,
+    () => close()
   );
+
+  const { role } = useRoles();
 
   useEffect(() => {
     setNo(room?.no ?? '');
@@ -116,7 +121,10 @@ const RoomModal = ({
             variant="contained"
             color="primary"
             onClick={handleOnSubmit}
-            disabled={mode === 'CREATE' ? createIsLoading : updateIsLoading}
+            disabled={
+              role === 'VISITOR' ||
+              (mode === 'CREATE' ? createIsLoading : updateIsLoading)
+            }
             fullWidth
           >
             {mode}

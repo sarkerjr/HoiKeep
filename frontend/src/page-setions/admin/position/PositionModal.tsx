@@ -12,6 +12,8 @@ import {
 // project imports
 import Modal from '@/components/Modal';
 import useAlert from '@/hooks/useAlert';
+import useRoles from '@/hooks/useRoles';
+
 import {
   useCreatePositionMutation,
   useUpdatePositionMutation,
@@ -87,8 +89,11 @@ const PositionModal = ({
     updateIsLoading,
     updateIsSucess,
     updateIsError,
-    updateReset
+    updateReset,
+    () => close()
   );
+
+  const { role } = useRoles();
 
   useEffect(() => {
     setName(position?.name ?? '');
@@ -153,7 +158,10 @@ const PositionModal = ({
             variant="contained"
             color="primary"
             onClick={handleOnSubmit}
-            disabled={mode === 'CREATE' ? createIsLoading : updateIsLoading}
+            disabled={
+              role === 'VISITOR' ||
+              (mode === 'CREATE' ? createIsLoading : updateIsLoading)
+            }
             fullWidth
           >
             {mode}

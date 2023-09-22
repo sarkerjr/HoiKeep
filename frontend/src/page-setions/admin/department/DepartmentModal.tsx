@@ -3,6 +3,8 @@ import { Button, Grid, TextField } from '@mui/material';
 
 import Modal from '@/components/Modal';
 import useAlert from '@/hooks/useAlert';
+import useRoles from '@/hooks/useRoles';
+
 import {
   useCreateDepartmentMutation,
   useUpdateDepartmentMutation,
@@ -65,8 +67,11 @@ const DepartmentModal = ({
     updateIsLoading,
     updateIsSucess,
     updateIsError,
-    updateReset
+    updateReset,
+    () => close()
   );
+
+  const { role } = useRoles();
 
   useEffect(() => {
     setName(department?.name ? department.name : '');
@@ -113,7 +118,10 @@ const DepartmentModal = ({
               handleOnSubmit();
               close();
             }}
-            disabled={mode === 'CREATE' ? createIsLoading : updateIsLoading}
+            disabled={
+              role === 'VISITOR' ||
+              (mode === 'CREATE' ? createIsLoading : updateIsLoading)
+            }
             fullWidth
           >
             {mode}

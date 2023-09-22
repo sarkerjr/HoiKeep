@@ -12,15 +12,10 @@ const PublicGuard = () => {
     if (isLoggedIn) {
       switch (role) {
         case 'AUTHORITY':
-          navigate('/dashboard', { replace: true });
-          break;
         case 'STAFF':
-          navigate('/dashboard', { replace: true });
-          break;
         case 'OPERATOR':
-          navigate('/dashboard', { replace: true });
-          break;
         case 'STUDENT':
+        case 'VISITOR':
           navigate('/dashboard', { replace: true });
           break;
       }

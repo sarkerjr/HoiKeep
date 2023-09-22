@@ -13,6 +13,8 @@ import DatePicker from '@/components/DatePicker';
 import { getMonthsBetween } from '@/utils/helper';
 
 import useAlert from '@/hooks/useAlert';
+import useRoles from '@/hooks/useRoles';
+
 import {
   useCreateFeeMutation,
   useUpdateFeeMutation,
@@ -83,6 +85,8 @@ const FeeModal = ({
     updateReset,
     () => close()
   );
+
+  const { role } = useRoles();
 
   useEffect(() => {
     setAmount(fee?.amount ?? '');
@@ -208,7 +212,10 @@ const FeeModal = ({
             variant="contained"
             color="primary"
             onClick={handleOnSubmit}
-            disabled={mode === 'CREATE' ? createIsLoading : updateIsLoading}
+            disabled={
+              role === 'VISITOR' ||
+              (mode === 'CREATE' ? createIsLoading : updateIsLoading)
+            }
             fullWidth
           >
             {mode}

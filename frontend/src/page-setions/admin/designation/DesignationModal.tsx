@@ -4,6 +4,8 @@ import { Button, Grid, TextField } from '@mui/material';
 // project imports
 import Modal from '@/components/Modal';
 import useAlert from '@/hooks/useAlert';
+import useRoles from '@/hooks/useRoles';
+
 import {
   useCreateDesignationMutation,
   useUpdateDesignationMutation,
@@ -63,8 +65,11 @@ const DesignationModal = ({
     updateIsLoading,
     updateIsSucess,
     updateIsError,
-    updateReset
+    updateReset,
+    () => close()
   );
+
+  const { role } = useRoles();
 
   useEffect(() => {
     setName(designation?.name ?? '');
@@ -105,7 +110,10 @@ const DesignationModal = ({
             variant="contained"
             color="primary"
             onClick={handleOnSubmit}
-            disabled={mode === 'CREATE' ? createIsLoading : updateIsLoading}
+            disabled={
+              role === 'VISITOR' ||
+              (mode === 'CREATE' ? createIsLoading : updateIsLoading)
+            }
             fullWidth
           >
             {mode}

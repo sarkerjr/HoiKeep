@@ -3,4 +3,5 @@ export enum RoleType {
   STAFF = 'STAFF',
   OPERATOR = 'OPERATOR',
   STUDENT = 'STUDENT',
+  VISITOR = 'VISITOR',
 }
