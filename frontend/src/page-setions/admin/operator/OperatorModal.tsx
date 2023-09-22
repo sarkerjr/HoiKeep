@@ -79,7 +79,8 @@ const OperatorModal = ({
     updateIsLoading,
     updateIsSucess,
     updateIsError,
-    updateReset
+    updateReset,
+    () => close()
   );
 
   useEffect(() => {

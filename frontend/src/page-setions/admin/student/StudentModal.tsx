@@ -98,7 +98,8 @@ const StudentModal = ({
     updateIsLoading,
     updateIsSucess,
     updateIsError,
-    updateReset
+    updateReset,
+    () => close()
   );
 
   useEffect(() => {

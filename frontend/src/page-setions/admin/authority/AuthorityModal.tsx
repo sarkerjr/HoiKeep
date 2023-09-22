@@ -96,7 +96,8 @@ const AuthorityModal = ({
     updateIsLoading,
     updateIsSucess,
     updateIsError,
-    updateReset
+    updateReset,
+    () => close()
   );
 
   useEffect(() => {
