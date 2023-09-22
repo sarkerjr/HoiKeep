@@ -30,7 +30,7 @@ const DesignationRow: FC<DesignationRowProps> = ({
     setModal(true);
   };
 
-  const isValid: boolean = useRoles();
+  const { isValid } = useRoles();
 
   return (
     <StyledTableRow tabIndex={-1} role="checkbox">

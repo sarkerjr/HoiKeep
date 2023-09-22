@@ -16,6 +16,7 @@ import {
 import DatePicker from '@/components/DatePicker';
 import Modal from '@/components/Modal';
 import useAlert from '@/hooks/useAlert';
+import useRoles from '@/hooks/useRoles';
 
 import { ALLOCATION_STATUS, BOOLEAN_OPTIONS } from '@/utils/constants';
 import {
@@ -96,6 +97,8 @@ const AccommodationModal = ({
     updateReset,
     () => close()
   );
+
+  const { role } = useRoles();
 
   useEffect(() => {
     students && setStudent(accommodation?.students ?? students[0]);
@@ -267,7 +270,10 @@ const AccommodationModal = ({
             variant="contained"
             color="primary"
             onClick={handleOnSubmit}
-            disabled={mode === 'CREATE' ? createIsLoading : updateIsLoading}
+            disabled={
+              role === 'VISITOR' ||
+              (mode === 'CREATE' ? createIsLoading : updateIsLoading)
+            }
             fullWidth
           >
             {mode}

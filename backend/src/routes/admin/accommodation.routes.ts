@@ -28,7 +28,6 @@ router.get(
     RoleType.STAFF,
     RoleType.VISITOR,
   ]),
-  validateGetAccommodation,
   getAccommodations
 );
 
@@ -40,6 +39,7 @@ router.get(
     RoleType.STAFF,
     RoleType.VISITOR,
   ]),
+  validateGetAccommodation,
   getAccommodation
 );
 

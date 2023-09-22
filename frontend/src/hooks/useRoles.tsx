@@ -7,17 +7,19 @@ const useRoles = () => {
 
   const location = useLocation();
 
+  let isValid = false;
+
   if (role) {
     if (['/authority', '/operator', '/staff'].includes(location.pathname)) {
-      return role === 'AUTHORITY';
+      isValid = ['AUTHORITY', 'VISITOR'].includes(role);
     } else if (location.pathname === '/fee') {
-      return ['AUTHORITY', 'OPERATOR', 'STAFF'].includes(role);
+      isValid = ['AUTHORITY', 'OPERATOR', 'STAFF', 'VISITOR'].includes(role);
     } else {
-      return ['AUTHORITY', 'OPERATOR'].includes(role);
+      isValid = ['AUTHORITY', 'OPERATOR', 'VISITOR'].includes(role);
     }
   }
 
-  return false;
+  return { isValid, role };
 };
 
 export default useRoles;

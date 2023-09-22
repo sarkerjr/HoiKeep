@@ -11,6 +11,7 @@ import {
 
 import Modal from '@/components/Modal';
 import useAlert from '@/hooks/useAlert';
+import useRoles from '@/hooks/useRoles';
 import {
   useCreateSeatMutation,
   useUpdateSeatMutation,
