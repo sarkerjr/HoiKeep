@@ -36,6 +36,7 @@ const DatePicker = (props) => {
         onChange={(newValue) => {
           props.onChange(newValue ? dayjs(newValue as Date) : dayjs());
         }}
+        minDate={props.minDate ? dayjs(props.minDate) : null}
         onError={(newError) => setError(newError)}
         slotProps={{
           textField: {
