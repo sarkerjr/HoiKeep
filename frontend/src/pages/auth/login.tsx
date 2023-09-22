@@ -22,6 +22,29 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import useAuth from '@/hooks/useAuth';
 import useScriptRef from '@/hooks/useScriptRef';
 
+//style
+const boxStyle = {
+  backgroundColor: '#026576',
+  height: '100vh',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
+const cardStyle = {
+  backgroundColor: '#026576',
+  height: '100%',
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+};
+const paperStyle = {
+  width: '350px',
+  height: '350px',
+  margin: '5%',
+  padding: '25px',
+};
+
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -36,34 +59,11 @@ const Login = () => {
     event.preventDefault();
   };
 
-  //style
-  const boxStyle = {
-    backgroundColor: '#026576',
-    height: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  };
-  const cardStyle = {
-    backgroundColor: '#026576',
-    height: '100%',
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  };
-  const paperStyle = {
-    width: '350px',
-    height: '350px',
-    margin: '5%',
-    padding: '25px',
-  };
-
   return (
     <Formik
       initialValues={{
-        email: '',
-        password: '',
+        email: import.meta.env.VITE_VISITOR_EMAIL ?? '',
+        password: import.meta.env.VITE_VISITOR_PASSWORD ?? '',
         submit: null,
       }}
       validationSchema={Yup.object().shape({
