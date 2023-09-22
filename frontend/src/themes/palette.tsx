@@ -1,12 +1,11 @@
 // material-ui
+import { PaletteMode } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
 // assets
 import defaultColor from '@/assets/scss/_themes-default.module.scss';
 
-// ==============================|| DEFAULT THEME - PALETTE  ||============================== //
-
-const Palette = (mode = 'light') => {
+const Palette = (mode: PaletteMode = 'light') => {
   let colors = defaultColor;
 
   return createTheme({
@@ -69,6 +68,7 @@ const Palette = (mode = 'light') => {
       text: {
         primary: mode === 'dark' ? colors.darkTextPrimary : colors.grey700,
         secondary: mode === 'dark' ? colors.darkTextSecondary : colors.grey500,
+        // @ts-ignore
         dark: mode === 'dark' ? colors.darkTextPrimary : colors.grey900,
         hint: colors.grey100,
       },

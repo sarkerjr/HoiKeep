@@ -5,9 +5,13 @@ import AppBar from '@mui/material/AppBar';
 // project import
 import { DRAWER_WIDTH } from '@/utils/constants';
 
+interface AppBarStyledProps {
+  open: boolean;
+}
+
 const AppBarStyled = styled(AppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
+})<AppBarStyledProps>(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,

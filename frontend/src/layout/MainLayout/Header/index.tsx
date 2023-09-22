@@ -43,12 +43,11 @@ const Header = ({ open, handleDrawerToggle }: HeaderProps) => {
 
   // app-bar params
   const appBar = {
-    position: 'fixed',
-    color: 'inherit',
+    position: 'fixed' as const,
+    color: 'inherit' as const,
     elevation: 0,
     sx: {
       borderBottom: `1px solid ${theme.palette.divider}`,
-      // boxShadow: theme.customShadows.z1
     },
   };
 

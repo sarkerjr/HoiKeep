@@ -123,7 +123,7 @@ const Login = () => {
                       error
                       id="standard-weight-helper-text-email-login"
                     >
-                      {errors.email}
+                      {String(errors.email)}
                     </FormHelperText>
                   )}
                 </FormControl>
@@ -166,7 +166,7 @@ const Login = () => {
                       error
                       id="standard-weight-helper-text-password-login"
                     >
-                      {errors.password}
+                      {String(errors.password)}
                     </FormHelperText>
                   )}
                 </FormControl>

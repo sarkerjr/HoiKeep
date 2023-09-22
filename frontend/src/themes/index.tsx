@@ -9,7 +9,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Palette from './palette';
 
 export default function ThemeCustomization({ children }) {
-  const theme = useMemo(() => Palette());
+  const theme = useMemo(() => Palette(), []);
 
   const themeOptions = useMemo(
     () => ({
