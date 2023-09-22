@@ -12,6 +12,7 @@ import {
 import Modal from '@/components/Modal';
 import useAlert from '@/hooks/useAlert';
 import useRoles from '@/hooks/useRoles';
+
 import {
   useCreateSeatMutation,
   useUpdateSeatMutation,
@@ -79,6 +80,8 @@ const SeatModal = ({
     updateReset,
     () => close()
   );
+
+  const { role } = useRoles();
 
   useEffect(() => {
     setNo(seat?.no ?? '');
@@ -151,7 +154,10 @@ const SeatModal = ({
             variant="contained"
             color="primary"
             onClick={handleOnSubmit}
-            disabled={mode === 'CREATE' ? createIsLoading : updateIsLoading}
+            disabled={
+              role === 'VISITOR' ||
+              (mode === 'CREATE' ? createIsLoading : updateIsLoading)
+            }
             fullWidth
           >
             {mode}

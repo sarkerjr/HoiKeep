@@ -42,7 +42,12 @@ router.get(
 );
 router.get(
   '/due',
-  checkRoles([RoleType.AUTHORITY, RoleType.OPERATOR, RoleType.STAFF]),
+  checkRoles([
+    RoleType.AUTHORITY,
+    RoleType.OPERATOR,
+    RoleType.STAFF,
+    RoleType.VISITOR,
+  ]),
   getFeesDue
 );
 router.put(
