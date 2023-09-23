@@ -30,6 +30,7 @@ export const createStudent = async (req: Request, res: Response) => {
   try {
     await create({
       name,
+      //@ts-ignore
       isActive: stringToBoolean(isActive),
       email,
       studentNo,
@@ -115,6 +116,7 @@ export const updateStudent = async (req: Request, res: Response) => {
 
     await update({
       id,
+      //@ts-ignore
       isActive: stringToBoolean(isActive),
       name,
       email,
