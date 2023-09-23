@@ -2,8 +2,10 @@ import cors from 'cors';
 
 export default function () {
   const corsOptions = {
-    // credentials: true,
     origin: '*',
+    methods: '*',
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
   };
 
   return cors(corsOptions);
