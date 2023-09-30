@@ -6,7 +6,7 @@
     "lib": ["ES6"],
     "types": ["node", "express"],
     "module": "commonjs",
-    "outDir": "build",
+    "outDir": "dist",
     "rootDir": ".",
     "sourceMap": true,
     "moduleResolution": "node",
