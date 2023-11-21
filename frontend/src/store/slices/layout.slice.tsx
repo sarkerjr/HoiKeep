@@ -1,23 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  openDrawer: false,
+  drawerOpen: false,
 };
 
 export const layoutSlice = createSlice({
   name: 'layout',
   initialState,
   reducers: {
-    setDrawerState: (state, action) => {
-      state.openDrawer = action.payload;
+    openDrawer(state, action) {
+      state.drawerOpen = action.payload;
     },
-    toggleDrawerState: (state) => {
-      state.openDrawer = !state.openDrawer;
+    toggleDrawer: (state) => {
+      state.drawerOpen = !state.drawerOpen;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setDrawerState, toggleDrawerState } = layoutSlice.actions;
+export const { openDrawer, toggleDrawer } = layoutSlice.actions;
 
 export default layoutSlice.reducer;
