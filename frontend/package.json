@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -16,6 +16,7 @@
     "@mui/material": "^5.12.0",
     "@mui/x-date-pickers": "^6.10.1",
     "@reduxjs/toolkit": "^1.9.3",
+    "clsx": "^2.0.0",
     "dayjs": "^1.11.9",
     "dotenv": "^16.3.1",
     "formik": "^2.4.3",
@@ -25,6 +26,7 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.1",
+    "redux": "^4.2.1",
     "sass": "^1.62.0",
     "simplebar-react": "^3.2.4",
     "sweetalert2": "^11.7.18",

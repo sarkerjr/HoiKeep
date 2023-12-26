@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Stack, Chip, Typography } from '@mui/material';
@@ -32,10 +30,6 @@ const DrawerHeader = ({ open }) => {
       </Stack>
     </DrawerHeaderStyled>
   );
-};
-
-DrawerHeader.propTypes = {
-  open: PropTypes.bool,
 };
 
 export default DrawerHeader;
