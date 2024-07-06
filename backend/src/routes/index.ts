@@ -8,8 +8,8 @@ import authRoutes from './auth.routes';
 const router = Router();
 
 // health check
-router.use('/hello-world', (req, res) => {
-  res.send('Hello World');
+router.use('/ping', (req, res) => {
+  res.send('Pong!');
 });
 
 router.use('/admin', isAuthenticated, adminRoutes);
